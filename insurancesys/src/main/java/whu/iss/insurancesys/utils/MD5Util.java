@@ -12,8 +12,6 @@ public class MD5Util {
 
     /**
      * 将源字符串使用MD5加密为字节数组
-     * @param source
-     * @return
      */
     public static byte[] encode2bytes(String source) {
         byte[] result = null;
