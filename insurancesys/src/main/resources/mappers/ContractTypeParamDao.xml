@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="whu.iss.insurancesys.dao.PolicyParamDaos.ContractTypeParamDao">
+
+    <insert id="insert"
+            parameterType="whu.iss.insurancesys.entity.PolicyParamEntities.ContractTypeParam"
+            useGeneratedKeys="true"
+            keyProperty="id">
+        insert into contract_type_param(name, description) value (#{name}, #{description});
+    </insert>
+
+    <update id="update"
+            parameterType="whu.iss.insurancesys.entity.PolicyParamEntities.ContractTypeParam">
+        update contract_type_param
+        <set>
+            <if test="name != null">name = #{name}, </if>
+            <if test="description != null">description = #{description}, </if>
+        </set>
+        <where>
+            <if test="id != null">id = #{id}</if>
+        </where>
+        ;
+    </update>
+
+    <delete id="delete"
+            parameterType="whu.iss.insurancesys.entity.PolicyParamEntities.ContractTypeParam">
+        delete from contract_type_param where id = #{id};
+    </delete>
+
+    <select id="findAll"
+            resultType="whu.iss.insurancesys.entity.PolicyParamEntities.ContractTypeParam">
+        select * from contract_type_param;
+    </select>
+
+</mapper>

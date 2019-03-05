@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="whu.iss.insurancesys.dao.PolicyParamDaos.PolicyStateParamDao">
+
+    <insert id="insert"
+            parameterType="whu.iss.insurancesys.entity.PolicyParamEntities.PolicyStateParam"
+            useGeneratedKeys="true"
+            keyProperty="id">
+        insert into policy_state_param(name, description) value (#{name}, #{description});
+    </insert>
+
+    <update id="update"
+            parameterType="whu.iss.insurancesys.entity.PolicyParamEntities.PolicyStateParam">
+        update policy_state_param
+        <set>
+            <if test="name != null">name = #{name}, </if>
+            <if test="description != null">description = #{description}, </if>
+        </set>
+        <where>
+            <if test="id != null">id = #{id}</if>
+        </where>
+        ;
+    </update>
+
+    <delete id="delete"
+            parameterType="whu.iss.insurancesys.entity.PolicyParamEntities.PolicyStateParam">
+        delete from policy_state_param where id = #{id};
+    </delete>
+
+    <select id="findAll"
+            resultType="whu.iss.insurancesys.entity.PolicyParamEntities.PolicyStateParam">
+        select * from policy_state_param;
+    </select>
+
+</mapper>
