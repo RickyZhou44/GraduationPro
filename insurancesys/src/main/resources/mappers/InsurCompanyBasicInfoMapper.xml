@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="whu.iss.insurancesys.dao.InsurCompanyBasicInfoMapper">
+    <resultMap id="BaseResultMap" type="whu.iss.insurancesys.entity.InsurCompanyBasicInfo">
+        <result column="company_id" jdbcType="INTEGER" property="companyId"/>
+        <result column="company_name" jdbcType="VARCHAR" property="companyName"/>
+        <result column="company_type" jdbcType="CHAR" property="companyType"/>
+        <result column="chinese_simple_name" jdbcType="VARCHAR" property="chineseSimpleName"/>
+        <result column="english_simple_name" jdbcType="VARCHAR" property="englishSimpleName"/>
+        <result column="province_city" jdbcType="VARCHAR" property="provinceCity"/>
+        <result column="registered_business_address" jdbcType="VARCHAR" property="registeredBusinessAddress"/>
+        <result column="phone_number" jdbcType="VARCHAR" property="phoneNumber"/>
+        <result column="fax" jdbcType="VARCHAR" property="fax"/>
+        <result column="email" jdbcType="VARCHAR" property="email"/>
+        <result column="website" jdbcType="VARCHAR" property="website"/>
+    </resultMap>
+    <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="whu.iss.insurancesys.entity.InsurCompanyBasicInfo">
+        <result column="note" jdbcType="LONGVARCHAR" property="note"/>
+    </resultMap>
+    <sql id="Blob_Column_List">
+    note
+  </sql>
+    <insert id="insert" parameterType="whu.iss.insurancesys.entity.InsurCompanyBasicInfo">
+    insert into insur_company_basic_info (company_id, company_name, company_type, 
+      chinese_simple_name, english_simple_name, province_city, 
+      registered_business_address, phone_number, 
+      fax, email, website, 
+      note)
+    values (#{companyId,jdbcType=INTEGER}, #{companyName,jdbcType=VARCHAR}, #{companyType,jdbcType=CHAR}, 
+      #{chineseSimpleName,jdbcType=VARCHAR}, #{englishSimpleName,jdbcType=VARCHAR}, #{provinceCity,jdbcType=VARCHAR}, 
+      #{registeredBusinessAddress,jdbcType=VARCHAR}, #{phoneNumber,jdbcType=VARCHAR}, 
+      #{fax,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{website,jdbcType=VARCHAR}, 
+      #{note,jdbcType=LONGVARCHAR})
+  </insert>
+    <insert id="insertSelective" parameterType="whu.iss.insurancesys.entity.InsurCompanyBasicInfo">
+        insert into insur_company_basic_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="companyId != null">
+                company_id,
+            </if>
+            <if test="companyName != null">
+                company_name,
+            </if>
+            <if test="companyType != null">
+                company_type,
+            </if>
+            <if test="chineseSimpleName != null">
+                chinese_simple_name,
+            </if>
+            <if test="englishSimpleName != null">
+                english_simple_name,
+            </if>
+            <if test="provinceCity != null">
+                province_city,
+            </if>
+            <if test="registeredBusinessAddress != null">
+                registered_business_address,
+            </if>
+            <if test="phoneNumber != null">
+                phone_number,
+            </if>
+            <if test="fax != null">
+                fax,
+            </if>
+            <if test="email != null">
+                email,
+            </if>
+            <if test="website != null">
+                website,
+            </if>
+            <if test="note != null">
+                note,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="companyId != null">
+                #{companyId,jdbcType=INTEGER},
+            </if>
+            <if test="companyName != null">
+                #{companyName,jdbcType=VARCHAR},
+            </if>
+            <if test="companyType != null">
+                #{companyType,jdbcType=CHAR},
+            </if>
+            <if test="chineseSimpleName != null">
+                #{chineseSimpleName,jdbcType=VARCHAR},
+            </if>
+            <if test="englishSimpleName != null">
+                #{englishSimpleName,jdbcType=VARCHAR},
+            </if>
+            <if test="provinceCity != null">
+                #{provinceCity,jdbcType=VARCHAR},
+            </if>
+            <if test="registeredBusinessAddress != null">
+                #{registeredBusinessAddress,jdbcType=VARCHAR},
+            </if>
+            <if test="phoneNumber != null">
+                #{phoneNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="fax != null">
+                #{fax,jdbcType=VARCHAR},
+            </if>
+            <if test="email != null">
+                #{email,jdbcType=VARCHAR},
+            </if>
+            <if test="website != null">
+                #{website,jdbcType=VARCHAR},
+            </if>
+            <if test="note != null">
+                #{note,jdbcType=LONGVARCHAR},
+            </if>
+        </trim>
+    </insert>
+</mapper>

@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="whu.iss.insurancesys.dao.EmployeeRankChangeRecordMapper">
+    <resultMap id="BaseResultMap" type="whu.iss.insurancesys.entity.EmployeeRankChangeRecord">
+        <result column="rank_change_no" jdbcType="INTEGER" property="rankChangeNo"/>
+        <result column="employee_no" jdbcType="INTEGER" property="employeeNo"/>
+        <result column="change_reason" jdbcType="VARCHAR" property="changeReason"/>
+        <result column="branch_name" jdbcType="VARCHAR" property="branchName"/>
+        <result column="department_name" jdbcType="VARCHAR" property="departmentName"/>
+        <result column="rank_name" jdbcType="VARCHAR" property="rankName"/>
+        <result column="rank_effective_starttime" jdbcType="TIMESTAMP" property="rankEffectiveStarttime"/>
+        <result column="rank_effective_endtime" jdbcType="TIMESTAMP" property="rankEffectiveEndtime"/>
+        <result column="introducer_name" jdbcType="VARCHAR" property="introducerName"/>
+        <result column="relationship_superior_name" jdbcType="VARCHAR" property="relationshipSuperiorName"/>
+        <result column="administrator_name" jdbcType="VARCHAR" property="administratorName"/>
+        <result column="administrator2_name" jdbcType="VARCHAR" property="administrator2Name"/>
+    </resultMap>
+    <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs"
+               type="whu.iss.insurancesys.entity.EmployeeRankChangeRecord">
+        <result column="note" jdbcType="LONGVARCHAR" property="note"/>
+    </resultMap>
+    <sql id="Blob_Column_List">
+    note
+  </sql>
+    <insert id="insert" parameterType="whu.iss.insurancesys.entity.EmployeeRankChangeRecord">
+    insert into employee_rank_change_record (rank_change_no, employee_no, change_reason, 
+      branch_name, department_name, rank_name, 
+      rank_effective_starttime, rank_effective_endtime, 
+      introducer_name, relationship_superior_name, 
+      administrator_name, administrator2_name, 
+      note)
+    values (#{rankChangeNo,jdbcType=INTEGER}, #{employeeNo,jdbcType=INTEGER}, #{changeReason,jdbcType=VARCHAR}, 
+      #{branchName,jdbcType=VARCHAR}, #{departmentName,jdbcType=VARCHAR}, #{rankName,jdbcType=VARCHAR}, 
+      #{rankEffectiveStarttime,jdbcType=TIMESTAMP}, #{rankEffectiveEndtime,jdbcType=TIMESTAMP}, 
+      #{introducerName,jdbcType=VARCHAR}, #{relationshipSuperiorName,jdbcType=VARCHAR}, 
+      #{administratorName,jdbcType=VARCHAR}, #{administrator2Name,jdbcType=VARCHAR}, 
+      #{note,jdbcType=LONGVARCHAR})
+  </insert>
+    <insert id="insertSelective" parameterType="whu.iss.insurancesys.entity.EmployeeRankChangeRecord">
+        insert into employee_rank_change_record
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="rankChangeNo != null">
+                rank_change_no,
+            </if>
+            <if test="employeeNo != null">
+                employee_no,
+            </if>
+            <if test="changeReason != null">
+                change_reason,
+            </if>
+            <if test="branchName != null">
+                branch_name,
+            </if>
+            <if test="departmentName != null">
+                department_name,
+            </if>
+            <if test="rankName != null">
+                rank_name,
+            </if>
+            <if test="rankEffectiveStarttime != null">
+                rank_effective_starttime,
+            </if>
+            <if test="rankEffectiveEndtime != null">
+                rank_effective_endtime,
+            </if>
+            <if test="introducerName != null">
+                introducer_name,
+            </if>
+            <if test="relationshipSuperiorName != null">
+                relationship_superior_name,
+            </if>
+            <if test="administratorName != null">
+                administrator_name,
+            </if>
+            <if test="administrator2Name != null">
+                administrator2_name,
+            </if>
+            <if test="note != null">
+                note,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="rankChangeNo != null">
+                #{rankChangeNo,jdbcType=INTEGER},
+            </if>
+            <if test="employeeNo != null">
+                #{employeeNo,jdbcType=INTEGER},
+            </if>
+            <if test="changeReason != null">
+                #{changeReason,jdbcType=VARCHAR},
+            </if>
+            <if test="branchName != null">
+                #{branchName,jdbcType=VARCHAR},
+            </if>
+            <if test="departmentName != null">
+                #{departmentName,jdbcType=VARCHAR},
+            </if>
+            <if test="rankName != null">
+                #{rankName,jdbcType=VARCHAR},
+            </if>
+            <if test="rankEffectiveStarttime != null">
+                #{rankEffectiveStarttime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="rankEffectiveEndtime != null">
+                #{rankEffectiveEndtime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="introducerName != null">
+                #{introducerName,jdbcType=VARCHAR},
+            </if>
+            <if test="relationshipSuperiorName != null">
+                #{relationshipSuperiorName,jdbcType=VARCHAR},
+            </if>
+            <if test="administratorName != null">
+                #{administratorName,jdbcType=VARCHAR},
+            </if>
+            <if test="administrator2Name != null">
+                #{administrator2Name,jdbcType=VARCHAR},
+            </if>
+            <if test="note != null">
+                #{note,jdbcType=LONGVARCHAR},
+            </if>
+        </trim>
+    </insert>
+</mapper>

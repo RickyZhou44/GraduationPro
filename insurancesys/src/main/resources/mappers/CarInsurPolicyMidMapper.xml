@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="whu.iss.insurancesys.dao.CarInsurPolicyMidMapper">
+    <resultMap id="BaseResultMap" type="whu.iss.insurancesys.entity.CarInsurPolicyMid">
+        <result column="car_insur_policy_id" jdbcType="INTEGER" property="carInsurPolicyId"/>
+        <result column="policy_no" jdbcType="VARCHAR" property="policyNo"/>
+        <result column="car_insur_id" jdbcType="INTEGER" property="carInsurId"/>
+    </resultMap>
+    <insert id="insert" parameterType="whu.iss.insurancesys.entity.CarInsurPolicyMid">
+    insert into car_insur_policy_mid (car_insur_policy_id, policy_no, car_insur_id
+      )
+    values (#{carInsurPolicyId,jdbcType=INTEGER}, #{policyNo,jdbcType=VARCHAR}, #{carInsurId,jdbcType=INTEGER}
+      )
+  </insert>
+    <insert id="insertSelective" parameterType="whu.iss.insurancesys.entity.CarInsurPolicyMid">
+        insert into car_insur_policy_mid
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="carInsurPolicyId != null">
+                car_insur_policy_id,
+            </if>
+            <if test="policyNo != null">
+                policy_no,
+            </if>
+            <if test="carInsurId != null">
+                car_insur_id,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="carInsurPolicyId != null">
+                #{carInsurPolicyId,jdbcType=INTEGER},
+            </if>
+            <if test="policyNo != null">
+                #{policyNo,jdbcType=VARCHAR},
+            </if>
+            <if test="carInsurId != null">
+                #{carInsurId,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+</mapper>

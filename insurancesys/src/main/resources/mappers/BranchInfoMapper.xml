@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="whu.iss.insurancesys.dao.BranchInfoMapper">
+    <resultMap id="BaseResultMap" type="whu.iss.insurancesys.entity.BranchInfo">
+        <result column="branch_id" jdbcType="INTEGER" property="branchId"/>
+        <result column="type" jdbcType="CHAR" property="type"/>
+        <result column="code" jdbcType="VARCHAR" property="code"/>
+        <result column="cname" jdbcType="VARCHAR" property="cname"/>
+        <result column="sname" jdbcType="VARCHAR" property="sname"/>
+        <result column="authority_restriction" jdbcType="VARCHAR" property="authorityRestriction"/>
+        <result column="bureau" jdbcType="VARCHAR" property="bureau"/>
+        <result column="description" jdbcType="VARCHAR" property="description"/>
+        <result column="phone" jdbcType="VARCHAR" property="phone"/>
+        <result column="fax" jdbcType="VARCHAR" property="fax"/>
+        <result column="email" jdbcType="VARCHAR" property="email"/>
+        <result column="adress" jdbcType="VARCHAR" property="adress"/>
+    </resultMap>
+    <insert id="insert" parameterType="whu.iss.insurancesys.entity.BranchInfo">
+    insert into branch_info (branch_id, type, code, 
+      cname, sname, authority_restriction, 
+      bureau, description, phone, 
+      fax, email, adress)
+    values (#{branchId,jdbcType=INTEGER}, #{type,jdbcType=CHAR}, #{code,jdbcType=VARCHAR}, 
+      #{cname,jdbcType=VARCHAR}, #{sname,jdbcType=VARCHAR}, #{authorityRestriction,jdbcType=VARCHAR}, 
+      #{bureau,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
+      #{fax,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{adress,jdbcType=VARCHAR})
+  </insert>
+    <insert id="insertSelective" parameterType="whu.iss.insurancesys.entity.BranchInfo">
+        insert into branch_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="branchId != null">
+                branch_id,
+            </if>
+            <if test="type != null">
+                type,
+            </if>
+            <if test="code != null">
+                code,
+            </if>
+            <if test="cname != null">
+                cname,
+            </if>
+            <if test="sname != null">
+                sname,
+            </if>
+            <if test="authorityRestriction != null">
+                authority_restriction,
+            </if>
+            <if test="bureau != null">
+                bureau,
+            </if>
+            <if test="description != null">
+                description,
+            </if>
+            <if test="phone != null">
+                phone,
+            </if>
+            <if test="fax != null">
+                fax,
+            </if>
+            <if test="email != null">
+                email,
+            </if>
+            <if test="adress != null">
+                adress,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="branchId != null">
+                #{branchId,jdbcType=INTEGER},
+            </if>
+            <if test="type != null">
+                #{type,jdbcType=CHAR},
+            </if>
+            <if test="code != null">
+                #{code,jdbcType=VARCHAR},
+            </if>
+            <if test="cname != null">
+                #{cname,jdbcType=VARCHAR},
+            </if>
+            <if test="sname != null">
+                #{sname,jdbcType=VARCHAR},
+            </if>
+            <if test="authorityRestriction != null">
+                #{authorityRestriction,jdbcType=VARCHAR},
+            </if>
+            <if test="bureau != null">
+                #{bureau,jdbcType=VARCHAR},
+            </if>
+            <if test="description != null">
+                #{description,jdbcType=VARCHAR},
+            </if>
+            <if test="phone != null">
+                #{phone,jdbcType=VARCHAR},
+            </if>
+            <if test="fax != null">
+                #{fax,jdbcType=VARCHAR},
+            </if>
+            <if test="email != null">
+                #{email,jdbcType=VARCHAR},
+            </if>
+            <if test="adress != null">
+                #{adress,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+</mapper>

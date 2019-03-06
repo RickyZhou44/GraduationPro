@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="whu.iss.insurancesys.dao.ContractMapper">
+    <resultMap id="BaseResultMap" type="whu.iss.insurancesys.entity.Contract">
+        <result column="id" jdbcType="INTEGER" property="id"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="sex" jdbcType="CHAR" property="sex"/>
+        <result column="rank" jdbcType="VARCHAR" property="rank"/>
+        <result column="phone" jdbcType="VARCHAR" property="phone"/>
+        <result column="email" jdbcType="VARCHAR" property="email"/>
+        <result column="description" jdbcType="VARCHAR" property="description"/>
+        <result column="branch_id" jdbcType="INTEGER" property="branchId"/>
+    </resultMap>
+    <insert id="insert" parameterType="whu.iss.insurancesys.entity.Contract">
+    insert into contract (id, name, sex, rank, 
+      phone, email, description, 
+      branch_id)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{sex,jdbcType=CHAR}, #{rank,jdbcType=VARCHAR}, 
+      #{phone,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
+      #{branchId,jdbcType=INTEGER})
+  </insert>
+    <insert id="insertSelective" parameterType="whu.iss.insurancesys.entity.Contract">
+        insert into contract
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="sex != null">
+                sex,
+            </if>
+            <if test="rank != null">
+                rank,
+            </if>
+            <if test="phone != null">
+                phone,
+            </if>
+            <if test="email != null">
+                email,
+            </if>
+            <if test="description != null">
+                description,
+            </if>
+            <if test="branchId != null">
+                branch_id,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="sex != null">
+                #{sex,jdbcType=CHAR},
+            </if>
+            <if test="rank != null">
+                #{rank,jdbcType=VARCHAR},
+            </if>
+            <if test="phone != null">
+                #{phone,jdbcType=VARCHAR},
+            </if>
+            <if test="email != null">
+                #{email,jdbcType=VARCHAR},
+            </if>
+            <if test="description != null">
+                #{description,jdbcType=VARCHAR},
+            </if>
+            <if test="branchId != null">
+                #{branchId,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+</mapper>

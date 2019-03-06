@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="whu.iss.insurancesys.dao.CarInsurancePolicyMapper">
+    <resultMap id="BaseResultMap" type="whu.iss.insurancesys.entity.CarInsurancePolicy">
+        <result column="policy_no" jdbcType="VARCHAR" property="policyNo"/>
+        <result column="policy_type" jdbcType="CHAR" property="policyType"/>
+        <result column="other_no" jdbcType="VARCHAR" property="otherNo"/>
+        <result column="insurer_car_name" jdbcType="VARCHAR" property="insurerCarName"/>
+        <result column="check_in_date" jdbcType="TIMESTAMP" property="checkInDate"/>
+        <result column="start_insurance_date" jdbcType="TIMESTAMP" property="startInsuranceDate"/>
+        <result column="policy_state" jdbcType="CHAR" property="policyState"/>
+        <result column="biling_officer_name" jdbcType="VARCHAR" property="bilingOfficerName"/>
+        <result column="biling_date" jdbcType="TIMESTAMP" property="bilingDate"/>
+        <result column="pay_date_car" jdbcType="TIMESTAMP" property="payDateCar"/>
+        <result column="pay_way" jdbcType="CHAR" property="payWay"/>
+        <result column="check_commission_status" jdbcType="VARCHAR" property="checkCommissionStatus"/>
+        <result column="check_distribution_status" jdbcType="VARCHAR" property="checkDistributionStatus"/>
+        <result column="policy_holder_car_id" jdbcType="VARCHAR" property="policyHolderCarId"/>
+        <result column="insured_car_id" jdbcType="VARCHAR" property="insuredCarId"/>
+        <result column="business_name" jdbcType="VARCHAR" property="businessName"/>
+        <result column="business_phone" jdbcType="VARCHAR" property="businessPhone"/>
+        <result column="business_account" jdbcType="VARCHAR" property="businessAccount"/>
+    </resultMap>
+    <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="whu.iss.insurancesys.entity.CarInsurancePolicy">
+        <result column="memo" jdbcType="LONGVARCHAR" property="memo"/>
+    </resultMap>
+    <sql id="Blob_Column_List">
+    memo
+  </sql>
+    <insert id="insert" parameterType="whu.iss.insurancesys.entity.CarInsurancePolicy">
+    insert into car_insurance_policy (policy_no, policy_type, other_no, 
+      insurer_car_name, check_in_date, start_insurance_date, 
+      policy_state, biling_officer_name, biling_date, 
+      pay_date_car, pay_way, check_commission_status, 
+      check_distribution_status, policy_holder_car_id, 
+      insured_car_id, business_name, business_phone, 
+      business_account, memo)
+    values (#{policyNo,jdbcType=VARCHAR}, #{policyType,jdbcType=CHAR}, #{otherNo,jdbcType=VARCHAR}, 
+      #{insurerCarName,jdbcType=VARCHAR}, #{checkInDate,jdbcType=TIMESTAMP}, #{startInsuranceDate,jdbcType=TIMESTAMP}, 
+      #{policyState,jdbcType=CHAR}, #{bilingOfficerName,jdbcType=VARCHAR}, #{bilingDate,jdbcType=TIMESTAMP}, 
+      #{payDateCar,jdbcType=TIMESTAMP}, #{payWay,jdbcType=CHAR}, #{checkCommissionStatus,jdbcType=VARCHAR}, 
+      #{checkDistributionStatus,jdbcType=VARCHAR}, #{policyHolderCarId,jdbcType=VARCHAR}, 
+      #{insuredCarId,jdbcType=VARCHAR}, #{businessName,jdbcType=VARCHAR}, #{businessPhone,jdbcType=VARCHAR}, 
+      #{businessAccount,jdbcType=VARCHAR}, #{memo,jdbcType=LONGVARCHAR})
+  </insert>
+    <insert id="insertSelective" parameterType="whu.iss.insurancesys.entity.CarInsurancePolicy">
+        insert into car_insurance_policy
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="policyNo != null">
+                policy_no,
+            </if>
+            <if test="policyType != null">
+                policy_type,
+            </if>
+            <if test="otherNo != null">
+                other_no,
+            </if>
+            <if test="insurerCarName != null">
+                insurer_car_name,
+            </if>
+            <if test="checkInDate != null">
+                check_in_date,
+            </if>
+            <if test="startInsuranceDate != null">
+                start_insurance_date,
+            </if>
+            <if test="policyState != null">
+                policy_state,
+            </if>
+            <if test="bilingOfficerName != null">
+                biling_officer_name,
+            </if>
+            <if test="bilingDate != null">
+                biling_date,
+            </if>
+            <if test="payDateCar != null">
+                pay_date_car,
+            </if>
+            <if test="payWay != null">
+                pay_way,
+            </if>
+            <if test="checkCommissionStatus != null">
+                check_commission_status,
+            </if>
+            <if test="checkDistributionStatus != null">
+                check_distribution_status,
+            </if>
+            <if test="policyHolderCarId != null">
+                policy_holder_car_id,
+            </if>
+            <if test="insuredCarId != null">
+                insured_car_id,
+            </if>
+            <if test="businessName != null">
+                business_name,
+            </if>
+            <if test="businessPhone != null">
+                business_phone,
+            </if>
+            <if test="businessAccount != null">
+                business_account,
+            </if>
+            <if test="memo != null">
+                memo,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="policyNo != null">
+                #{policyNo,jdbcType=VARCHAR},
+            </if>
+            <if test="policyType != null">
+                #{policyType,jdbcType=CHAR},
+            </if>
+            <if test="otherNo != null">
+                #{otherNo,jdbcType=VARCHAR},
+            </if>
+            <if test="insurerCarName != null">
+                #{insurerCarName,jdbcType=VARCHAR},
+            </if>
+            <if test="checkInDate != null">
+                #{checkInDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="startInsuranceDate != null">
+                #{startInsuranceDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="policyState != null">
+                #{policyState,jdbcType=CHAR},
+            </if>
+            <if test="bilingOfficerName != null">
+                #{bilingOfficerName,jdbcType=VARCHAR},
+            </if>
+            <if test="bilingDate != null">
+                #{bilingDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="payDateCar != null">
+                #{payDateCar,jdbcType=TIMESTAMP},
+            </if>
+            <if test="payWay != null">
+                #{payWay,jdbcType=CHAR},
+            </if>
+            <if test="checkCommissionStatus != null">
+                #{checkCommissionStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="checkDistributionStatus != null">
+                #{checkDistributionStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="policyHolderCarId != null">
+                #{policyHolderCarId,jdbcType=VARCHAR},
+            </if>
+            <if test="insuredCarId != null">
+                #{insuredCarId,jdbcType=VARCHAR},
+            </if>
+            <if test="businessName != null">
+                #{businessName,jdbcType=VARCHAR},
+            </if>
+            <if test="businessPhone != null">
+                #{businessPhone,jdbcType=VARCHAR},
+            </if>
+            <if test="businessAccount != null">
+                #{businessAccount,jdbcType=VARCHAR},
+            </if>
+            <if test="memo != null">
+                #{memo,jdbcType=LONGVARCHAR},
+            </if>
+        </trim>
+    </insert>
+</mapper>

@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="whu.iss.insurancesys.dao.LifeInsurancePolicyMapper">
+    <resultMap id="BaseResultMap" type="whu.iss.insurancesys.entity.LifeInsurancePolicy">
+        <result column="policy_no" jdbcType="VARCHAR" property="policyNo"/>
+        <result column="related_no_type" jdbcType="VARCHAR" property="relatedNoType"/>
+        <result column="related_no_name" jdbcType="VARCHAR" property="relatedNoName"/>
+        <result column="check_in_date" jdbcType="TIMESTAMP" property="checkInDate"/>
+        <result column="valid_date_since" jdbcType="TIMESTAMP" property="validDateSince"/>
+        <result column="issue_date" jdbcType="TIMESTAMP" property="issueDate"/>
+        <result column="pay_date" jdbcType="TIMESTAMP" property="payDate"/>
+        <result column="cash_date" jdbcType="TIMESTAMP" property="cashDate"/>
+        <result column="receipt_back_time" jdbcType="TIMESTAMP" property="receiptBackTime"/>
+        <result column="pay_mode" jdbcType="VARCHAR" property="payMode"/>
+        <result column="pay_way" jdbcType="VARCHAR" property="payWay"/>
+        <result column="policy_type" jdbcType="VARCHAR" property="policyType"/>
+        <result column="agent_type" jdbcType="VARCHAR" property="agentType"/>
+        <result column="intermedia_quali_certi" jdbcType="VARCHAR" property="intermediaQualiCerti"/>
+        <result column="policy_holder_id" jdbcType="VARCHAR" property="policyHolderId"/>
+        <result column="insured_id" jdbcType="VARCHAR" property="insuredId"/>
+    </resultMap>
+    <insert id="insert" parameterType="whu.iss.insurancesys.entity.LifeInsurancePolicy">
+    insert into life_insurance_policy (policy_no, related_no_type, related_no_name, 
+      check_in_date, valid_date_since, issue_date, 
+      pay_date, cash_date, receipt_back_time, 
+      pay_mode, pay_way, policy_type, 
+      agent_type, intermedia_quali_certi, policy_holder_id, 
+      insured_id)
+    values (#{policyNo,jdbcType=VARCHAR}, #{relatedNoType,jdbcType=VARCHAR}, #{relatedNoName,jdbcType=VARCHAR}, 
+      #{checkInDate,jdbcType=TIMESTAMP}, #{validDateSince,jdbcType=TIMESTAMP}, #{issueDate,jdbcType=TIMESTAMP}, 
+      #{payDate,jdbcType=TIMESTAMP}, #{cashDate,jdbcType=TIMESTAMP}, #{receiptBackTime,jdbcType=TIMESTAMP}, 
+      #{payMode,jdbcType=VARCHAR}, #{payWay,jdbcType=VARCHAR}, #{policyType,jdbcType=VARCHAR}, 
+      #{agentType,jdbcType=VARCHAR}, #{intermediaQualiCerti,jdbcType=VARCHAR}, #{policyHolderId,jdbcType=VARCHAR}, 
+      #{insuredId,jdbcType=VARCHAR})
+  </insert>
+    <insert id="insertSelective" parameterType="whu.iss.insurancesys.entity.LifeInsurancePolicy">
+        insert into life_insurance_policy
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="policyNo != null">
+                policy_no,
+            </if>
+            <if test="relatedNoType != null">
+                related_no_type,
+            </if>
+            <if test="relatedNoName != null">
+                related_no_name,
+            </if>
+            <if test="checkInDate != null">
+                check_in_date,
+            </if>
+            <if test="validDateSince != null">
+                valid_date_since,
+            </if>
+            <if test="issueDate != null">
+                issue_date,
+            </if>
+            <if test="payDate != null">
+                pay_date,
+            </if>
+            <if test="cashDate != null">
+                cash_date,
+            </if>
+            <if test="receiptBackTime != null">
+                receipt_back_time,
+            </if>
+            <if test="payMode != null">
+                pay_mode,
+            </if>
+            <if test="payWay != null">
+                pay_way,
+            </if>
+            <if test="policyType != null">
+                policy_type,
+            </if>
+            <if test="agentType != null">
+                agent_type,
+            </if>
+            <if test="intermediaQualiCerti != null">
+                intermedia_quali_certi,
+            </if>
+            <if test="policyHolderId != null">
+                policy_holder_id,
+            </if>
+            <if test="insuredId != null">
+                insured_id,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="policyNo != null">
+                #{policyNo,jdbcType=VARCHAR},
+            </if>
+            <if test="relatedNoType != null">
+                #{relatedNoType,jdbcType=VARCHAR},
+            </if>
+            <if test="relatedNoName != null">
+                #{relatedNoName,jdbcType=VARCHAR},
+            </if>
+            <if test="checkInDate != null">
+                #{checkInDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="validDateSince != null">
+                #{validDateSince,jdbcType=TIMESTAMP},
+            </if>
+            <if test="issueDate != null">
+                #{issueDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="payDate != null">
+                #{payDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="cashDate != null">
+                #{cashDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="receiptBackTime != null">
+                #{receiptBackTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="payMode != null">
+                #{payMode,jdbcType=VARCHAR},
+            </if>
+            <if test="payWay != null">
+                #{payWay,jdbcType=VARCHAR},
+            </if>
+            <if test="policyType != null">
+                #{policyType,jdbcType=VARCHAR},
+            </if>
+            <if test="agentType != null">
+                #{agentType,jdbcType=VARCHAR},
+            </if>
+            <if test="intermediaQualiCerti != null">
+                #{intermediaQualiCerti,jdbcType=VARCHAR},
+            </if>
+            <if test="policyHolderId != null">
+                #{policyHolderId,jdbcType=VARCHAR},
+            </if>
+            <if test="insuredId != null">
+                #{insuredId,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+</mapper>
