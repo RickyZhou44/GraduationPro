@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="whu.iss.insurancesys.dao.EmployeeEducationExperienceMapper">
+    <resultMap id="BaseResultMap" type="whu.iss.insurancesys.entity.EmployeeEducationExperience">
+        <result column="employee_no" jdbcType="INTEGER" property="employeeNo"/>
+        <result column="graduated_school" jdbcType="VARCHAR" property="graduatedSchool"/>
+        <result column="professional_title" jdbcType="VARCHAR" property="professionalTitle"/>
+        <result column="study_begin_time" jdbcType="TIMESTAMP" property="studyBeginTime"/>
+        <result column="study_end_time" jdbcType="TIMESTAMP" property="studyEndTime"/>
+        <result column="attachment" jdbcType="VARCHAR" property="attachment"/>
+    </resultMap>
+    <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs"
+               type="whu.iss.insurancesys.entity.EmployeeEducationExperience">
+        <result column="note" jdbcType="LONGVARCHAR" property="note"/>
+    </resultMap>
+    <sql id="Blob_Column_List">
+    note
+  </sql>
+    <insert id="insert" parameterType="whu.iss.insurancesys.entity.EmployeeEducationExperience">
+    insert into employee_education_experience (employee_no, graduated_school, professional_title, 
+      study_begin_time, study_end_time, attachment, 
+      note)
+    values (#{employeeNo,jdbcType=INTEGER}, #{graduatedSchool,jdbcType=VARCHAR}, #{professionalTitle,jdbcType=VARCHAR}, 
+      #{studyBeginTime,jdbcType=TIMESTAMP}, #{studyEndTime,jdbcType=TIMESTAMP}, #{attachment,jdbcType=VARCHAR}, 
+      #{note,jdbcType=LONGVARCHAR})
+  </insert>
+    <insert id="insertSelective" parameterType="whu.iss.insurancesys.entity.EmployeeEducationExperience">
+        insert into employee_education_experience
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="employeeNo != null">
+                employee_no,
+            </if>
+            <if test="graduatedSchool != null">
+                graduated_school,
+            </if>
+            <if test="professionalTitle != null">
+                professional_title,
+            </if>
+            <if test="studyBeginTime != null">
+                study_begin_time,
+            </if>
+            <if test="studyEndTime != null">
+                study_end_time,
+            </if>
+            <if test="attachment != null">
+                attachment,
+            </if>
+            <if test="note != null">
+                note,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="employeeNo != null">
+                #{employeeNo,jdbcType=INTEGER},
+            </if>
+            <if test="graduatedSchool != null">
+                #{graduatedSchool,jdbcType=VARCHAR},
+            </if>
+            <if test="professionalTitle != null">
+                #{professionalTitle,jdbcType=VARCHAR},
+            </if>
+            <if test="studyBeginTime != null">
+                #{studyBeginTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="studyEndTime != null">
+                #{studyEndTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="attachment != null">
+                #{attachment,jdbcType=VARCHAR},
+            </if>
+            <if test="note != null">
+                #{note,jdbcType=LONGVARCHAR},
+            </if>
+        </trim>
+    </insert>
+</mapper>

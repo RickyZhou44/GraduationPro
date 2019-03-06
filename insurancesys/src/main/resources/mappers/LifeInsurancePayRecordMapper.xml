@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="whu.iss.insurancesys.dao.LifeInsurancePayRecordMapper">
+    <resultMap id="BaseResultMap" type="whu.iss.insurancesys.entity.LifeInsurancePayRecord">
+        <result column="policy_no" jdbcType="VARCHAR" property="policyNo"/>
+        <result column="check_in_date" jdbcType="TIMESTAMP" property="checkInDate"/>
+        <result column="valid_date_since" jdbcType="TIMESTAMP" property="validDateSince"/>
+        <result column="issue_date" jdbcType="TIMESTAMP" property="issueDate"/>
+        <result column="pay_date" jdbcType="TIMESTAMP" property="payDate"/>
+    </resultMap>
+    <insert id="insert" parameterType="whu.iss.insurancesys.entity.LifeInsurancePayRecord">
+    insert into life_insurance_pay_record (policy_no, check_in_date, valid_date_since, 
+      issue_date, pay_date)
+    values (#{policyNo,jdbcType=VARCHAR}, #{checkInDate,jdbcType=TIMESTAMP}, #{validDateSince,jdbcType=TIMESTAMP}, 
+      #{issueDate,jdbcType=TIMESTAMP}, #{payDate,jdbcType=TIMESTAMP})
+  </insert>
+    <insert id="insertSelective" parameterType="whu.iss.insurancesys.entity.LifeInsurancePayRecord">
+        insert into life_insurance_pay_record
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="policyNo != null">
+                policy_no,
+            </if>
+            <if test="checkInDate != null">
+                check_in_date,
+            </if>
+            <if test="validDateSince != null">
+                valid_date_since,
+            </if>
+            <if test="issueDate != null">
+                issue_date,
+            </if>
+            <if test="payDate != null">
+                pay_date,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="policyNo != null">
+                #{policyNo,jdbcType=VARCHAR},
+            </if>
+            <if test="checkInDate != null">
+                #{checkInDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="validDateSince != null">
+                #{validDateSince,jdbcType=TIMESTAMP},
+            </if>
+            <if test="issueDate != null">
+                #{issueDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="payDate != null">
+                #{payDate,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+</mapper>

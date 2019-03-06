@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="whu.iss.insurancesys.dao.CarInsuranceAttachmentInfoMapper">
+    <resultMap id="BaseResultMap" type="whu.iss.insurancesys.entity.CarInsuranceAttachmentInfo">
+        <result column="attach_id" jdbcType="INTEGER" property="attachId"/>
+        <result column="policy_no" jdbcType="VARCHAR" property="policyNo"/>
+        <result column="attach_no" jdbcType="INTEGER" property="attachNo"/>
+        <result column="attach_class" jdbcType="VARCHAR" property="attachClass"/>
+        <result column="record_field" jdbcType="VARCHAR" property="recordField"/>
+        <result column="field_content" jdbcType="VARCHAR" property="fieldContent"/>
+        <result column="vaild_starttime" jdbcType="TIMESTAMP" property="vaildStarttime"/>
+        <result column="vaild_endtime" jdbcType="TIMESTAMP" property="vaildEndtime"/>
+        <result column="attchment" jdbcType="VARCHAR" property="attchment"/>
+        <result column="attachment_format" jdbcType="VARCHAR" property="attachmentFormat"/>
+        <result column="attachment_size" jdbcType="VARCHAR" property="attachmentSize"/>
+        <result column="attachment_fianl_updatetime" jdbcType="TIMESTAMP" property="attachmentFianlUpdatetime"/>
+    </resultMap>
+    <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs"
+               type="whu.iss.insurancesys.entity.CarInsuranceAttachmentInfo">
+        <result column="attachment_explain" jdbcType="LONGVARCHAR" property="attachmentExplain"/>
+    </resultMap>
+    <sql id="Blob_Column_List">
+    attachment_explain
+  </sql>
+    <insert id="insert" parameterType="whu.iss.insurancesys.entity.CarInsuranceAttachmentInfo">
+    insert into car_insurance_attachment_info (attach_id, policy_no, attach_no, 
+      attach_class, record_field, field_content, 
+      vaild_starttime, vaild_endtime, attchment, 
+      attachment_format, attachment_size, attachment_fianl_updatetime, 
+      attachment_explain)
+    values (#{attachId,jdbcType=INTEGER}, #{policyNo,jdbcType=VARCHAR}, #{attachNo,jdbcType=INTEGER}, 
+      #{attachClass,jdbcType=VARCHAR}, #{recordField,jdbcType=VARCHAR}, #{fieldContent,jdbcType=VARCHAR}, 
+      #{vaildStarttime,jdbcType=TIMESTAMP}, #{vaildEndtime,jdbcType=TIMESTAMP}, #{attchment,jdbcType=VARCHAR}, 
+      #{attachmentFormat,jdbcType=VARCHAR}, #{attachmentSize,jdbcType=VARCHAR}, #{attachmentFianlUpdatetime,jdbcType=TIMESTAMP}, 
+      #{attachmentExplain,jdbcType=LONGVARCHAR})
+  </insert>
+    <insert id="insertSelective" parameterType="whu.iss.insurancesys.entity.CarInsuranceAttachmentInfo">
+        insert into car_insurance_attachment_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="attachId != null">
+                attach_id,
+            </if>
+            <if test="policyNo != null">
+                policy_no,
+            </if>
+            <if test="attachNo != null">
+                attach_no,
+            </if>
+            <if test="attachClass != null">
+                attach_class,
+            </if>
+            <if test="recordField != null">
+                record_field,
+            </if>
+            <if test="fieldContent != null">
+                field_content,
+            </if>
+            <if test="vaildStarttime != null">
+                vaild_starttime,
+            </if>
+            <if test="vaildEndtime != null">
+                vaild_endtime,
+            </if>
+            <if test="attchment != null">
+                attchment,
+            </if>
+            <if test="attachmentFormat != null">
+                attachment_format,
+            </if>
+            <if test="attachmentSize != null">
+                attachment_size,
+            </if>
+            <if test="attachmentFianlUpdatetime != null">
+                attachment_fianl_updatetime,
+            </if>
+            <if test="attachmentExplain != null">
+                attachment_explain,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="attachId != null">
+                #{attachId,jdbcType=INTEGER},
+            </if>
+            <if test="policyNo != null">
+                #{policyNo,jdbcType=VARCHAR},
+            </if>
+            <if test="attachNo != null">
+                #{attachNo,jdbcType=INTEGER},
+            </if>
+            <if test="attachClass != null">
+                #{attachClass,jdbcType=VARCHAR},
+            </if>
+            <if test="recordField != null">
+                #{recordField,jdbcType=VARCHAR},
+            </if>
+            <if test="fieldContent != null">
+                #{fieldContent,jdbcType=VARCHAR},
+            </if>
+            <if test="vaildStarttime != null">
+                #{vaildStarttime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="vaildEndtime != null">
+                #{vaildEndtime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="attchment != null">
+                #{attchment,jdbcType=VARCHAR},
+            </if>
+            <if test="attachmentFormat != null">
+                #{attachmentFormat,jdbcType=VARCHAR},
+            </if>
+            <if test="attachmentSize != null">
+                #{attachmentSize,jdbcType=VARCHAR},
+            </if>
+            <if test="attachmentFianlUpdatetime != null">
+                #{attachmentFianlUpdatetime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="attachmentExplain != null">
+                #{attachmentExplain,jdbcType=LONGVARCHAR},
+            </if>
+        </trim>
+    </insert>
+</mapper>

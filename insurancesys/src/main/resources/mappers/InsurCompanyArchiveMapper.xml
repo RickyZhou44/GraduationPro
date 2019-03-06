@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="whu.iss.insurancesys.dao.InsurCompanyArchiveMapper">
+    <resultMap id="BaseResultMap" type="whu.iss.insurancesys.entity.InsurCompanyArchive">
+        <result column="company_archive_no" jdbcType="INTEGER" property="companyArchiveNo"/>
+        <result column="company_archive_name" jdbcType="VARCHAR" property="companyArchiveName"/>
+    </resultMap>
+    <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="whu.iss.insurancesys.entity.InsurCompanyArchive">
+        <result column="note" jdbcType="LONGVARCHAR" property="note"/>
+    </resultMap>
+    <sql id="Blob_Column_List">
+    note
+  </sql>
+    <insert id="insert" parameterType="whu.iss.insurancesys.entity.InsurCompanyArchive">
+    insert into insur_company_archive (company_archive_no, company_archive_name, 
+      note)
+    values (#{companyArchiveNo,jdbcType=INTEGER}, #{companyArchiveName,jdbcType=VARCHAR}, 
+      #{note,jdbcType=LONGVARCHAR})
+  </insert>
+    <insert id="insertSelective" parameterType="whu.iss.insurancesys.entity.InsurCompanyArchive">
+        insert into insur_company_archive
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="companyArchiveNo != null">
+                company_archive_no,
+            </if>
+            <if test="companyArchiveName != null">
+                company_archive_name,
+            </if>
+            <if test="note != null">
+                note,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="companyArchiveNo != null">
+                #{companyArchiveNo,jdbcType=INTEGER},
+            </if>
+            <if test="companyArchiveName != null">
+                #{companyArchiveName,jdbcType=VARCHAR},
+            </if>
+            <if test="note != null">
+                #{note,jdbcType=LONGVARCHAR},
+            </if>
+        </trim>
+    </insert>
+</mapper>

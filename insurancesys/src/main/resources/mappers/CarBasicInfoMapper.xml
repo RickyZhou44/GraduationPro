@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="whu.iss.insurancesys.dao.CarBasicInfoMapper">
+    <resultMap id="BaseResultMap" type="whu.iss.insurancesys.entity.CarBasicInfo">
+        <result column="license_plate_no" jdbcType="VARCHAR" property="licensePlateNo"/>
+        <result column="braand_model" jdbcType="VARCHAR" property="braandModel"/>
+        <result column="engine_no" jdbcType="VARCHAR" property="engineNo"/>
+        <result column="frame_no" jdbcType="VARCHAR" property="frameNo"/>
+        <result column="vehicle_type" jdbcType="VARCHAR" property="vehicleType"/>
+        <result column="vehicle_model" jdbcType="VARCHAR" property="vehicleModel"/>
+        <result column="seat_number" jdbcType="INTEGER" property="seatNumber"/>
+        <result column="ton_number" jdbcType="INTEGER" property="tonNumber"/>
+        <result column="vehicle_displacement" jdbcType="INTEGER" property="vehicleDisplacement"/>
+        <result column="power" jdbcType="INTEGER" property="power"/>
+        <result column="registration_date" jdbcType="DATE" property="registrationDate"/>
+        <result column="average_mileage" jdbcType="INTEGER" property="averageMileage"/>
+        <result column="owner_name" jdbcType="VARCHAR" property="ownerName"/>
+        <result column="car_insur_message" jdbcType="VARCHAR" property="carInsurMessage"/>
+        <result column="vehicle_price" jdbcType="DOUBLE" property="vehiclePrice"/>
+        <result column="accident_number" jdbcType="INTEGER" property="accidentNumber"/>
+        <result column="is_import" jdbcType="BIT" property="isImport"/>
+    </resultMap>
+    <insert id="insert" parameterType="whu.iss.insurancesys.entity.CarBasicInfo">
+    insert into car_basic_info (license_plate_no, braand_model, engine_no, 
+      frame_no, vehicle_type, vehicle_model, 
+      seat_number, ton_number, vehicle_displacement, 
+      power, registration_date, average_mileage, 
+      owner_name, car_insur_message, vehicle_price, 
+      accident_number, is_import)
+    values (#{licensePlateNo,jdbcType=VARCHAR}, #{braandModel,jdbcType=VARCHAR}, #{engineNo,jdbcType=VARCHAR}, 
+      #{frameNo,jdbcType=VARCHAR}, #{vehicleType,jdbcType=VARCHAR}, #{vehicleModel,jdbcType=VARCHAR}, 
+      #{seatNumber,jdbcType=INTEGER}, #{tonNumber,jdbcType=INTEGER}, #{vehicleDisplacement,jdbcType=INTEGER}, 
+      #{power,jdbcType=INTEGER}, #{registrationDate,jdbcType=DATE}, #{averageMileage,jdbcType=INTEGER}, 
+      #{ownerName,jdbcType=VARCHAR}, #{carInsurMessage,jdbcType=VARCHAR}, #{vehiclePrice,jdbcType=DOUBLE}, 
+      #{accidentNumber,jdbcType=INTEGER}, #{isImport,jdbcType=BIT})
+  </insert>
+    <insert id="insertSelective" parameterType="whu.iss.insurancesys.entity.CarBasicInfo">
+        insert into car_basic_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="licensePlateNo != null">
+                license_plate_no,
+            </if>
+            <if test="braandModel != null">
+                braand_model,
+            </if>
+            <if test="engineNo != null">
+                engine_no,
+            </if>
+            <if test="frameNo != null">
+                frame_no,
+            </if>
+            <if test="vehicleType != null">
+                vehicle_type,
+            </if>
+            <if test="vehicleModel != null">
+                vehicle_model,
+            </if>
+            <if test="seatNumber != null">
+                seat_number,
+            </if>
+            <if test="tonNumber != null">
+                ton_number,
+            </if>
+            <if test="vehicleDisplacement != null">
+                vehicle_displacement,
+            </if>
+            <if test="power != null">
+                power,
+            </if>
+            <if test="registrationDate != null">
+                registration_date,
+            </if>
+            <if test="averageMileage != null">
+                average_mileage,
+            </if>
+            <if test="ownerName != null">
+                owner_name,
+            </if>
+            <if test="carInsurMessage != null">
+                car_insur_message,
+            </if>
+            <if test="vehiclePrice != null">
+                vehicle_price,
+            </if>
+            <if test="accidentNumber != null">
+                accident_number,
+            </if>
+            <if test="isImport != null">
+                is_import,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="licensePlateNo != null">
+                #{licensePlateNo,jdbcType=VARCHAR},
+            </if>
+            <if test="braandModel != null">
+                #{braandModel,jdbcType=VARCHAR},
+            </if>
+            <if test="engineNo != null">
+                #{engineNo,jdbcType=VARCHAR},
+            </if>
+            <if test="frameNo != null">
+                #{frameNo,jdbcType=VARCHAR},
+            </if>
+            <if test="vehicleType != null">
+                #{vehicleType,jdbcType=VARCHAR},
+            </if>
+            <if test="vehicleModel != null">
+                #{vehicleModel,jdbcType=VARCHAR},
+            </if>
+            <if test="seatNumber != null">
+                #{seatNumber,jdbcType=INTEGER},
+            </if>
+            <if test="tonNumber != null">
+                #{tonNumber,jdbcType=INTEGER},
+            </if>
+            <if test="vehicleDisplacement != null">
+                #{vehicleDisplacement,jdbcType=INTEGER},
+            </if>
+            <if test="power != null">
+                #{power,jdbcType=INTEGER},
+            </if>
+            <if test="registrationDate != null">
+                #{registrationDate,jdbcType=DATE},
+            </if>
+            <if test="averageMileage != null">
+                #{averageMileage,jdbcType=INTEGER},
+            </if>
+            <if test="ownerName != null">
+                #{ownerName,jdbcType=VARCHAR},
+            </if>
+            <if test="carInsurMessage != null">
+                #{carInsurMessage,jdbcType=VARCHAR},
+            </if>
+            <if test="vehiclePrice != null">
+                #{vehiclePrice,jdbcType=DOUBLE},
+            </if>
+            <if test="accidentNumber != null">
+                #{accidentNumber,jdbcType=INTEGER},
+            </if>
+            <if test="isImport != null">
+                #{isImport,jdbcType=BIT},
+            </if>
+        </trim>
+    </insert>
+</mapper>

@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="whu.iss.insurancesys.dao.CarClaimBasicInfoMapper">
+    <resultMap id="BaseResultMap" type="whu.iss.insurancesys.entity.CarClaimBasicInfo">
+        <result column="claim_no" jdbcType="VARCHAR" property="claimNo"/>
+        <result column="policy_no" jdbcType="VARCHAR" property="policyNo"/>
+        <result column="insur_company_name" jdbcType="VARCHAR" property="insurCompanyName"/>
+        <result column="report_id" jdbcType="VARCHAR" property="reportId"/>
+        <result column="report_date" jdbcType="TIMESTAMP" property="reportDate"/>
+        <result column="task_type" jdbcType="CHAR" property="taskType"/>
+        <result column="survey_location" jdbcType="VARCHAR" property="surveyLocation"/>
+        <result column="survey_person_name" jdbcType="VARCHAR" property="surveyPersonName"/>
+        <result column="is_settled" jdbcType="BIT" property="isSettled"/>
+        <result column="license_plate_no" jdbcType="VARCHAR" property="licensePlateNo"/>
+        <result column="biling_officer_name" jdbcType="VARCHAR" property="bilingOfficerName"/>
+        <result column="insured_name" jdbcType="VARCHAR" property="insuredName"/>
+    </resultMap>
+    <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="whu.iss.insurancesys.entity.CarClaimBasicInfo">
+        <result column="risk_process" jdbcType="LONGVARCHAR" property="riskProcess"/>
+    </resultMap>
+    <sql id="Blob_Column_List">
+    risk_process
+  </sql>
+    <insert id="insert" parameterType="whu.iss.insurancesys.entity.CarClaimBasicInfo">
+    insert into car_claim_basic_info (claim_no, policy_no, insur_company_name, 
+      report_id, report_date, task_type, 
+      survey_location, survey_person_name, is_settled, 
+      license_plate_no, biling_officer_name, insured_name, 
+      risk_process)
+    values (#{claimNo,jdbcType=VARCHAR}, #{policyNo,jdbcType=VARCHAR}, #{insurCompanyName,jdbcType=VARCHAR}, 
+      #{reportId,jdbcType=VARCHAR}, #{reportDate,jdbcType=TIMESTAMP}, #{taskType,jdbcType=CHAR}, 
+      #{surveyLocation,jdbcType=VARCHAR}, #{surveyPersonName,jdbcType=VARCHAR}, #{isSettled,jdbcType=BIT}, 
+      #{licensePlateNo,jdbcType=VARCHAR}, #{bilingOfficerName,jdbcType=VARCHAR}, #{insuredName,jdbcType=VARCHAR}, 
+      #{riskProcess,jdbcType=LONGVARCHAR})
+  </insert>
+    <insert id="insertSelective" parameterType="whu.iss.insurancesys.entity.CarClaimBasicInfo">
+        insert into car_claim_basic_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="claimNo != null">
+                claim_no,
+            </if>
+            <if test="policyNo != null">
+                policy_no,
+            </if>
+            <if test="insurCompanyName != null">
+                insur_company_name,
+            </if>
+            <if test="reportId != null">
+                report_id,
+            </if>
+            <if test="reportDate != null">
+                report_date,
+            </if>
+            <if test="taskType != null">
+                task_type,
+            </if>
+            <if test="surveyLocation != null">
+                survey_location,
+            </if>
+            <if test="surveyPersonName != null">
+                survey_person_name,
+            </if>
+            <if test="isSettled != null">
+                is_settled,
+            </if>
+            <if test="licensePlateNo != null">
+                license_plate_no,
+            </if>
+            <if test="bilingOfficerName != null">
+                biling_officer_name,
+            </if>
+            <if test="insuredName != null">
+                insured_name,
+            </if>
+            <if test="riskProcess != null">
+                risk_process,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="claimNo != null">
+                #{claimNo,jdbcType=VARCHAR},
+            </if>
+            <if test="policyNo != null">
+                #{policyNo,jdbcType=VARCHAR},
+            </if>
+            <if test="insurCompanyName != null">
+                #{insurCompanyName,jdbcType=VARCHAR},
+            </if>
+            <if test="reportId != null">
+                #{reportId,jdbcType=VARCHAR},
+            </if>
+            <if test="reportDate != null">
+                #{reportDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="taskType != null">
+                #{taskType,jdbcType=CHAR},
+            </if>
+            <if test="surveyLocation != null">
+                #{surveyLocation,jdbcType=VARCHAR},
+            </if>
+            <if test="surveyPersonName != null">
+                #{surveyPersonName,jdbcType=VARCHAR},
+            </if>
+            <if test="isSettled != null">
+                #{isSettled,jdbcType=BIT},
+            </if>
+            <if test="licensePlateNo != null">
+                #{licensePlateNo,jdbcType=VARCHAR},
+            </if>
+            <if test="bilingOfficerName != null">
+                #{bilingOfficerName,jdbcType=VARCHAR},
+            </if>
+            <if test="insuredName != null">
+                #{insuredName,jdbcType=VARCHAR},
+            </if>
+            <if test="riskProcess != null">
+                #{riskProcess,jdbcType=LONGVARCHAR},
+            </if>
+        </trim>
+    </insert>
+</mapper>

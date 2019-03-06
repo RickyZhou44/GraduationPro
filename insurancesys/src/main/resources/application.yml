@@ -1,0 +1,28 @@
+server:
+  port: 8181
+
+spring:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    url: jdbc:mysql://47.105.133.112:3306/insurance_system?useSSL=false&serverTimezone=Asia/Shanghai
+    username: root
+    password: insurance1234
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    initialSize: 20 #初始化时建立的物理连接个数
+    maxActive: 100 #最大连接数量
+    minIdle: 10 #最小连接数量
+    maxWait: 60000 #获取连接时的最大等待时间（毫秒）
+    poolPreparedStatements: true  #启用PSCache
+    maxPoolPreparedStatementPerConnectionSize: 50
+    validationQuery: SELECT 1 #检测连接是否有效
+    testOnBorrow: false #申请连接时执行validationQuery，若启用会降低性能
+    testOnReturn: false #归还连接时执行validationQuery，若启用会降低性能
+    testWhileIdle: true #申请连接时，如果空闲时间大于timeBetweenEvictionRunsMillis，则执行validationQuery
+    timeBetweenEvictionRunsMillis: 600000 #连接空闲时间超过该值时（毫秒），则被回收
+    minEvictableIdleTimeMillis: 300000  #连接在连接池中的最小生存时间（毫秒）
+    filters: stat,log4j,wall #监控统计filters
+
+
+mybatis:
+  mapper-locations: classpath:mappers/*.xml
+  type-aliases-package: whu.iss.insurancesys.entity

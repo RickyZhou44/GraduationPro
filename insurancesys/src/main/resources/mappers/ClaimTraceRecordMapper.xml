@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="whu.iss.insurancesys.dao.ClaimTraceRecordMapper">
+    <resultMap id="BaseResultMap" type="whu.iss.insurancesys.entity.ClaimTraceRecord">
+        <result column="claim_no" jdbcType="VARCHAR" property="claimNo"/>
+        <result column="insur_company_name" jdbcType="VARCHAR" property="insurCompanyName"/>
+        <result column="trace_time" jdbcType="TIMESTAMP" property="traceTime"/>
+        <result column="claim_status" jdbcType="CHAR" property="claimStatus"/>
+        <result column="process_person_name" jdbcType="VARCHAR" property="processPersonName"/>
+        <result column="performance_expenditure" jdbcType="DOUBLE" property="performanceExpenditure"/>
+        <result column="estimated_cost" jdbcType="DOUBLE" property="estimatedCost"/>
+        <result column="is_invoice" jdbcType="BIT" property="isInvoice"/>
+        <result column="attachment" jdbcType="VARCHAR" property="attachment"/>
+    </resultMap>
+    <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="whu.iss.insurancesys.entity.ClaimTraceRecord">
+        <result column="processing" jdbcType="LONGVARCHAR" property="processing"/>
+    </resultMap>
+    <sql id="Blob_Column_List">
+    processing
+  </sql>
+    <insert id="insert" parameterType="whu.iss.insurancesys.entity.ClaimTraceRecord">
+    insert into claim_trace_record (claim_no, insur_company_name, trace_time, 
+      claim_status, process_person_name, performance_expenditure, 
+      estimated_cost, is_invoice, attachment, 
+      processing)
+    values (#{claimNo,jdbcType=VARCHAR}, #{insurCompanyName,jdbcType=VARCHAR}, #{traceTime,jdbcType=TIMESTAMP}, 
+      #{claimStatus,jdbcType=CHAR}, #{processPersonName,jdbcType=VARCHAR}, #{performanceExpenditure,jdbcType=DOUBLE}, 
+      #{estimatedCost,jdbcType=DOUBLE}, #{isInvoice,jdbcType=BIT}, #{attachment,jdbcType=VARCHAR}, 
+      #{processing,jdbcType=LONGVARCHAR})
+  </insert>
+    <insert id="insertSelective" parameterType="whu.iss.insurancesys.entity.ClaimTraceRecord">
+        insert into claim_trace_record
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="claimNo != null">
+                claim_no,
+            </if>
+            <if test="insurCompanyName != null">
+                insur_company_name,
+            </if>
+            <if test="traceTime != null">
+                trace_time,
+            </if>
+            <if test="claimStatus != null">
+                claim_status,
+            </if>
+            <if test="processPersonName != null">
+                process_person_name,
+            </if>
+            <if test="performanceExpenditure != null">
+                performance_expenditure,
+            </if>
+            <if test="estimatedCost != null">
+                estimated_cost,
+            </if>
+            <if test="isInvoice != null">
+                is_invoice,
+            </if>
+            <if test="attachment != null">
+                attachment,
+            </if>
+            <if test="processing != null">
+                processing,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="claimNo != null">
+                #{claimNo,jdbcType=VARCHAR},
+            </if>
+            <if test="insurCompanyName != null">
+                #{insurCompanyName,jdbcType=VARCHAR},
+            </if>
+            <if test="traceTime != null">
+                #{traceTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="claimStatus != null">
+                #{claimStatus,jdbcType=CHAR},
+            </if>
+            <if test="processPersonName != null">
+                #{processPersonName,jdbcType=VARCHAR},
+            </if>
+            <if test="performanceExpenditure != null">
+                #{performanceExpenditure,jdbcType=DOUBLE},
+            </if>
+            <if test="estimatedCost != null">
+                #{estimatedCost,jdbcType=DOUBLE},
+            </if>
+            <if test="isInvoice != null">
+                #{isInvoice,jdbcType=BIT},
+            </if>
+            <if test="attachment != null">
+                #{attachment,jdbcType=VARCHAR},
+            </if>
+            <if test="processing != null">
+                #{processing,jdbcType=LONGVARCHAR},
+            </if>
+        </trim>
+    </insert>
+</mapper>
