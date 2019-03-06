@@ -20,6 +20,6 @@ public interface PolicyStateParamDao {
 
     public void update(PolicyStateParam policyStateParam);
 
-    public List<PolicyStateParam> findAll();
+    public List<PolicyStateParam> getAll();
 
 }

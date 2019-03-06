@@ -20,6 +20,6 @@ public interface PayTypeParamDao {
 
     public void update(PayTypeParam payTypeParam);
 
-    public List<PayTypeParam> findAll();
+    public List<PayTypeParam> getAll();
 
 }

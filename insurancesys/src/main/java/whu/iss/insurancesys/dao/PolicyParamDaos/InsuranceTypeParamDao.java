@@ -20,6 +20,6 @@ public interface InsuranceTypeParamDao {
 
     public void update(InsuranceTypeParam insuranceTypeParam);
 
-    public List<InsuranceTypeParam> findAll();
+    public List<InsuranceTypeParam> getAll();
 
 }

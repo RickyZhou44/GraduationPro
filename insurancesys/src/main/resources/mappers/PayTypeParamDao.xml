@@ -27,7 +27,7 @@
         delete from pay_type_param where id = #{id};
     </delete>
 
-    <select id="findAll"
+    <select id="getAll"
             resultType="whu.iss.insurancesys.entity.PolicyParamEntities.PayTypeParam">
         select * from pay_type_param;
     </select>

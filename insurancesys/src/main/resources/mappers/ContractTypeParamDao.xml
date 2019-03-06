@@ -27,7 +27,7 @@
         delete from contract_type_param where id = #{id};
     </delete>
 
-    <select id="findAll"
+    <select id="getAll"
             resultType="whu.iss.insurancesys.entity.PolicyParamEntities.ContractTypeParam">
         select * from contract_type_param;
     </select>

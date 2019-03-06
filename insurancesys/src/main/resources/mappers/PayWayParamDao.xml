@@ -27,7 +27,7 @@
         delete from pay_way_param where id = #{id};
     </delete>
 
-    <select id="findAll"
+    <select id="getAll"
             resultType="whu.iss.insurancesys.entity.PolicyParamEntities.PayWayParam">
         select * from pay_way_param;
     </select>

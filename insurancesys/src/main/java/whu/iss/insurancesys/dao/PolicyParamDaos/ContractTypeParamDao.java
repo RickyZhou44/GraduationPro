@@ -20,6 +20,6 @@ public interface ContractTypeParamDao {
 
     public void update(ContractTypeParam contractTypeParam);
 
-    public List<ContractTypeParam> findAll();
+    public List<ContractTypeParam> getAll();
 
 }

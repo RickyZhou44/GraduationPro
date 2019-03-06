@@ -21,7 +21,6 @@ public class PolicyParamController {
     private PolicyParamService policyParamService;
 
     @GetMapping("/getContractTypeParam")
-    @ResponseBody
     public List<ContractTypeParam> getContractTypeParam(){
 
         return policyParamService.getAllContractTypeParam();
@@ -29,7 +28,6 @@ public class PolicyParamController {
     }
 
     @GetMapping("/getInsuranceTypeParam")
-    @ResponseBody
     public List<InsuranceTypeParam> getInsuranceTypeParam(){
 
         return policyParamService.getAllInsuranceTypeParam();
@@ -37,7 +35,6 @@ public class PolicyParamController {
     }
 
     @GetMapping("/getPayTypeParam")
-    @ResponseBody
     public List<PayTypeParam> getPayTypeParam(){
 
         return policyParamService.getAllPayTypeParam();
@@ -45,7 +42,6 @@ public class PolicyParamController {
     }
 
     @GetMapping("/getPayWayParam")
-    @ResponseBody
     public List<PayWayParam> getPayWayParam(){
 
         return policyParamService.getAllPayWayParam();
@@ -53,7 +49,6 @@ public class PolicyParamController {
     }
 
     @GetMapping("/getPolicyStateParam")
-    @ResponseBody
     public List<PolicyStateParam> getPolicyStateParam(){
 
         return policyParamService.getAllPolicyStateParam();

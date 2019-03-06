@@ -30,31 +30,31 @@ public class PolicyParamServiceImpl implements PolicyParamService {
 
     public List<ContractTypeParam> getAllContractTypeParam(){
 
-        return contractTypeParamDao.findAll();
+        return contractTypeParamDao.getAll();
 
     }
 
     public List<InsuranceTypeParam> getAllInsuranceTypeParam() {
 
-        return insuranceTypeParamDao.findAll();
+        return insuranceTypeParamDao.getAll();
 
     }
 
     public List<PayTypeParam> getAllPayTypeParam() {
 
-        return payTypeParamDao.findAll();
+        return payTypeParamDao.getAll();
 
     }
 
     public List<PayWayParam> getAllPayWayParam() {
 
-        return payWayParamDao.findAll();
+        return payWayParamDao.getAll();
 
     }
 
     public List<PolicyStateParam> getAllPolicyStateParam() {
 
-        return policyStateParamDao.findAll();
+        return policyStateParamDao.getAll();
 
     }
 
