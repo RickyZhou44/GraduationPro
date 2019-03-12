@@ -1,5 +1,5 @@
 server:
-  port: 8181
+  port: 8080
 
 spring:
   datasource:
@@ -8,19 +8,28 @@ spring:
     username: root
     password: insurance1234
     driver-class-name: com.mysql.cj.jdbc.Driver
-    initialSize: 20 #³õÊ¼»¯Ê±½¨Á¢µÄÎïÀíÁ¬½Ó¸öÊı
-    maxActive: 100 #×î´óÁ¬½ÓÊıÁ¿
-    minIdle: 10 #×îĞ¡Á¬½ÓÊıÁ¿
-    maxWait: 60000 #»ñÈ¡Á¬½ÓÊ±µÄ×î´óµÈ´ıÊ±¼ä£¨ºÁÃë£©
-    poolPreparedStatements: true  #ÆôÓÃPSCache
+    initialSize: 20 #ï¿½ï¿½Ê¼ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¸ï¿½ï¿½ï¿½
+    maxActive: 100 #ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    minIdle: 10 #ï¿½ï¿½Ğ¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    maxWait: 60000 #ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½È´ï¿½Ê±ï¿½ä£¨ï¿½ï¿½ï¿½ë£©
+    poolPreparedStatements: true  #ï¿½ï¿½ï¿½ï¿½PSCache
     maxPoolPreparedStatementPerConnectionSize: 50
-    validationQuery: SELECT 1 #¼ì²âÁ¬½ÓÊÇ·ñÓĞĞ§
-    testOnBorrow: false #ÉêÇëÁ¬½ÓÊ±Ö´ĞĞvalidationQuery£¬ÈôÆôÓÃ»á½µµÍĞÔÄÜ
-    testOnReturn: false #¹é»¹Á¬½ÓÊ±Ö´ĞĞvalidationQuery£¬ÈôÆôÓÃ»á½µµÍĞÔÄÜ
-    testWhileIdle: true #ÉêÇëÁ¬½ÓÊ±£¬Èç¹û¿ÕÏĞÊ±¼ä´óÓÚtimeBetweenEvictionRunsMillis£¬ÔòÖ´ĞĞvalidationQuery
-    timeBetweenEvictionRunsMillis: 600000 #Á¬½Ó¿ÕÏĞÊ±¼ä³¬¹ı¸ÃÖµÊ±£¨ºÁÃë£©£¬Ôò±»»ØÊÕ
-    minEvictableIdleTimeMillis: 300000  #Á¬½ÓÔÚÁ¬½Ó³ØÖĞµÄ×îĞ¡Éú´æÊ±¼ä£¨ºÁÃë£©
-    filters: stat,log4j,wall #¼à¿ØÍ³¼Æfilters
+    validationQuery: SELECT 1 #ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½Ğ§
+    testOnBorrow: false #ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±Ö´ï¿½ï¿½validationQueryï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã»á½µï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    testOnReturn: false #ï¿½é»¹ï¿½ï¿½ï¿½ï¿½Ê±Ö´ï¿½ï¿½validationQueryï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã»á½µï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    testWhileIdle: true #ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½timeBetweenEvictionRunsMillisï¿½ï¿½ï¿½ï¿½Ö´ï¿½ï¿½validationQuery
+    timeBetweenEvictionRunsMillis: 600000 #ï¿½ï¿½ï¿½Ó¿ï¿½ï¿½ï¿½Ê±ï¿½ä³¬ï¿½ï¿½ï¿½ï¿½ÖµÊ±ï¿½ï¿½ï¿½ï¿½ï¿½ë£©ï¿½ï¿½ï¿½ò±»»ï¿½ï¿½ï¿½
+    minEvictableIdleTimeMillis: 300000  #ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó³ï¿½ï¿½Ğµï¿½ï¿½ï¿½Ğ¡ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ä£¨ï¿½ï¿½ï¿½ë£©
+    filters: stat,log4j,wall
+#    å¼•å…¥thymeleafæ¨¡æ¿
+  thymeleaf:
+    check-template: true
+    prefix: classpath:/pages/
+    mode: HTML5
+    suffix: .html
+
+
+
 
 
 mybatis:
