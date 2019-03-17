@@ -15,18 +15,20 @@
         <result column="remark" jdbcType="VARCHAR" property="remark"/>
         <result column="common_year" jdbcType="VARCHAR" property="commonYear"/>
     </resultMap>
+
     <insert id="insert" parameterType="whu.iss.insurancesys.entity.InsuranceTypeInfo">
     insert into insurance_type_info (insur_id, company, insurance_cname, 
       insurance_sname, code, main_or_vice, 
-      praram_type, insurance_type, start_sale_time, 
+      param_type, insurance_type, start_sale_time,
       stop_sale_time, remark, common_year
       )
     values (#{insurId,jdbcType=INTEGER}, #{company,jdbcType=VARCHAR}, #{insuranceCname,jdbcType=VARCHAR}, 
       #{insuranceSname,jdbcType=VARCHAR}, #{code,jdbcType=VARCHAR}, #{mainOrVice,jdbcType=CHAR}, 
-      #{praramType,jdbcType=VARCHAR}, #{insuranceType,jdbcType=VARCHAR}, #{startSaleTime,jdbcType=TIMESTAMP}, 
+      #{paramType,jdbcType=VARCHAR}, #{insuranceType,jdbcType=VARCHAR}, #{startSaleTime,jdbcType=TIMESTAMP},
       #{stopSaleTime,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR}, #{commonYear,jdbcType=VARCHAR}
       )
   </insert>
+
     <insert id="insertSelective" parameterType="whu.iss.insurancesys.entity.InsuranceTypeInfo">
         insert into insurance_type_info
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -48,8 +50,8 @@
             <if test="mainOrVice != null">
                 main_or_vice,
             </if>
-            <if test="praramType != null">
-                praram_type,
+            <if test="paramType != null">
+                param_type,
             </if>
             <if test="insuranceType != null">
                 insurance_type,
@@ -86,8 +88,8 @@
             <if test="mainOrVice != null">
                 #{mainOrVice,jdbcType=CHAR},
             </if>
-            <if test="praramType != null">
-                #{praramType,jdbcType=VARCHAR},
+            <if test="paramType != null">
+                #{paramType,jdbcType=VARCHAR},
             </if>
             <if test="insuranceType != null">
                 #{insuranceType,jdbcType=VARCHAR},
@@ -106,4 +108,65 @@
             </if>
         </trim>
     </insert>
+
+    <select id="getByParam"
+            resultType="whu.iss.insurancesys.entity.InsuranceTypeInfo">
+        select * from insurance_type_info
+            <trim prefix="where" suffix=";" prefixOverrides="and">
+                <if test="company != null">
+                    and company = #{company}
+                </if>
+                <if test="insuranceCname != null">
+                    and insurance_cname = #{insuranceCname}
+                </if>
+                <if test="code != null">
+                    and code = #{code}
+                </if>
+                <if test="mainOrVice != null">
+                    and main_or_vice = #{mainOrVice}
+                </if>
+                <if test="paramType != null">
+                    and param_type = #{paramType}
+                </if>
+                <if test="startFrom != null and startTo != null">
+                    and start_sale_time between startFrom and start_to
+                </if>
+                <if test="endFrom != null and endTo != null">
+                    and stop_sale_time between endFrom and endTo
+                </if>
+            </trim>
+    </select>
+    
+    <update id="update">
+        update insurance_type_info
+            <trim prefix="set" suffixOverrides="," suffix="where id = #{insurId};">
+                <if test="mainOrVice != null">
+                    main_or_vice = #{mainOrVice},
+                </if>
+                <if test="insuranceType != null">
+                    insurance_type = #{insuranceType},
+                </if>
+                <if test="insuranceCname != null">
+                    insurance_cname = #{insuranceCname},
+                </if>
+                <if test="insuranceSname != null">
+                    insurance_sname = #{insuranceSname},
+                </if>
+                <if test="paramType != null">
+                    param_type = #{paramType},
+                </if>
+                <if test="commonYear != null">
+                    common_year = #{commonYear},
+                </if>
+                <if test="startDate != null">
+                    start_sale_time = #{startDate},
+                </if>
+                <if test="endDate != null">
+                    stop_sale_time = #{endDate},
+                </if>
+                <if test="remark != null">
+                    remark = #{remark},
+                </if>
+            </trim>
+    </update>
 </mapper>
