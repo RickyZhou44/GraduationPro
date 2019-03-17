@@ -1,11 +1,10 @@
 package whu.iss.insurancesys.service.impl;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import whu.iss.insurancesys.service.ExcelService;
 import whu.iss.insurancesys.util.ExcelUtil;
 
-import javax.servlet.http.HttpServletResponse;
+
 
 /**
  * @author RickZhou
@@ -14,18 +13,40 @@ import javax.servlet.http.HttpServletResponse;
 @Service
 public class ExcelServiceImpl implements ExcelService {
 
+//    该方法调用ExcelUtil来实现excel文件的导入到指定位置
     @Override
-    public boolean exportExcel(HttpServletResponse response, String fileName, Integer pageNum, Integer pageSize) {
+    public boolean exportExcel(String fileName, Integer pageNum, Integer pageSize) {
         System.out.println("开始导出excel");
         if(fileName.equals("")){
             System.out.println("名字不能为空");
+            return false;
+        }
+        else if(!fileName.endsWith(".xlsx")){
+            System.out.println();
+            return false;
+        }
+        else {
+            ExcelUtil.exportExcel();
+            return true;
         }
 
-        return false;
+
     }
 
     @Override
     public boolean importExcel(String name) {
-        return false;
+        System.out.println("开始导入excel");
+        if(name.equals("")){
+            System.out.println("名字不能为空");
+            return false;
+        }
+        else if(!name.endsWith(".xlsx")){
+            System.out.println();
+            return false;
+        }
+        else {
+            ExcelUtil.importExcel(name);
+            return true;
+        }
     }
 }
