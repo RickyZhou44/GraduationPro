@@ -12,7 +12,7 @@
     <artifactId>insurancesys</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>insurancesys</name>
-    <description>Demo project for Spring Boot</description>
+    <description>Wuhan University graduation design works</description>
 
     <properties>
         <java.version>1.8</java.version>
@@ -73,6 +73,12 @@
             <groupId>org.mybatis.generator</groupId>
             <artifactId>mybatis-generator-core</artifactId>
             <version>1.3.5</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
         </dependency>
     </dependencies>
 

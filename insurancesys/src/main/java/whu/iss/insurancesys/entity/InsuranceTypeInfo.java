@@ -15,7 +15,7 @@ public class InsuranceTypeInfo {
 
     private String mainOrVice;
 
-    private String praramType;
+    private String paramType;
 
     private String insuranceType;
 
@@ -75,12 +75,12 @@ public class InsuranceTypeInfo {
         this.mainOrVice = mainOrVice == null ? null : mainOrVice.trim();
     }
 
-    public String getPraramType() {
-        return praramType;
+    public String getparamType() {
+        return paramType;
     }
 
-    public void setPraramType(String praramType) {
-        this.praramType = praramType == null ? null : praramType.trim();
+    public void setparamType(String paramType) {
+        this.paramType = paramType == null ? null : paramType.trim();
     }
 
     public String getInsuranceType() {
