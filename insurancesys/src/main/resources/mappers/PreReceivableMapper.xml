@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="whu.iss.insurancesys.dao.SettlementParamDaos.PreReceivableDao">
+    <select id="queryAll" resultType="whu.iss.insurancesys.entity.SettlementParamEntities.PreReceivableParam">
+        select
+        t5.Chinese_name,t1.policy_no,t1.employee_no,t2.premium,t2.period,t4.current_rank,t4.branch_name,t3.valid_date_since from life_policy_contract as t1,life_insurance_policy as t3,insurance_type as t2,employee_unit_rank t4,employee_basic_information t5
+        where t1.policy_no=t2.policy_no and t1.employee_no=t5.employee_no and t5.employee_no=t4.employ_no;
+    </select>
+</mapper>
