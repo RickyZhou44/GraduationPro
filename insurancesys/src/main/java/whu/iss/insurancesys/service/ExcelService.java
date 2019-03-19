@@ -7,6 +7,6 @@ import javax.servlet.http.HttpServletResponse;
  *         Created by RickZhou on 2019/3/12 0012.
  */
 public interface ExcelService {
-    boolean exportExcel(HttpServletResponse response, String fileName, Integer pageNum, Integer pageSize);
+    boolean exportExcel(String fileName, Integer pageNum, Integer pageSize);
     boolean importExcel(String name);
 }

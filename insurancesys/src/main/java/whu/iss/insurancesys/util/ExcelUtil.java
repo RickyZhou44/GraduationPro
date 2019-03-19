@@ -4,12 +4,7 @@ import org.apache.poi.hssf.usermodel.*;
 import org.apache.poi.ss.usermodel.*;
 import whu.iss.insurancesys.entity.ExcelData;
 
-import javax.servlet.http.HttpServletResponse;
-
-import java.io.BufferedOutputStream;
-import java.io.FileInputStream;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,7 +20,7 @@ public class ExcelUtil {
 //方法名exportExcel
 //功能导出excel
 //同时也是这个类的入口
-    public static void exportExcel(HttpServletResponse response, ExcelData data){
+    public static void exportExcel(ExcelData data){
         System.out.println("导出解析开始，fileName:"+data.getFilename());
         try {
             //实例化HSSFWorkbook
@@ -37,7 +32,7 @@ public class ExcelUtil {
             //设置单元格并赋值
             setData(sheet, data.getData());
             //设置浏览器下载
-            setBrowser(response, workbook, data.getFilename());
+            setBrowser(workbook, data.getFilename());
             System.out.println("导出解析成功!");
         } catch (Exception e) {
            System.out.println("导出解析失败!");
@@ -96,14 +91,14 @@ public class ExcelUtil {
      * 方法名：setBrowser
      * 功能：使用浏览器下载
      */
-    private static void setBrowser(HttpServletResponse response, HSSFWorkbook workbook, String fileName) {
+    private static void setBrowser( HSSFWorkbook workbook, String fileName) {
         try {
             //清空response
-            response.reset();
+            //response.reset();
             //设置response的Header
-            response.addHeader("Content-Disposition", "attachment;filename=" + fileName);
-            OutputStream os = new BufferedOutputStream(response.getOutputStream());
-            response.setContentType("application/vnd.ms-excel;charset=gb2312");
+            //response.addHeader("Content-Disposition", "attachment;filename=" + fileName);
+            OutputStream os = new FileOutputStream("C:\\"+fileName+".xlsx");
+           // response.setContentType("application/vnd.ms-excel;charset=gb2312");
             //将excel写入到输出流中
             workbook.write(os);
             os.flush();
