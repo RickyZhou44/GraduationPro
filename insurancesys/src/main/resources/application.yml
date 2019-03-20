@@ -24,7 +24,7 @@ spring:
 #    引入thymeleaf模板
   thymeleaf:
     check-template: true
-    prefix: classpath:/pages/
+    prefix: classpath:/templates/
     mode: HTML5
     suffix: .html
 
