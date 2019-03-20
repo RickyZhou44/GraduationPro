@@ -28,7 +28,7 @@ public class ExcelController {
         List<String[]> addd=new ArrayList<>();
         addd.add(content);
         data.setData(addd);
-        ExcelUtil.exportExcel(response,data);
+        //ExcelUtil.exportExcel(response,data);
         return "index";
     }
 }
