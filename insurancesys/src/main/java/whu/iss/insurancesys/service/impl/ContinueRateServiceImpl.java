@@ -32,7 +32,6 @@ public class ContinueRateServiceImpl implements ContinueRateService {
     @Override
     public Object getResult(Date current,int param,int type) {
         this.current=current;
-        ResultInfo resultInfo=new ResultInfo();
         List<PaidPremiumParam> paidPremiumParams=preReceivableDao.queryPaid();
         List<PreReceivableParam> preReceivableParams=preReceivableDao.queryAll();
         this.date=valuateDate(current,param);
@@ -42,25 +41,23 @@ public class ContinueRateServiceImpl implements ContinueRateService {
         List<ContinueRateBranchParam>listUnit=new ArrayList<>();
         //如果date返回为null，则数据处理失败，返回resultInfo并将result置于false
         if(date==null){
-            resultInfo.setResult(false);
-            return resultInfo;
+           return null;
         }
         else {
             //个人纬度的查询
             if(type==1){
-                List<ContinueRateParam>list=perDivission(paidPremiumParams,preReceivableParams);
-                resultInfo.setData(list);
+               listPerson=perDivission(paidPremiumParams,preReceivableParams);
+                return listPerson;
             }
             //单位纬度查询
             else if(type==2){
-
+                listUnit=unitDiv(paidPremiumParams,preReceivableParams);
+                return listUnit;
             }
             else {
-                resultInfo.setResult(false);
-                return resultInfo;
+                return null;
             }
         }
-        return null;
     }
 //   此方法用于计算指定月之前param月的具体日期
     private Date valuateDate(Date current,int param){
