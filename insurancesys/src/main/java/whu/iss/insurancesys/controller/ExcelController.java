@@ -1,4 +1,4 @@
-package whu.iss.insurancesys.control;
+package whu.iss.insurancesys.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
