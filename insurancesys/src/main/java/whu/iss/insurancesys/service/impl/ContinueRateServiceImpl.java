@@ -5,11 +5,9 @@ import org.springframework.stereotype.Service;
 import whu.iss.insurancesys.dao.EmployeeBasicInformationMapper;
 import whu.iss.insurancesys.dao.SettlementParamDaos.PreReceivableDao;
 import whu.iss.insurancesys.dto.ResultInfo;
-import whu.iss.insurancesys.entity.SettlementParamEntities.ContinueRateBranchParam;
-import whu.iss.insurancesys.entity.SettlementParamEntities.ContinueRateParam;
-import whu.iss.insurancesys.entity.SettlementParamEntities.PaidPremiumParam;
-import whu.iss.insurancesys.entity.SettlementParamEntities.PreReceivableParam;
+import whu.iss.insurancesys.entity.SettlementParamEntities.*;
 import whu.iss.insurancesys.service.ContinueRateService;
+import whu.iss.insurancesys.util.RickUtil;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -30,10 +28,12 @@ public class ContinueRateServiceImpl implements ContinueRateService {
 //    param表示查询类型为R13，R25，R37
 //    type表示查询的纬度1-个人 2-单位
     @Override
-    public Object getResult(Date current,int param,int type) {
+    public ResultInfo getResult(Date current,int param,int type) {
+        ResultInfo resultInfo=new ResultInfo();
         this.current=current;
         List<PaidPremiumParam> paidPremiumParams=preReceivableDao.queryPaid();
         List<PreReceivableParam> preReceivableParams=preReceivableDao.queryAll();
+        List<PayRecoredParam> payRecoredParams=preReceivableDao.getPayRecored();
         this.date=valuateDate(current,param);
         //用于存储个人纬度的查询数据
         List<ContinueRateParam>listPerson=new ArrayList<>();
@@ -41,21 +41,29 @@ public class ContinueRateServiceImpl implements ContinueRateService {
         List<ContinueRateBranchParam>listUnit=new ArrayList<>();
         //如果date返回为null，则数据处理失败，返回resultInfo并将result置于false
         if(date==null){
-           return null;
+            resultInfo.setResult(false);
+           return resultInfo;
         }
         else {
             //个人纬度的查询
             if(type==1){
-               listPerson=perDivission(paidPremiumParams,preReceivableParams);
-                return listPerson;
+               listPerson=perDivission(paidPremiumParams,preReceivableParams,payRecoredParams);
+               resultInfo.setResult(true);
+               resultInfo.setData(listPerson);
+               resultInfo.setReason("person");
+                return resultInfo;
             }
             //单位纬度查询
             else if(type==2){
-                listUnit=unitDiv(paidPremiumParams,preReceivableParams);
-                return listUnit;
+                listUnit=unitDiv(paidPremiumParams,preReceivableParams,payRecoredParams);
+                resultInfo.setResult(true);
+                resultInfo.setData(listUnit);
+                resultInfo.setReason("unit");
+                return resultInfo;
             }
             else {
-                return null;
+                resultInfo.setResult(false);
+                return resultInfo;
             }
         }
     }
@@ -79,7 +87,7 @@ public class ContinueRateServiceImpl implements ContinueRateService {
         return null;
     }
     //此法用于生成返回前端的个人纬度的数据
-    private List<ContinueRateParam> perDivission(List<PaidPremiumParam> paidPremiumParams,List<PreReceivableParam> preReceivableParams){
+    private List<ContinueRateParam> perDivission(List<PaidPremiumParam> paidPremiumParams,List<PreReceivableParam> preReceivableParams,List<PayRecoredParam>payRecoredParams){
         List<ContinueRateParam>list=new ArrayList<>();
         List<String>employeeNos=preReceivableDao.employeeNo();
         double paid=0.0;
@@ -93,11 +101,19 @@ public class ContinueRateServiceImpl implements ContinueRateService {
             ContinueRateParam continueRateParam=new ContinueRateParam();
             continueRateParam.setDate(current);
             continueRateParam.setIdNum(employee);
+            String policyNo=null;
+            String policyNo2=null;
             //首先计算实际收到的保费
             for(PaidPremiumParam p:paidPremiumParams){
                 if(employee.equals(p.getEmployee_no())){
-                    if(date.compareTo(p.getPay_date())<=0&&p.getPay_date().compareTo(current)==-1){
-                        paid+=p.getPremium();
+                    for(PayRecoredParam pr:payRecoredParams){
+                        policyNo= RickUtil.removeEsc(p.getPolicy_no());
+                        policyNo2=RickUtil.removeEsc(pr.getPolicy_no());
+                        if(policyNo.equals(policyNo2)){
+                            if(date.compareTo(pr.getPay_date())<=0&&pr.getPay_date().compareTo(current)==-1){
+                                paid+=p.getPremium();
+                            }
+                        }
                     }
                 }
             }
@@ -106,39 +122,40 @@ public class ContinueRateServiceImpl implements ContinueRateService {
             for(PreReceivableParam p:preReceivableParams){
                 if(employee.equals(p.getEmployee_no())){
                     if(continueRateParam.getName()==null){
-                        continueRateParam.setName(p.getChineseName());
+                        continueRateParam.setName(p.getChinese_name());
                         continueRateParam.setRank(p.getCurrent_rank());
                         continueRateParam.setUnit(p.getBranch_name());
                     }
-                    else {
-                        if((date.compareTo(p.getValid_date_since())>=0)||(date.compareTo(p.getValid_date_since())==-1&&current.compareTo(p.getValid_date_since())==1)){
-                            //首先计算这支保险的交费年期
-                            String period=p.getPeriod();
-                            int year=Integer.parseInt(period.substring(0,2));
-                            int times=Integer.parseInt(period.substring(2));
-                            int duration=12*year/times;
-                            Date payDate=p.getPay_date();
-                            while (current.compareTo(payDate)==1){
-                                if(date.compareTo(payDate)<=0){
-                                    premium+=p.getPremium();
-                                }
-                                payDate=addDate(payDate,duration);
+                    //判断这支保险是否已经生效
+                    if((date.compareTo(p.getValid_date_since())>=0)||(date.compareTo(p.getValid_date_since())==-1&&current.compareTo(p.getValid_date_since())==1)) {
+                        //首先计算这支保险的交费年期
+                        //首先获得这个
+                        String period = RickUtil.yearTimesFormat(p.getPeriod());
+                        int year = Integer.parseInt(period.substring(0, 2));
+                        int times = Integer.parseInt(period.substring(2));
+                        int duration = 12 * year / times;
+                        Date payDate = p.getPay_date();
+                        while (current.compareTo(payDate) == 1) {
+                            if (date.compareTo(payDate) <= 0) {
+                                premium += p.getPremium();
                             }
+                            payDate = addDate(payDate, duration);
                         }
 
-                        }
                     }
-                    continueRateParam.setPreReceivable(premium);
+
+                    }
                 }
-                rate=paid/premium;
-            continueRateParam.setRate(rate);
+            continueRateParam.setPreReceivable(premium);
+            rate=paid/premium;
+            continueRateParam.setRate(rate*100);
             list.add(continueRateParam);
             }
             return list;
         }
 
         //此方法用于生成分支纬度的数据
-    private List<ContinueRateBranchParam> unitDiv(List<PaidPremiumParam> paidPremiumParams,List<PreReceivableParam> preReceivableParams){
+    private List<ContinueRateBranchParam> unitDiv(List<PaidPremiumParam> paidPremiumParams,List<PreReceivableParam> preReceivableParams,List<PayRecoredParam>payRecoredParams){
         List<String>branchName=preReceivableDao.branchName();
         List<ContinueRateBranchParam>list=new ArrayList<>();
         double paid=0.0;
@@ -155,8 +172,15 @@ public class ContinueRateServiceImpl implements ContinueRateService {
             //首先计算实收保费
             for(PaidPremiumParam p:paidPremiumParams){
                 if(name.equals(p.getBranch_name())){
-                    if(date.compareTo(p.getPay_date())<=0&&p.getPay_date().compareTo(current)==-1){
-                        paid+=p.getPremium();
+//                    if(date.compareTo(p.getPay_date())<=0&&p.getPay_date().compareTo(current)==-1){
+//                        paid+=p.getPremium();
+//                    }
+                    for (PayRecoredParam pr:payRecoredParams){
+                        if(p.getPolicy_no().equals(pr.getPolicy_no())){
+                            if(date.compareTo(pr.getPay_date())<=0&&pr.getPay_date().compareTo(current)==-1){
+                                paid+=p.getPremium();
+                            }
+                        }
                     }
                 }
             }
@@ -166,7 +190,7 @@ public class ContinueRateServiceImpl implements ContinueRateService {
                 if(name.equals(p.getBranch_name())){
                     if((date.compareTo(p.getValid_date_since())>=0)||(date.compareTo(p.getValid_date_since())==-1&&current.compareTo(p.getValid_date_since())==1)){
                         //首先计算这支保险的交费年期
-                        String period=p.getPeriod();
+                        String period=RickUtil.yearTimesFormat(p.getPeriod());
                         int year=Integer.parseInt(period.substring(0,2));
                         int times=Integer.parseInt(period.substring(2));
                         int duration=12*year/times;
@@ -180,7 +204,9 @@ public class ContinueRateServiceImpl implements ContinueRateService {
                     }
                 }
             }
+            rate=paid/premium;
             continueRateBranchParam.setPreReceivable(premium);
+            continueRateBranchParam.setRate(rate*100);
             list.add(continueRateBranchParam);
 
         }
@@ -209,7 +235,7 @@ public class ContinueRateServiceImpl implements ContinueRateService {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        return date;
+        return date1;
     }
 
 }

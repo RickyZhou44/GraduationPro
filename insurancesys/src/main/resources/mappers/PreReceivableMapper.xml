@@ -3,7 +3,19 @@
 <mapper namespace="whu.iss.insurancesys.dao.SettlementParamDaos.PreReceivableDao">
     <select id="queryAll" resultType="whu.iss.insurancesys.entity.SettlementParamEntities.PreReceivableParam">
         select
-        t5.Chinese_name,t1.policy_no,t1.employee_no,t2.premium,t2.period,t4.current_rank,t4.branch_name,t3.valid_date_since from life_policy_contract as t1,life_insurance_policy as t3,insurance_type as t2,employee_unit_rank t4,employee_basic_information t5
-        where t1.policy_no=t2.policy_no and t1.employee_no=t5.employee_no and t5.employee_no=t4.employ_no;
+        t5.Chinese_name,t1.policy_no,t1.employee_no,t2.premium,t2.period,t4.current_rank,t4.branch_name,t3.pay_date,t3.valid_date_since from life_policy_contract as t1,life_insurance_policy as t3,insurance_type as t2,employee_unit_rank t4,employee_basic_information t5
+        where t1.policy_no=t2.policy_no and t1.policy_no=t3.policy_no and t1.employee_no=t5.employee_no and t5.employee_no=t4.employ_no;
+    </select>
+    <select id="queryPaid" resultType="whu.iss.insurancesys.entity.SettlementParamEntities.PaidPremiumParam">
+       select t1.policy_no,t1.employee_no,t2.premium,t3.branch_name from life_policy_contract as t1,insurance_type as t2,employee_unit_rank as t3 where t1.policy_no=t2.policy_no and t1.employee_no=t3.employ_no;
+    </select>
+    <select id="getPayRecored" resultType="whu.iss.insurancesys.entity.SettlementParamEntities.PayRecoredParam">
+        SELECT policy_no,pay_date FROM life_insurance_pay_record;
+    </select>
+    <select id="employeeNo" resultType="java.lang.String">
+        select employee_no from employee_basic_information;
+    </select>
+    <select id="branchName" resultType="java.lang.String">
+        select cname from branch_info;
     </select>
 </mapper>

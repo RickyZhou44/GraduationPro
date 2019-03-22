@@ -1,5 +1,7 @@
 package whu.iss.insurancesys.service;
 
+import whu.iss.insurancesys.dto.ResultInfo;
+
 import java.util.Date;
 
 /**
@@ -7,5 +9,5 @@ import java.util.Date;
  * Create by RickZhou on 2019/3/17
  */
 public interface ContinueRateService {
-    public Object getResult(Date current,int param,int type);
+    public ResultInfo getResult(Date current, int param, int type);
 }

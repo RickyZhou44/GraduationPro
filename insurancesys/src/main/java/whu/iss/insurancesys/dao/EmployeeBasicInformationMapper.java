@@ -6,4 +6,6 @@ public interface EmployeeBasicInformationMapper {
     int insert(EmployeeBasicInformation record);
 
     int insertSelective(EmployeeBasicInformation record);
+
+
 }

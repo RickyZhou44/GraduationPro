@@ -97,7 +97,7 @@ public class ExcelUtil {
             //response.reset();
             //设置response的Header
             //response.addHeader("Content-Disposition", "attachment;filename=" + fileName);
-            OutputStream os = new FileOutputStream("C:\\"+fileName+".xlsx");
+            OutputStream os = new FileOutputStream(fileName);
            // response.setContentType("application/vnd.ms-excel;charset=gb2312");
             //将excel写入到输出流中
             workbook.write(os);

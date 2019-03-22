@@ -10,7 +10,6 @@ import java.util.Date;
 public class PaidPremiumParam {
     private String policy_no;
     private String employee_no;
-    private Date pay_date;
     private double premium;
     private String branch_name;
 
@@ -38,13 +37,6 @@ public class PaidPremiumParam {
         this.employee_no = employee_no;
     }
 
-    public Date getPay_date() {
-        return pay_date;
-    }
-
-    public void setPay_date(Date pay_date) {
-        this.pay_date = pay_date;
-    }
 
     public double getPremium() {
         return premium;

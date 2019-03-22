@@ -2,6 +2,7 @@ package whu.iss.insurancesys.dao.SettlementParamDaos;
 
 import org.springframework.stereotype.Repository;
 import whu.iss.insurancesys.entity.SettlementParamEntities.PaidPremiumParam;
+import whu.iss.insurancesys.entity.SettlementParamEntities.PayRecoredParam;
 import whu.iss.insurancesys.entity.SettlementParamEntities.PreReceivableParam;
 
 import java.util.List;
@@ -17,4 +18,5 @@ public interface PreReceivableDao {
     public List<PaidPremiumParam>queryPaid();
     public List<String>employeeNo();
     public List<String>branchName();
+    public List<PayRecoredParam>getPayRecored();
 }

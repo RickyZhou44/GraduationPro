@@ -8,7 +8,7 @@ import java.sql.Date;
  */
 //此类用于计算员工及机构
 public class PreReceivableParam {
-    private String chineseName;
+    private String chinese_name;
     private String policy_no;
     private String employee_no;
     private double premium;
@@ -26,12 +26,12 @@ public class PreReceivableParam {
         this.pay_date = pay_date;
     }
 
-    public String getChineseName() {
-        return chineseName;
+    public String getChinese_name() {
+        return chinese_name;
     }
 
-    public void setChineseName(String chineseName) {
-        this.chineseName = chineseName;
+    public void setChinese_name(String chinese_name) {
+        this.chinese_name = chinese_name;
     }
 
     public String getPolicy_no() {
