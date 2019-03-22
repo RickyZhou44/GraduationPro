@@ -1,4 +1,4 @@
-package whu.iss.insurancesys.control;
+package whu.iss.insurancesys.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,7 +28,7 @@ public class ExcelController {
         List<String[]> addd=new ArrayList<>();
         addd.add(content);
         data.setData(addd);
-        ExcelUtil.exportExcel(response,data);
+        //ExcelUtil.exportExcel(response,data);
         return "index";
     }
 }
