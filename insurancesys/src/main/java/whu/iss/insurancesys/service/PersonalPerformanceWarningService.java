@@ -15,5 +15,5 @@ public interface PersonalPerformanceWarningService {
      * @param branchs
      * @return 前段需要的字段信息
      */
-    PersonalPerformanceWaringObjectResult getPeopleInfo(String name, String number, String idCard, String[] branchs);
+    PersonalPerformanceWaringObjectResult getPeopleInfo(String name, long number, String idCard, String[] branchs);
 }

@@ -14,7 +14,7 @@ public class PersonalPerformanceWarningServiceImpl implements PersonalPerformanc
     private PersonalPerformanceWaringObjectResultDao personalPerformanceWaringObjectResultDao;
 
     @Override
-    public PersonalPerformanceWaringObjectResult getPeopleInfo(String name, String number, String idCard, String[] branchs) {
+    public PersonalPerformanceWaringObjectResult getPeopleInfo(String name, long number, String idCard, String[] branchs) {
         return personalPerformanceWaringObjectResultDao.findAll(name, number, idCard, branchs);
     }
 }

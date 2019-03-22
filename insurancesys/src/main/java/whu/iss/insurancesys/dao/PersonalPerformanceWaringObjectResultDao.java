@@ -7,5 +7,5 @@ import whu.iss.insurancesys.entity.PersonalPerformanceWaringObjectResult;
 @Repository
 public interface PersonalPerformanceWaringObjectResultDao {
 
-    public PersonalPerformanceWaringObjectResult findAll(@Param("name") String name, @Param("number") String number, @Param("idCard") String idCard, @Param("branchs") String[] branchs);
+    PersonalPerformanceWaringObjectResult findAll(@Param("name") String name, @Param("number") long number, @Param("idCard") String idCard, @Param("branchs") String[] branchs);
 }
