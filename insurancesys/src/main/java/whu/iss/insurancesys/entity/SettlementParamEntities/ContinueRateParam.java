@@ -1,6 +1,9 @@
 package whu.iss.insurancesys.entity.SettlementParamEntities;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author RickZhou
@@ -16,6 +19,7 @@ public class ContinueRateParam {
     private double preReceivable=0.0;//应收保费
     private double paidPremium=0.0;//实收保费
     private double rate=0.0;
+    private List<PersonPolicyDetail> details;//各个订单保费记录
 
     public Date getDate() {
         return date;
@@ -42,6 +46,7 @@ public class ContinueRateParam {
         name=null;
         preReceivable=0;
         paidPremium=0;
+        details = new ArrayList<>();
     }
 
     public String getUnit() {
@@ -90,5 +95,13 @@ public class ContinueRateParam {
 
     public void setPaidPremium(double paidPremium) {
         this.paidPremium = paidPremium;
+    }
+
+    public void addDetail(Map<String, PersonPolicyDetail> map){
+        this.details.addAll(map.values());
+    }
+
+    public List<PersonPolicyDetail> getDetails(){
+        return this.details;
     }
 }

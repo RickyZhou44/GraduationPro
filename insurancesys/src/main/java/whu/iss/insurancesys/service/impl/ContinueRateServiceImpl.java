@@ -11,9 +11,7 @@ import whu.iss.insurancesys.util.RickUtil;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * @author RickZhou
@@ -51,7 +49,7 @@ public class ContinueRateServiceImpl implements ContinueRateService {
                resultInfo.setResult(true);
                resultInfo.setData(listPerson);
                resultInfo.setReason("person");
-                return resultInfo;
+               return resultInfo;
             }
             //单位纬度查询
             else if(type==2){
@@ -97,12 +95,13 @@ public class ContinueRateServiceImpl implements ContinueRateService {
             //初始化paid和premium
             paid=0.0;
             premium=0.0;
-//创建传往前端的一行数据
+            //创建传往前端的一行数据
             ContinueRateParam continueRateParam=new ContinueRateParam();
             continueRateParam.setDate(current);
             continueRateParam.setIdNum(employee);
             String policyNo=null;
             String policyNo2=null;
+            Map<String, PersonPolicyDetail> detailMap = new HashMap<>();
             //首先计算实际收到的保费
             for(PaidPremiumParam p:paidPremiumParams){
                 if(employee.equals(p.getEmployee_no())){
@@ -110,8 +109,12 @@ public class ContinueRateServiceImpl implements ContinueRateService {
                         policyNo= RickUtil.removeEsc(p.getPolicy_no());
                         policyNo2=RickUtil.removeEsc(pr.getPolicy_no());
                         if(policyNo.equals(policyNo2)){
+                            //保存订单细节
+                            PersonPolicyDetail pDetail =
+                                    detailMap.getOrDefault(policyNo, new PersonPolicyDetail(policyNo));
                             if(date.compareTo(pr.getPay_date())<=0&&pr.getPay_date().compareTo(current)==-1){
                                 paid+=p.getPremium();
+                                pDetail.addPaidPremium(p.getPremium());
                             }
                         }
                     }
@@ -135,24 +138,31 @@ public class ContinueRateServiceImpl implements ContinueRateService {
                         int times = Integer.parseInt(period.substring(2));
                         int duration = 12 * year / times;
                         Date payDate = p.getPay_date();
+                        //临时变量
+                        double temp = 0;
                         while (current.compareTo(payDate) == 1) {
                             if (date.compareTo(payDate) <= 0) {
                                 premium += p.getPremium();
+                                temp += p.getPremium();
                             }
                             payDate = addDate(payDate, duration);
                         }
-
-                    }
-
+                        //保存订单细节
+                        PersonPolicyDetail pDetail = detailMap.get(p.getPolicy_no());
+                        if(pDetail != null){
+                            pDetail.setPreReceivable(temp);
+                        }
                     }
                 }
+            }
             continueRateParam.setPreReceivable(premium);
             rate=paid/premium;
             continueRateParam.setRate(rate*100);
+            continueRateParam.addDetail(detailMap);
             list.add(continueRateParam);
-            }
-            return list;
         }
+        return list;
+    }
 
         //此方法用于生成分支纬度的数据
     private List<ContinueRateBranchParam> unitDiv(List<PaidPremiumParam> paidPremiumParams,List<PreReceivableParam> preReceivableParams,List<PayRecoredParam>payRecoredParams){
@@ -169,6 +179,7 @@ public class ContinueRateServiceImpl implements ContinueRateService {
             premium=0.0;
             continueRateBranchParam.setDate(current);
             continueRateBranchParam.setUnit(name);
+            Map<String, BranchPolicyDetail> detailMap = new HashMap<>();
             //首先计算实收保费
             for(PaidPremiumParam p:paidPremiumParams){
                 if(name.equals(p.getBranch_name())){
@@ -177,8 +188,12 @@ public class ContinueRateServiceImpl implements ContinueRateService {
 //                    }
                     for (PayRecoredParam pr:payRecoredParams){
                         if(p.getPolicy_no().equals(pr.getPolicy_no())){
+                            //保存订单细节
+                            BranchPolicyDetail branchPolicyDetail =
+                                    detailMap.getOrDefault(p.getPolicy_no(), new BranchPolicyDetail());
                             if(date.compareTo(pr.getPay_date())<=0&&pr.getPay_date().compareTo(current)==-1){
                                 paid+=p.getPremium();
+                                branchPolicyDetail.addPaidPremium(p.getPremium());
                             }
                         }
                     }
@@ -195,11 +210,19 @@ public class ContinueRateServiceImpl implements ContinueRateService {
                         int times=Integer.parseInt(period.substring(2));
                         int duration=12*year/times;
                         Date payDate=p.getPay_date();
+                        //临时变量
+                        double temp = 0;
                         while (current.compareTo(payDate)==1){
                             if(date.compareTo(payDate)<=0){
                                 premium+=p.getPremium();
+                                temp += p.getPremium();
                             }
                             payDate=addDate(payDate,duration);
+                        }
+                        //保存订单细节
+                        BranchPolicyDetail bDetail = detailMap.get(p.getPolicy_no());
+                        if(bDetail != null){
+                            bDetail.setPreReceivable(temp);
                         }
                     }
                 }
@@ -207,6 +230,7 @@ public class ContinueRateServiceImpl implements ContinueRateService {
             rate=paid/premium;
             continueRateBranchParam.setPreReceivable(premium);
             continueRateBranchParam.setRate(rate*100);
+            continueRateBranchParam.addDetail(detailMap);
             list.add(continueRateBranchParam);
 
         }
