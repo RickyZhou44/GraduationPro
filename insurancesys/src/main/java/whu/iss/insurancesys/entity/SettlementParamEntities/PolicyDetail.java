@@ -11,7 +11,7 @@ import lombok.Data;
 import java.util.Date;
 
 @Data
-public class BranchPolicyDetail {
+public class PolicyDetail {
 
     String policy_no;
     String policy_type;

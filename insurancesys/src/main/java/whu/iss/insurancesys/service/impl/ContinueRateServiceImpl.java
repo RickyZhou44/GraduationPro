@@ -2,7 +2,6 @@ package whu.iss.insurancesys.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import whu.iss.insurancesys.dao.EmployeeBasicInformationMapper;
 import whu.iss.insurancesys.dao.SettlementParamDaos.PreReceivableDao;
 import whu.iss.insurancesys.dto.ResultInfo;
 import whu.iss.insurancesys.entity.SettlementParamEntities.*;
@@ -101,7 +100,7 @@ public class ContinueRateServiceImpl implements ContinueRateService {
             continueRateParam.setIdNum(employee);
             String policyNo=null;
             String policyNo2=null;
-            Map<String, PersonPolicyDetail> detailMap = new HashMap<>();
+            Map<String, PolicyDetail> detailMap = new HashMap<>();
             //首先计算实际收到的保费
             for(PaidPremiumParam p:paidPremiumParams){
                 if(employee.equals(p.getEmployee_no())){
@@ -110,11 +109,13 @@ public class ContinueRateServiceImpl implements ContinueRateService {
                         policyNo2=RickUtil.removeEsc(pr.getPolicy_no());
                         if(policyNo.equals(policyNo2)){
                             //保存订单细节
-                            PersonPolicyDetail pDetail =
-                                    detailMap.getOrDefault(policyNo, new PersonPolicyDetail(policyNo));
+                            PolicyDetail policyDetail = preReceivableDao.getDetailByPolicyNo(p.getPolicy_no());
+                            if(policyDetail == null){
+                                policyDetail = new PolicyDetail();
+                            }
                             if(date.compareTo(pr.getPay_date())<=0&&pr.getPay_date().compareTo(current)==-1){
                                 paid+=p.getPremium();
-                                pDetail.addPaidPremium(p.getPremium());
+                                policyDetail.addPaidPremium(p.getPremium());
                             }
                         }
                     }
@@ -148,7 +149,7 @@ public class ContinueRateServiceImpl implements ContinueRateService {
                             payDate = addDate(payDate, duration);
                         }
                         //保存订单细节
-                        PersonPolicyDetail pDetail = detailMap.get(p.getPolicy_no());
+                        PolicyDetail pDetail = detailMap.get(p.getPolicy_no());
                         if(pDetail != null){
                             pDetail.setPreReceivable(temp);
                         }
@@ -179,7 +180,7 @@ public class ContinueRateServiceImpl implements ContinueRateService {
             premium=0.0;
             continueRateBranchParam.setDate(current);
             continueRateBranchParam.setUnit(name);
-            Map<String, BranchPolicyDetail> detailMap = new HashMap<>();
+            Map<String, PolicyDetail> detailMap = new HashMap<>();
             //首先计算实收保费
             for(PaidPremiumParam p:paidPremiumParams){
                 if(name.equals(p.getBranch_name())){
@@ -189,11 +190,13 @@ public class ContinueRateServiceImpl implements ContinueRateService {
                     for (PayRecoredParam pr:payRecoredParams){
                         if(p.getPolicy_no().equals(pr.getPolicy_no())){
                             //保存订单细节
-                            BranchPolicyDetail branchPolicyDetail =
-                                    detailMap.getOrDefault(p.getPolicy_no(), new BranchPolicyDetail());
+                            PolicyDetail policyDetail = preReceivableDao.getDetailByPolicyNo(p.getPolicy_no());
+                            if(policyDetail == null){
+                                policyDetail = new PolicyDetail();
+                            }
                             if(date.compareTo(pr.getPay_date())<=0&&pr.getPay_date().compareTo(current)==-1){
                                 paid+=p.getPremium();
-                                branchPolicyDetail.addPaidPremium(p.getPremium());
+                                policyDetail.addPaidPremium(p.getPremium());
                             }
                         }
                     }
@@ -220,7 +223,7 @@ public class ContinueRateServiceImpl implements ContinueRateService {
                             payDate=addDate(payDate,duration);
                         }
                         //保存订单细节
-                        BranchPolicyDetail bDetail = detailMap.get(p.getPolicy_no());
+                        PolicyDetail bDetail = detailMap.get(p.getPolicy_no());
                         if(bDetail != null){
                             bDetail.setPreReceivable(temp);
                         }

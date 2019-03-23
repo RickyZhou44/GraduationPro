@@ -19,7 +19,7 @@ public class ContinueRateParam {
     private double preReceivable=0.0;//应收保费
     private double paidPremium=0.0;//实收保费
     private double rate=0.0;
-    private List<PersonPolicyDetail> details;//各个订单保费记录
+    private List<PolicyDetail> details;//各个订单保费记录
 
     public Date getDate() {
         return date;
@@ -97,11 +97,11 @@ public class ContinueRateParam {
         this.paidPremium = paidPremium;
     }
 
-    public void addDetail(Map<String, PersonPolicyDetail> map){
+    public void addDetail(Map<String, PolicyDetail> map){
         this.details.addAll(map.values());
     }
 
-    public List<PersonPolicyDetail> getDetails(){
+    public List<PolicyDetail> getDetails(){
         return this.details;
     }
 }

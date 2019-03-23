@@ -16,7 +16,7 @@ public class ContinueRateBranchParam {
     private double preReceivable;//应收保费
     private double paidPremium;//实收保费
     private double rate;
-    private List<BranchPolicyDetail> details = new ArrayList<>();
+    private List<PolicyDetail> details = new ArrayList<>();
 
     public Date getDate() {
         return date;
@@ -58,11 +58,11 @@ public class ContinueRateBranchParam {
         this.rate = rate;
     }
 
-    public List<BranchPolicyDetail> getDetails() {
+    public List<PolicyDetail> getDetails() {
         return details;
     }
 
-    public void addDetail(Map<String, BranchPolicyDetail> map){
+    public void addDetail(Map<String, PolicyDetail> map){
         this.details.addAll(map.values());
     }
 }
