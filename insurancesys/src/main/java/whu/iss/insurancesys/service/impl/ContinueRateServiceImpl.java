@@ -113,6 +113,7 @@ public class ContinueRateServiceImpl implements ContinueRateService {
                             if(policyDetail == null){
                                 policyDetail = new PolicyDetail();
                             }
+                            detailMap.put(p.getPolicy_no(), policyDetail);
                             if(date.compareTo(pr.getPay_date())<=0&&pr.getPay_date().compareTo(current)==-1){
                                 paid+=p.getPremium();
                                 policyDetail.addPaidPremium(p.getPremium());
@@ -194,6 +195,7 @@ public class ContinueRateServiceImpl implements ContinueRateService {
                             if(policyDetail == null){
                                 policyDetail = new PolicyDetail();
                             }
+                            detailMap.put(p.getPolicy_no(), policyDetail);
                             if(date.compareTo(pr.getPay_date())<=0&&pr.getPay_date().compareTo(current)==-1){
                                 paid+=p.getPremium();
                                 policyDetail.addPaidPremium(p.getPremium());
