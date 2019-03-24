@@ -1,5 +1,7 @@
 package whu.iss.insurancesys.entity.SettlementParamEntities;
 
+import whu.iss.insurancesys.util.RickUtil;
+
 import java.util.Date;
 
 /**
@@ -53,7 +55,7 @@ public class RelationShip {
     }
 
     public void setRelation(String relation) {
-        this.relation = relation;
+        this.relation = RickUtil.removeEsc(relation);
     }
 
     public Date getBirthday() {
