@@ -131,6 +131,22 @@ public class ExternalSettlementServiceImpl implements ExternalSettlementService 
         settlementEditDate.setContractorNum(e.getIdNum());//承揽人编号
         return settlementEditDate;
     }
+//获得用户编辑的数据接口
+    @Override
+    public ClientEditData getClientInfo(String certdId) {
+        ClientEditData clientEditData=new ClientEditData();
+        Client client=settlementDao.getClient(certdId);
+        List<AssociatePolicy>associatePolicies=settlementDao.getAssoPolicy(certdId);
+        List<RelationShip>relationShips=settlementDao.getRelationShip(certdId);
+        //这里给客户信息和单位信息封装赋值
+        InsuredBasicInfo insuredBasicInfo=assignmentInsuredBasicInfo(client);
+        UnitInfo unitInfo=assignmentUnitInfo(client);
+        clientEditData.setAssociatePolicy(associatePolicies);
+        clientEditData.setInsuredBasicInfo(insuredBasicInfo);
+        clientEditData.setRelationShips(relationShips);
+        clientEditData.setUnitInfo(unitInfo);
+        return clientEditData;
+    }
 
     //获得指定保单的主约附约明细
     private List<InsuranceParam>getMainAndVice(List<InsuranceTypeEntity>insuranceTypeEntities,String policy_no){
@@ -154,4 +170,45 @@ public class ExternalSettlementServiceImpl implements ExternalSettlementService 
         }
         return list;
     }
+    //对insuredBasicInfo进行赋值
+    private InsuredBasicInfo assignmentInsuredBasicInfo(Client client){
+        InsuredBasicInfo insuredBasicInfo=new InsuredBasicInfo();
+        insuredBasicInfo.setName(client.getName());
+        insuredBasicInfo.setLawIdentity(client.getLaw_identity());
+        insuredBasicInfo.setType(client.getType());
+        insuredBasicInfo.setNation(client.getNation());
+        insuredBasicInfo.setCertfType(client.getCertf_type());
+        insuredBasicInfo.setCertfId(client.getCertf_id());
+        insuredBasicInfo.setBirthday(client.getBirthday());
+        insuredBasicInfo.setAge(RickUtil.getAge(client.getBirthday()));
+        insuredBasicInfo.setSex(client.getSex());
+        insuredBasicInfo.setMarried(client.getMarried());
+        insuredBasicInfo.setTelephone(client.getTelephone());
+        insuredBasicInfo.setEmail(client.getEmail());
+        insuredBasicInfo.setPhone(client.getPhone());
+        insuredBasicInfo.setBackup(client.getBackup());
+        insuredBasicInfo.setHomeAddress(client.getHome_address());
+        insuredBasicInfo.setHomeCode(client.getHome_code());
+        insuredBasicInfo.setFirstContactWay(client.getFirst_contact_way());
+        insuredBasicInfo.setFirstAddress(client.getFirst_address());
+        insuredBasicInfo.setOther(client.getOther());
+        return insuredBasicInfo;
+    }
+    //对unitInfo进行赋值
+    private UnitInfo assignmentUnitInfo(Client client){
+        UnitInfo unitInfo=new UnitInfo();
+        unitInfo.setCompanyName(client.getCom_name());
+        unitInfo.setPhoneNum(client.getCom_phone());
+        unitInfo.setFaxNo(client.getFax_no());
+        unitInfo.setLegalRepresentative(client.getCom_representative());
+        unitInfo.setTaxNum(client.getCom_tax_no());
+        unitInfo.setComAddress(client.getCom_address());
+        unitInfo.setRankName(client.getJob_name());
+        unitInfo.setPhone(client.getCom_phone());
+        unitInfo.setRankContent(client.getJob_content());
+        unitInfo.setJobType(client.getJob_type());
+        unitInfo.setIncome(client.getIncome());
+        return unitInfo;
+    }
+
 }

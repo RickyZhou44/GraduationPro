@@ -12,4 +12,15 @@ where t1.insur_id=t2.insur_id;
     <select id="getInsured" parameterType="java.lang.String" resultType="whu.iss.insurancesys.entity.SettlementParamEntities.Insured">
      select t1.policy_holder_id,t2.name,t3.period,t1.pay_mode,t1.pay_way,t1.policy_type,t1.agent_type from life_insurance_policy as t1,client as t2,insurance_type as t3 where t1.policy_no=#{policy} and t1.policy_holder_id=t2.certf_id and t1.policy_no=t3.policy_no;
     </select>
+    <select id="getClient" parameterType="java.lang.String" resultType="whu.iss.insurancesys.entity.SettlementParamEntities.Client">
+        select*from client where certf_id=#{certfId};
+    </select>
+    <select id="getAssoPolicy" parameterType="java.lang.String" resultType="whu.iss.insurancesys.entity.SettlementParamEntities.AssociatePolicy">
+        select t2.insurer_name,t1.policy_no,t3.name,t1.valid_date_since,t2.insurance_cname,t2.premium,t1.insured_id,t2.code,t4.common_year from
+life_insurance_policy as t1,insurance_type as t2,client as t3,insurance_type_info as t4
+where t1.policy_no=t2.policy_no and t1.policy_holder_id=t3.certf_id and t2.insur_id=t4.insur_id and t3.certf_id=#{certfId}
+    </select>
+    <select id="getRelationShip" parameterType="java.lang.String" resultType="whu.iss.insurancesys.entity.SettlementParamEntities.RelationShip">
+        select t2.name,t2.sex,t2.telephone,t2.certf_id,t1.relation,t2.birthday,timestampdiff(YEAR,t2.birthday,CURDATE()) as age from client_contact as t1,client as t2 where t1.clienta_id=#{certfId} and t1.clientb_id=t2.certf_id;
+    </select>
 </mapper>

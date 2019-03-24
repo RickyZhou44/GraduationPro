@@ -1,5 +1,6 @@
 package whu.iss.insurancesys.service;
 
+import whu.iss.insurancesys.entity.SettlementParamEntities.ClientEditData;
 import whu.iss.insurancesys.entity.SettlementParamEntities.ExternSettlementParam;
 import whu.iss.insurancesys.entity.SettlementParamEntities.ExternalSettleData;
 import whu.iss.insurancesys.entity.SettlementParamEntities.SettlementEditDate;
@@ -14,4 +15,5 @@ import java.util.List;
 public interface ExternalSettlementService {
     public ExternalSettleData getExternalSData(Date date,String checkIf);
     public SettlementEditDate getSettlementEditData(ExternSettlementParam externSettlementParam);
+    public ClientEditData getClientInfo(String certdId);
 }

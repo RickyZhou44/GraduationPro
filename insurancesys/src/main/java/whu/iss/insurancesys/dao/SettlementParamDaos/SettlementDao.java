@@ -1,10 +1,7 @@
 package whu.iss.insurancesys.dao.SettlementParamDaos;
 
 import org.springframework.stereotype.Repository;
-import whu.iss.insurancesys.entity.SettlementParamEntities.ExternalSettleData;
-import whu.iss.insurancesys.entity.SettlementParamEntities.ExternalSettleEntity;
-import whu.iss.insurancesys.entity.SettlementParamEntities.InsuranceTypeEntity;
-import whu.iss.insurancesys.entity.SettlementParamEntities.Insured;
+import whu.iss.insurancesys.entity.SettlementParamEntities.*;
 
 import java.util.List;
 
@@ -17,4 +14,7 @@ public interface SettlementDao {
     public List<ExternalSettleEntity>getExternalData();
     public List<InsuranceTypeEntity>getInsuranceData();
     public Insured getInsured(String policy);
+    public Client getClient(String certfId);
+    public List<AssociatePolicy>getAssoPolicy(String certfId);
+    public List<RelationShip>getRelationShip(String certfId);
 }

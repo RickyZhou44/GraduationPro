@@ -1,11 +1,13 @@
 package whu.iss.insurancesys.controller;
 
+import org.omg.CORBA.OBJ_ADAPTER;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import whu.iss.insurancesys.dto.ResultInfo;
+import whu.iss.insurancesys.entity.SettlementParamEntities.ClientEditData;
 import whu.iss.insurancesys.entity.SettlementParamEntities.ExternSettlementParam;
 import whu.iss.insurancesys.entity.SettlementParamEntities.ExternalSettleData;
 import whu.iss.insurancesys.entity.SettlementParamEntities.SettlementEditDate;
@@ -68,4 +70,12 @@ public class ExternalSettleController {
        return resultInfo;
     }
 
+    @RequestMapping("clientEdit/{id}")
+    public Object clientEdit(@PathVariable("id")String id){
+        ClientEditData clientEditData=externalSettlementService.getClientInfo(id);
+        ResultInfo resultInfo=new ResultInfo();
+        resultInfo.setResult(true);
+        resultInfo.setData(clientEditData);
+        return resultInfo;
+    }
 }
