@@ -8,7 +8,7 @@ import java.util.Date;
  * Create by RickZhou on 2019/3/24
  */
 //存储从数据库中读取出来的client信息
-public class Client {
+public class ClientInfo {
     private String name;
     private String law_identity;
     private String type;
