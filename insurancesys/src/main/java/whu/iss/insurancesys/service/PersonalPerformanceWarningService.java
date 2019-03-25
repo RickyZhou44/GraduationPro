@@ -21,5 +21,14 @@ public interface PersonalPerformanceWarningService {
      */
     List<PersonalPerformanceWaringObjectResult> getPeopleInfo(String name, long number, String idCard, String[] branchs);
 
+    /**
+     * @param number
+     * @param insuranceKind
+     * @param baseMonth
+     * @param project
+     * @param category
+     * @param period
+     * @return 前端需要的结果字段
+     */
     PersonalPerformanceWarningQueryResult query(long number, String insuranceKind, Date baseMonth, String project, String category, String period);
 }

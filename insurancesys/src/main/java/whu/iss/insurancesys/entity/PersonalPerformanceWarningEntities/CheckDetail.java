@@ -1,5 +1,8 @@
 package whu.iss.insurancesys.entity.PersonalPerformanceWarningEntities;
 
+/**
+ * 查核详细
+ */
 public class CheckDetail {
     private String project;
     private String category;
