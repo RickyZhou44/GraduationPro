@@ -1,5 +1,8 @@
 package whu.iss.insurancesys.util;
 
+import java.util.Calendar;
+import java.util.Date;
+
 /**
  * @author RickZhou
  * Create by RickZhou on 2019/3/21
@@ -25,5 +28,30 @@ public class RickUtil {
         else {
             return str;
         }
+    }
+    //用于计算年龄的工具
+    public static int getAge(Date date){
+        Calendar cal = Calendar.getInstance();
+        if(cal.before(date)){
+            return 0;
+        }
+        int yearNow=cal.get(Calendar.YEAR);
+        int monthNow=cal.get(Calendar.MONTH);
+        int dayNow=cal.get(Calendar.DAY_OF_MONTH);
+        cal.setTime(date);
+        int yearBirth=cal.get(Calendar.YEAR);
+        int monthBirth=cal.get(Calendar.MONTH);
+        int dayBith=cal.get(Calendar.DAY_OF_MONTH);
+        int age=yearNow-yearBirth;
+        if(monthNow<=monthBirth){
+            if(monthBirth==monthNow){
+                if(dayNow<dayBith){age--;}
+
+            }
+            else {
+                age--;
+            }
+        }
+        return 0;
     }
 }

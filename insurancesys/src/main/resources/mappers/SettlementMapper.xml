@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="whu.iss.insurancesys.dao.SettlementParamDaos.SettlementDao">
+    <select id="getExternalData" resultType="whu.iss.insurancesys.entity.SettlementParamEntities.ExternalSettleEntity">
+        select t2.validate_date_start,t4.pay_date,t3.premium,t3.policy_no,t4.check_commission_status,t4.policy_type,t4.agent_type,t3.period,t5.employee_no,t6.chinese_name,t3.insurer_name from insurance_type_info as t1,settle_account_param as t2,insurance_type as t3,life_insurance_policy as t4,life_policy_contract as t5,employee_basic_information as t6
+where t1.insur_id=t2.insur_id and t1.insur_id=t3.insur_id and t3.policy_no=t4.policy_no and t3.policy_no=t5.policy_no and t5.employee_no=t6.employee_no;
+    </select>
+    <select id="getInsuranceData" resultType="whu.iss.insurancesys.entity.SettlementParamEntities.InsuranceTypeEntity">
+        select t2.insurance_cname,t1.period,t2.common_year,t1.premium,t2.main_or_vice,t1.policy_no,t1.unit from insurance_type as t1,insurance_type_info as t2
+where t1.insur_id=t2.insur_id;
+    </select>
+    <select id="getInsured" parameterType="java.lang.String" resultType="whu.iss.insurancesys.entity.SettlementParamEntities.Insured">
+     select t1.policy_holder_id,t2.name,t3.period,t1.pay_mode,t1.pay_way,t1.policy_type,t1.agent_type from life_insurance_policy as t1,client as t2,insurance_type as t3 where t1.policy_no=#{policy} and t1.policy_holder_id=t2.certf_id and t1.policy_no=t3.policy_no;
+    </select>
+    <select id="getClient" parameterType="java.lang.String" resultType="whu.iss.insurancesys.entity.SettlementParamEntities.Client">
+        select*from client where certf_id=#{certfId};
+    </select>
+    <select id="getAssoPolicy" parameterType="java.lang.String" resultType="whu.iss.insurancesys.entity.SettlementParamEntities.AssociatePolicy">
+        select t2.insurer_name,t1.policy_no,t3.name,t1.valid_date_since,t2.insurance_cname,t2.premium,t1.insured_id,t2.code,t4.common_year from
+life_insurance_policy as t1,insurance_type as t2,client as t3,insurance_type_info as t4
+where t1.policy_no=t2.policy_no and t1.policy_holder_id=t3.certf_id and t2.insur_id=t4.insur_id and t3.certf_id=#{certfId}
+    </select>
+    <select id="getRelationShip" parameterType="java.lang.String" resultType="whu.iss.insurancesys.entity.SettlementParamEntities.RelationShip">
+        select t2.name,t2.sex,t2.telephone,t2.certf_id,t1.relation,t2.birthday,timestampdiff(YEAR,t2.birthday,CURDATE()) as age from client_contact as t1,client as t2 where t1.clienta_id=#{certfId} and t1.clientb_id=t2.certf_id;
+    </select>
+</mapper>
