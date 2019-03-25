@@ -9,10 +9,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import whu.iss.insurancesys.dto.ResultInfo;
-import whu.iss.insurancesys.entity.PersonalPerformanceWaringObjectResult;
+import whu.iss.insurancesys.entity.PersonalPerformanceWarningEntities.PersonalPerformanceWaringObjectResult;
+import whu.iss.insurancesys.entity.PersonalPerformanceWarningEntities.PersonalPerformanceWarningQueryResult;
 import whu.iss.insurancesys.service.PersonalPerformanceWarningService;
 
 import javax.annotation.Resource;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -33,9 +36,9 @@ public class PersonalPerformanceWarning {
         ResultInfo resultInfo = new ResultInfo();
         List<PersonalPerformanceWaringObjectResult> data = personalPerformanceWarningService.getPeopleInfo(name, Long.parseLong(number), idCard, branchs);
         if (data != null) {
-            resultInfo.setResult(true);
             resultInfo.setData(data);
         }
+        resultInfo.setResult(true);
         String res = JSONObject.toJSONString(resultInfo);
         logger.debug("查询结果：{}", res);
         return res;
@@ -43,9 +46,16 @@ public class PersonalPerformanceWarning {
 
 
     @GetMapping("/performanceWarn")
-    private String performanceWarn(@RequestParam(value = "name") String name, @RequestParam(value = "number") String number, @RequestParam(value = "idCard") String idCard, @RequestParam(value = "baseMonth") String baseMonth, @RequestParam("project") String project, @RequestParam("category") String category, @RequestParam("objRank") String rank, @RequestParam("period") String period) {
+    private String performanceWarn(@RequestParam(value = "name") String name, @RequestParam(value = "number") String number, @RequestParam(value = "idCard") String idCard, @RequestParam(value = "baseMonth") String baseMonth, @RequestParam("project") String project, @RequestParam("category") String category, @RequestParam("objRank") String rank, @RequestParam("period") String period, @RequestParam("insuranceKind") String insuranceKind) {
         logger.debug("name:{}\nnumber:{}\nidCard:{}\nbaseMonth:{}\nproject:{}\ncategory:{}\nobjRank:{}\nperiod:{}\n", name, number, idCard, baseMonth, project, category, rank, period);
         ResultInfo resultInfo = new ResultInfo();
-        return null;
+        PersonalPerformanceWarningQueryResult result = personalPerformanceWarningService.query(Long.parseLong(number), insuranceKind, new Date(baseMonth), project, category, period);
+        if (result != null) {
+            resultInfo.setData(result);
+        }
+        resultInfo.setResult(true);
+        String res = JSONObject.toJSONString(resultInfo);
+        logger.debug("查询结果:{}", res);
+        return res;
     }
 }

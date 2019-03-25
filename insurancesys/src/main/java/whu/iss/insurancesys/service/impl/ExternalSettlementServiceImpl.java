@@ -3,8 +3,6 @@ package whu.iss.insurancesys.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import whu.iss.insurancesys.dao.SettlementParamDaos.SettlementDao;
-import whu.iss.insurancesys.entity.InsuranceType;
-import whu.iss.insurancesys.entity.InsuranceTypeParam;
 import whu.iss.insurancesys.entity.SettlementParamEntities.*;
 import whu.iss.insurancesys.service.ExternalSettlementService;
 import whu.iss.insurancesys.util.RickUtil;

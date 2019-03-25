@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="whu.iss.insurancesys.dao.PersonalPerformanceWaringDao">
-    <resultMap id="ResultMap1" type="whu.iss.insurancesys.entity.PersonalPerformanceWaringObjectResult">
+    <resultMap id="ResultMap1"
+               type="whu.iss.insurancesys.entity.PersonalPerformanceWarningEntities.PersonalPerformanceWaringObjectResult">
         <result column="Chinese_name" jdbcType="INTEGER" property="name"/>
         <result column="employee_no" jdbcType="CHAR" property="number"/>
         <result column="certificate_no" jdbcType="VARCHAR" property="idCard"/>
@@ -9,18 +10,19 @@
         <result column="current_rank" jdbcType="VARCHAR" property="rank"/>
         <result column="department" jdbcType="VARCHAR" property="dept"/>
     </resultMap>
-    <resultMap id="ResultMap2" type="whu.iss.insurancesys.entity.PersonalPerformanceWarningQueryResult">
+    <resultMap id="ResultMap2"
+               type="whu.iss.insurancesys.entity.PersonalPerformanceWarningEntities.PersonalPerformanceWarningQueryResult">
         <result column="Chinese_name" jdbcType="INTEGER" property="name"/>
         <result column="employee_no" jdbcType="CHAR" property="employeeNo"/>
         <result column="introducer_name" jdbcType="VARCHAR" property="introducerName"/>
         <result column="branch_name" jdbcType="VARCHAR" property="branch"/>
         <result column="current_rank" jdbcType="VARCHAR" property="rank"/>
         <result column="department" jdbcType="VARCHAR" property="department"/>
-        <result column="contract_starttime" jdbcType="DATETIME" property="contractStartTime"/>
+        <result column="contract_starttime" jdbcType="TIMESTAMP" property="contractStartTime"/>
         <result column="relationship_superior_name" jdbcType="VARCHAR" property="relationship"/>
     </resultMap>
 
-    <select id="findPersonInfo" resultMap="BaseResultMap1">
+    <select id="findPersonInfo" resultMap="ResultMap1">
         select chinese_name,employee_no,certificate_no,branch_name,current_rank,department
         from employee_basic_information,employee_unit_rank
         <where>
@@ -35,9 +37,135 @@
         </where>
     </select>
 
-    <select id="findOne" resultMap="BaseResultMap2">
+    <select id="findOne" resultMap="ResultMap2">
         select chinese_name,employee_no,introducer_name,branch_name,current_rank,department,contract_starttime,relationship_superior_name
         from employee_basic_information,employee_unit_rank
         where employee_basic_information.employee_no=employee_unit_rank.employ_no and employee_basic_information.employee_no=#{number};
     </select>
+
+    <sql id="Personal_LifeInsurance">
+        select premium,period
+        from life_insurance_policy lip,life_policy_contract lpc,insurance_type it
+        where lpc.policy_no=lip.policy_no and lip.insur_id=it.insur_id and lpc.employee_no=#{employeeNo} and
+        lip.valid_date_since
+        <![CDATA[ <= ]]> DATE_ADD(#{baseMonth},
+        <choose>
+            <when test='period=="月"'>
+                1 MONTHS
+            </when>
+            <when test='period=="季"'>
+                3 MONTHS
+            </when>
+            <when test='period=="半年"'>
+                6 MONTHS
+            </when>
+            <when test='period=="年"'>
+                1 YEARS
+            </when>
+            <when test='period=="自始"'>
+                0 SECONDS
+            </when>
+        </choose>
+        )
+    </sql>
+    <sql id="Team_LifeInsurance">
+        select premium,period
+        from team_record,life_policy_contract,life_insurance_policy,insurance_type
+        where team_record.member_id=#{employeeNo} and life_policy_contract.team_no=team_record.team_id and
+        life_insurance_policy.policy_no=life_policy_contract.policy_no and insurance_type.insur_id=
+        life_insurance_policy.insur_id and life_insurance_policy.valid_date_since
+        <![CDATA[ <= ]]> DATE_ADD(#{baseMonth},
+        <choose>
+            <when test='period=="月"'>
+                1 MONTHS
+            </when>
+            <when test='period=="季"'>
+                3 MONTHS
+            </when>
+            <when test='period=="半年"'>
+                6 MONTHS
+            </when>
+            <when test='period=="年"'>
+                1 YEARS
+            </when>
+            <when test='period=="自始"'>
+                0 SECONDS
+            </when>
+        </choose>
+        )
+    </sql>
+
+    <sql id="Personal_CarInsurance">
+        select premium,commission_rate_in,commission_rate_out
+        from car_insurance_policy cip,car_insur_policy_mid cipm,car_policy_contract cpc,car_insurance_type cit
+        where cipm.policy_no=cip.policy_no and cipm.car_insur_id=cit.car_insur_id and cpc.employee_no=#{employeeNo}
+        and cip.pay_date_car
+        <![CDATA[ <= ]]> DATE_ADD(#{baseMonth},
+        <choose>
+            <when test='period=="月"'>
+                1 MONTHS
+            </when>
+            <when test='period=="季"'>
+                3 MONTHS
+            </when>
+            <when test='period=="半年"'>
+                6 MONTHS
+            </when>
+            <when test='period=="年"'>
+                1 YEARS
+            </when>
+            <when test='period=="自始"'>
+                0 SECONDS
+            </when>
+        </choose>
+        )
+    </sql>
+    <sql id="Team_CarInsurance">
+        select premium,commission_rate_in,commission_rate_out
+        from car_insurance_policy cip,car_insur_policy_mid cipm,car_policy_contract cpc,car_insurance_type
+        cit,team_record
+        where cipm.policy_no=cip.policy_no and cipm.car_insur_id=cit.car_insur_id and
+        team_record.member_id=#{employeeNo}
+        and team_record.team_id=cpc.team_no and cip.pay_date_car
+        <![CDATA[ <= ]]> DATE_ADD(#{baseMonth},
+        <choose>
+            <when test='period=="月"'>
+                1 MONTHS
+            </when>
+            <when test='period=="季"'>
+                3 MONTHS
+            </when>
+            <when test='period=="半年"'>
+                6 MONTHS
+            </when>
+            <when test='period=="年"'>
+                1 YEARS
+            </when>
+            <when test='period=="自始"'>
+                0 SECONDS
+            </when>
+        </choose>
+        )
+    </sql>
+
+    <select id="getLifeInsuranceFycBasicData"
+            resultType="whu.iss.insurancesys.entity.PersonalPerformanceWarningEntities.LifeInsuranceFyc">
+        <if test='category=="个人"'>
+            <include refid="Personal_LifeInsurance"/>
+        </if>
+        <if test='category=="团队"'>
+            <include refid="Team_LifeInsurance"/>
+        </if>
+    </select>
+
+    <select id="getCarInsuranceFycBasicData"
+            resultType="whu.iss.insurancesys.entity.PersonalPerformanceWarningEntities.CarInsuranceFyc">
+        <if test='category=="个人"'>
+            <include refid="Personal_CarInsurance"/>
+        </if>
+        <if test='category=="团队"'>
+            <include refid="Team_CarInsurance"/>
+        </if>
+    </select>
+
 </mapper>

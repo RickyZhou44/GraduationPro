@@ -1,10 +1,10 @@
 package whu.iss.insurancesys.service;
 
 
-import org.apache.ibatis.annotations.Param;
-import whu.iss.insurancesys.entity.PersonalPerformanceWaringObjectResult;
-import whu.iss.insurancesys.entity.PersonalPerformanceWarningQueryResult;
+import whu.iss.insurancesys.entity.PersonalPerformanceWarningEntities.PersonalPerformanceWaringObjectResult;
+import whu.iss.insurancesys.entity.PersonalPerformanceWarningEntities.PersonalPerformanceWarningQueryResult;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -21,5 +21,14 @@ public interface PersonalPerformanceWarningService {
      */
     List<PersonalPerformanceWaringObjectResult> getPeopleInfo(String name, long number, String idCard, String[] branchs);
 
-    PersonalPerformanceWarningQueryResult query(long number, String baseMonth, String project, String category, String period);
+    /**
+     * @param number
+     * @param insuranceKind
+     * @param baseMonth
+     * @param project
+     * @param category
+     * @param period
+     * @return 前端需要的结果字段
+     */
+    PersonalPerformanceWarningQueryResult query(long number, String insuranceKind, Date baseMonth, String project, String category, String period);
 }
