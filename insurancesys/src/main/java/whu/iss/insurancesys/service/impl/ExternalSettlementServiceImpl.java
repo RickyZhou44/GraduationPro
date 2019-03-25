@@ -132,6 +132,7 @@ public class ExternalSettlementServiceImpl implements ExternalSettlementService 
         return settlementEditDate;
     }
 //获得用户编辑的数据接口
+    //asdasd
     @Override
     public ClientEditData getClientInfo(String certdId) {
         ClientEditData clientEditData=new ClientEditData();
