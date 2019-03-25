@@ -1,9 +1,6 @@
 package whu.iss.insurancesys.service;
 
-import whu.iss.insurancesys.entity.SettlementParamEntities.ClientEditData;
-import whu.iss.insurancesys.entity.SettlementParamEntities.ExternSettlementParam;
-import whu.iss.insurancesys.entity.SettlementParamEntities.ExternalSettleData;
-import whu.iss.insurancesys.entity.SettlementParamEntities.SettlementEditDate;
+import whu.iss.insurancesys.entity.SettlementParamEntities.*;
 
 import java.util.Date;
 import java.util.List;
@@ -16,4 +13,10 @@ public interface ExternalSettlementService {
     public ExternalSettleData getExternalSData(Date date,String checkIf);
     public SettlementEditDate getSettlementEditData(ExternSettlementParam externSettlementParam);
     public ClientEditData getClientInfo(String certdId);
+    //移除相关relationship
+    public boolean  removeRelationById(String aid,String bid);
+    public List<ClientByName>getByName(String name);
+    public ClientByName getById(String id);
+    public void addRelation(String aid,String bid,String relation);
+    public void addCertfContent(String content,String type,Date start,Date end,String other,String attachment,String id);
 }

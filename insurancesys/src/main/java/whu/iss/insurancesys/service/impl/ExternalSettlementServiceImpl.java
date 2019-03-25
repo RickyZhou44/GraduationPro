@@ -149,6 +149,34 @@ public class ExternalSettlementServiceImpl implements ExternalSettlementService 
         return clientEditData;
     }
 
+    @Override
+    public boolean removeRelationById(String aid, String bid) {
+        settlementDao.removeRlation(aid,bid);
+        return true;
+    }
+
+    @Override
+    public List<ClientByName> getByName(String name) {
+        List<ClientByName>list=settlementDao.getClientsByName(name);
+        return list;
+    }
+
+    @Override
+    public ClientByName getById(String id) {
+        ClientByName clientByName=settlementDao.getClientsById(id);
+        return clientByName;
+    }
+
+    @Override
+    public void addRelation(String aid, String bid, String relation) {
+        settlementDao.insertRelation(aid,bid,relation);
+    }
+
+    @Override
+    public void addCertfContent(String content, String type, Date start, Date end, String other, String attachment, String id) {
+        settlementDao.insertCertfRe(content,type,start,end,other,attachment,id);
+    }
+
     //获得指定保单的主约附约明细
     private List<InsuranceParam>getMainAndVice(List<InsuranceTypeEntity>insuranceTypeEntities,String policy_no){
         List<InsuranceParam>list=new ArrayList<>();
