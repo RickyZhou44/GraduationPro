@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="whu.iss.insurancesys.dao.Customer.CustomerDao">
+    <resultMap id="CustomerResult" type="whu.iss.insurancesys.entity.customer.Customer">
+        <association property="baseInfo" resultMap="BaseResult"></association>
+        <association property="unitInfo" resultMap="UnitInfo"></association>
+    </resultMap>
+    <resultMap id="BaseResult" type="whu.iss.insurancesys.entity.customer.CustomerBaseInfo">
+        <result column="name" jdbcType="VARCHAR" property="name"></result>
+        <result column="law_identity" property="identity"></result>
+        <result column="type" property="type"></result>
+        <result column="nation" property="nation"></result>
+        <result column="certf_type" property="certfType"></result>
+        <result column="certf_id" property="certfId"></result>
+        <result column="birthday" property="birthday"></result>
+        <result column="sex" property="sex"></result>
+        <result column="married" property="married"></result>
+        <result column="telephone" property="telephone"></result>
+        <result column="phone" property="phone"></result>
+        <result column="email" property="email"></result>
+        <result column="backup" property="backup"></result>
+        <result column="home_address" property="homeAddress"></result>
+        <result column="home_code" property="homeCode"></result>
+        <result column="other" property="other"></result>
+        <result column="first_contact_way" property="firstContactWay"></result>
+    </resultMap>
+    <resultMap id="UnitInfo" type="whu.iss.insurancesys.entity.customer.CustomerUnitInfo">
+        <result column="com_name" jdbcType="VARCHAR" property="comName"></result>
+        <result column="com_phone" property="comPhone"></result>
+        <result column="fax_no" property="faxNo"></result>
+        <result column="com_representative" property="representative"></result>
+        <result column="com_tax_no" property="taxNo"></result>
+        <result column="com_address" property="comAddress"></result>
+        <result column="job_name" property="jobName"></result>
+        <result column="job_content" property="jobContent"></result>
+        <result column="job_type" property="jobType"></result>
+        <result column="income" property="income"></result>
+    </resultMap>
+    <insert id="addCustomer" parameterType="whu.iss.insurancesys.entity.customer.Customer">
+        insert into client(name, law_identity, type, nation, certf_type, certf_id, birthday, sex, married, telephone, email,
+        backup, home_address, home_code, other, first_contact_way, com_name, com_phone, fax_no, com_representative, com_tax_no, com_address,
+        job_name, job_content, job_type, income)
+        values
+        (#{baseInfo.name}, #{baseInfo.identityEnum}, #{baseInfo.typeEnum}, #{baseInfo.nationEnum}, #{baseInfo.certfTypeEnum}, #{baseInfo.certfId},
+        #{baseInfo.birthday}, #{baseInfo.sexEnum}, #{baseInfo.marriedEnum}, #{baseInfo.telephone}, #{baseInfo.email}, #{baseInfo.backup},
+        #{baseInfo.homeAddress}, #{baseInfo.homeCode}, #{baseInfo.other}, #{baseInfo.firstContactWayEnum}, #{unitInfo.comName}, #{unitInfo.comPhone},
+        #{unitInfo.faxNo}, #{unitInfo.representative}, #{unitInfo.taxNo}, #{unitInfo.comAddress}, #{unitInfo.jobName}, #{unitInfo.jobContent},
+        #{unitInfo.jobType}, #{unitInfo.income})
+    </insert>
+
+    <select id="getCustomerList" resultType="map">
+        select
+          name as clientName, certf_id as idCard, sex, home_address as address, telephone as tel, email, birthday, type as clientType
+        from client
+        <where>
+            <if test='name != null and name != ""'>and name like CONCAT('%', #{name} ,'%')</if>
+            <if test='certf_id != null and certf_id != ""' >and certf_id = #{certf_id}</if>
+            <if test='home_address != null and home_address != ""'>and home_address like CONCAT('%', #{home_address} ,'%')</if>
+            <if test='telephone != null and telephone != ""'>and telephone = #{telephone}</if>
+            <if test='email != null and email !=""'>and email = #{email}</if>
+        </where>
+    </select>
+
+    <select id="getCustomerById" resultMap="CustomerResult">
+        select name, law_identity, type, nation, certf_type, certf_id, birthday, sex, married, telephone, email,
+        backup, home_address, home_code, other, first_contact_way, com_name, com_phone, fax_no, com_representative, com_tax_no, com_address,
+        job_name, job_content, job_type, income
+        from client
+        <where>
+            and certf_id = #{certf_id}
+        </where>
+    </select>
+</mapper>
