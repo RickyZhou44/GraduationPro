@@ -12,7 +12,7 @@ where t1.insur_id=t2.insur_id;
     <select id="getInsured" parameterType="java.lang.String" resultType="whu.iss.insurancesys.entity.SettlementParamEntities.Insured">
      select t1.policy_holder_id,t2.name,t3.period,t1.pay_mode,t1.pay_way,t1.policy_type,t1.agent_type from life_insurance_policy as t1,client as t2,insurance_type as t3 where t1.policy_no=#{policy} and t1.policy_holder_id=t2.certf_id and t1.policy_no=t3.policy_no;
     </select>
-    <select id="getClient" parameterType="java.lang.String" resultType="whu.iss.insurancesys.entity.SettlementParamEntities.Client">
+    <select id="getClient" parameterType="java.lang.String" resultType="whu.iss.insurancesys.entity.SettlementParamEntities.ClientInfo">
         select*from client where certf_id=#{certfId};
     </select>
     <select id="getAssoPolicy" parameterType="java.lang.String" resultType="whu.iss.insurancesys.entity.SettlementParamEntities.AssociatePolicy">
