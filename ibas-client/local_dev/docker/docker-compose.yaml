@@ -1,0 +1,12 @@
+version: '2'
+services:
+  nginx:
+    build:
+      context: ../../
+      dockerfile: ./local_dev/docker/frontend.dockerfile
+    image: nginx:latest
+    ports:
+      - "10086:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+    container_name: "insurance_frontend"

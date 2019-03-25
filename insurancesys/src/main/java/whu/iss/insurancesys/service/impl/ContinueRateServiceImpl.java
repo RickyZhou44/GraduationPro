@@ -22,7 +22,7 @@ public class ContinueRateServiceImpl implements ContinueRateService {
     private PreReceivableDao preReceivableDao;
     private Date date;
     private Date current;
-//    param表示查询类型为R13，R25，R37
+    //    param表示查询类型为R13，R25，R37
 //    type表示查询的纬度1-个人 2-单位
     @Override
     public ResultInfo getResult(Date current,int param,int type) {
@@ -39,16 +39,16 @@ public class ContinueRateServiceImpl implements ContinueRateService {
         //如果date返回为null，则数据处理失败，返回resultInfo并将result置于false
         if(date==null){
             resultInfo.setResult(false);
-           return resultInfo;
+            return resultInfo;
         }
         else {
             //个人纬度的查询
             if(type==1){
-               listPerson=perDivission(paidPremiumParams,preReceivableParams,payRecoredParams);
-               resultInfo.setResult(true);
-               resultInfo.setData(listPerson);
-               resultInfo.setReason("person");
-               return resultInfo;
+                listPerson=perDivission(paidPremiumParams,preReceivableParams,payRecoredParams);
+                resultInfo.setResult(true);
+                resultInfo.setData(listPerson);
+                resultInfo.setReason("person");
+                return resultInfo;
             }
             //单位纬度查询
             else if(type==2){
@@ -64,7 +64,7 @@ public class ContinueRateServiceImpl implements ContinueRateService {
             }
         }
     }
-//   此方法用于计算指定月之前param月的具体日期
+    //   此方法用于计算指定月之前param月的具体日期
     private Date valuateDate(Date current,int param){
         SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM");
         String currentDate=simpleDateFormat.format(current);
@@ -166,7 +166,7 @@ public class ContinueRateServiceImpl implements ContinueRateService {
         return list;
     }
 
-        //此方法用于生成分支纬度的数据
+    //此方法用于生成分支纬度的数据
     private List<ContinueRateBranchParam> unitDiv(List<PaidPremiumParam> paidPremiumParams,List<PreReceivableParam> preReceivableParams,List<PayRecoredParam>payRecoredParams){
         List<String>branchName=preReceivableDao.branchName();
         List<ContinueRateBranchParam>list=new ArrayList<>();

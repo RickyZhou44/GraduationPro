@@ -18,7 +18,7 @@
     <select id="branchName" resultType="java.lang.String">
         select cname from branch_info;
     </select>
-    <select id="getDetailByPolicyNo" resultType="whu.iss.insurancesys.entity.SettlementParamEntities.PolicyDetail">
+    <select id="getDetailByPolicyNo" parameterType="java.lang.String" resultType="whu.iss.insurancesys.entity.SettlementParamEntities.PolicyDetail">
         select lip.policy_no, lip.policy_type, lip.valid_date_since, c.name, it.account, it.period, lip.cash_date, lip.pay_date
         from life_insurance_policy lip
           left join insurance_type it on lip.policy_no = it.policy_no

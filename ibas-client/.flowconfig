@@ -1,0 +1,20 @@
+[ignore]
+.*/node_modules/.*
+.*/dist/.*
+.*/public/.*
+.*/server/.*
+
+[include]
+
+[libs]
+./flow
+
+[lints]
+
+[options]
+all = true
+module.file_ext=.vue
+module.name_mapper='^@/\(.*\)$' -> '<PROJECT_ROOT>/src/\1'
+module.name_mapper='^js-cookie/\(.*\)$' -> '<PROJECT_ROOT>/node_modules/js-cookie/\1'
+
+[strict]

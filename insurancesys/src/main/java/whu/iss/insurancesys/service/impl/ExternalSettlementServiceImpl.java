@@ -135,7 +135,7 @@ public class ExternalSettlementServiceImpl implements ExternalSettlementService 
     @Override
     public ClientEditData getClientInfo(String certdId) {
         ClientEditData clientEditData=new ClientEditData();
-        Client client=settlementDao.getClient(certdId);
+        ClientInfo client=settlementDao.getClient(certdId);
         List<AssociatePolicy>associatePolicies=settlementDao.getAssoPolicy(certdId);
         List<RelationShip>relationShips=settlementDao.getRelationShip(certdId);
         //这里给客户信息和单位信息封装赋值
@@ -171,7 +171,7 @@ public class ExternalSettlementServiceImpl implements ExternalSettlementService 
         return list;
     }
     //对insuredBasicInfo进行赋值
-    private InsuredBasicInfo assignmentInsuredBasicInfo(Client client){
+    private InsuredBasicInfo assignmentInsuredBasicInfo(ClientInfo client){
         InsuredBasicInfo insuredBasicInfo=new InsuredBasicInfo();
         insuredBasicInfo.setName(client.getName());
         insuredBasicInfo.setLawIdentity(client.getLaw_identity());
@@ -195,7 +195,7 @@ public class ExternalSettlementServiceImpl implements ExternalSettlementService 
         return insuredBasicInfo;
     }
     //对unitInfo进行赋值
-    private UnitInfo assignmentUnitInfo(Client client){
+    private UnitInfo assignmentUnitInfo(ClientInfo client){
         UnitInfo unitInfo=new UnitInfo();
         unitInfo.setCompanyName(client.getCom_name());
         unitInfo.setPhoneNum(client.getCom_phone());
@@ -206,7 +206,7 @@ public class ExternalSettlementServiceImpl implements ExternalSettlementService 
         unitInfo.setRankName(client.getJob_name());
         unitInfo.setPhone(client.getCom_phone());
         unitInfo.setRankContent(client.getJob_content());
-        unitInfo.setJobType(client.getJob_type());
+        unitInfo.setJobType(RickUtil.removeEsc(client.getJob_type()));
         unitInfo.setIncome(client.getIncome());
         return unitInfo;
     }
