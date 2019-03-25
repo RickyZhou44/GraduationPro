@@ -14,7 +14,7 @@ public interface SettlementDao {
     public List<ExternalSettleEntity>getExternalData();
     public List<InsuranceTypeEntity>getInsuranceData();
     public Insured getInsured(String policy);
-    public Client getClient(String certfId);
+    public ClientInfo getClient(String certfId);
     public List<AssociatePolicy>getAssoPolicy(String certfId);
     public List<RelationShip>getRelationShip(String certfId);
 }
