@@ -4,7 +4,7 @@ server:
 spring:
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
-    url: jdbc:mysql://47.105.133.112:3306/insurance_system?useSSL=false&serverTimezone=Asia/Shanghai
+    url: jdbc:mysql://47.105.133.112:3306/insurance_system?useSSL=false&serverTimezone=Asia/Shanghai&characterEncoding=utf-8
     username: root
     password: insurance1234
     driver-class-name: com.mysql.cj.jdbc.Driver

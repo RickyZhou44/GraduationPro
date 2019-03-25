@@ -4,6 +4,7 @@ package whu.iss.insurancesys.service;
 import whu.iss.insurancesys.entity.PersonalPerformanceWarningEntities.PersonalPerformanceWaringObjectResult;
 import whu.iss.insurancesys.entity.PersonalPerformanceWarningEntities.PersonalPerformanceWarningQueryResult;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -20,5 +21,5 @@ public interface PersonalPerformanceWarningService {
      */
     List<PersonalPerformanceWaringObjectResult> getPeopleInfo(String name, long number, String idCard, String[] branchs);
 
-    PersonalPerformanceWarningQueryResult query(long number, String baseMonth, String project, String category, String period);
+    PersonalPerformanceWarningQueryResult query(long number, String insuranceKind, Date baseMonth, String project, String category, String period);
 }

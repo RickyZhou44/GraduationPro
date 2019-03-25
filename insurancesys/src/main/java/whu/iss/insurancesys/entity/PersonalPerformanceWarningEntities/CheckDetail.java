@@ -6,6 +6,17 @@ public class CheckDetail {
     private String period;
     private double value;
 
+    public CheckDetail() {
+
+    }
+
+    public CheckDetail(String project, String category, String period, double value) {
+        this.period = period;
+        this.project = project;
+        this.category = category;
+        this.value = value;
+    }
+
     public String getProject() {
         return project;
     }

@@ -1,6 +1,7 @@
 package whu.iss.insurancesys.entity.PersonalPerformanceWarningEntities;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * 个人绩效预警查核结果返回
@@ -15,8 +16,8 @@ public class PersonalPerformanceWarningQueryResult {
     private Date rankValid;
     private String introducerName;
     private String relationship;
-    private CarInsuranceCheckDetail carInsuranceCheckDetail;
-    private LifeInsuranceCheckDetail lifeInsuranceCheckDetail;
+    private List<CarInsuranceCheckDetail> carInsuranceCheckDetails;
+    private List<LifeInsuranceCheckDetail> lifeInsuranceCheckDetails;
 
     public String getName() {
         return name;
@@ -90,4 +91,19 @@ public class PersonalPerformanceWarningQueryResult {
         this.relationship = relationship;
     }
 
+    public List<CarInsuranceCheckDetail> getCarInsuranceCheckDetails() {
+        return carInsuranceCheckDetails;
+    }
+
+    public void setCarInsuranceCheckDetails(List<CarInsuranceCheckDetail> carInsuranceCheckDetails) {
+        this.carInsuranceCheckDetails = carInsuranceCheckDetails;
+    }
+
+    public List<LifeInsuranceCheckDetail> getLifeInsuranceCheckDetails() {
+        return lifeInsuranceCheckDetails;
+    }
+
+    public void setLifeInsuranceCheckDetails(List<LifeInsuranceCheckDetail> lifeInsuranceCheckDetails) {
+        this.lifeInsuranceCheckDetails = lifeInsuranceCheckDetails;
+    }
 }
