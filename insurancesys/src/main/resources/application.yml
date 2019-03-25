@@ -8,30 +8,29 @@ spring:
     username: root
     password: insurance1234
     driver-class-name: com.mysql.cj.jdbc.Driver
-    initialSize: 20 #��ʼ��ʱ�������������Ӹ���
-    maxActive: 100 #�����������
-    minIdle: 10 #��С��������
-    maxWait: 60000 #��ȡ����ʱ�����ȴ�ʱ�䣨���룩
-    poolPreparedStatements: true  #����PSCache
+    initialSize: 20
+    maxActive: 100
+    minIdle: 10
+    maxWait: 60000
+    poolPreparedStatements: true
     maxPoolPreparedStatementPerConnectionSize: 50
-    validationQuery: SELECT 1 #��������Ƿ���Ч
-    testOnBorrow: false #��������ʱִ��validationQuery�������ûή������
-    testOnReturn: false #�黹����ʱִ��validationQuery�������ûή������
-    testWhileIdle: true #��������ʱ���������ʱ�����timeBetweenEvictionRunsMillis����ִ��validationQuery
-    timeBetweenEvictionRunsMillis: 600000 #���ӿ���ʱ�䳬����ֵʱ�����룩���򱻻���
-    minEvictableIdleTimeMillis: 300000  #���������ӳ��е���С����ʱ�䣨���룩
+    validationQuery: SELECT 1
+    testOnBorrow: false
+    testOnReturn: false
+    testWhileIdle: true
+    timeBetweenEvictionRunsMillis: 600000
+    minEvictableIdleTimeMillis: 300000
     filters: stat,log4j,wall
-#    引入thymeleaf模板
   thymeleaf:
     check-template: true
     prefix: classpath:/templates/
     mode: HTML5
     suffix: .html
 
-
-
-
-
 mybatis:
   mapper-locations: classpath:mappers/*.xml
   type-aliases-package: whu.iss.insurancesys.entity
+
+logging:
+  level:
+    whu.iss.insurancesys: debug
