@@ -16,7 +16,7 @@
         <result column="branch_name" jdbcType="VARCHAR" property="branch"/>
         <result column="current_rank" jdbcType="VARCHAR" property="rank"/>
         <result column="department" jdbcType="VARCHAR" property="department"/>
-        <result column="contract_starttime" jdbcType="DATETIME" property="contractStartTime"/>
+        <result column="contract_starttime" jdbcType="TIMESTAMP" property="contractStartTime"/>
         <result column="relationship_superior_name" jdbcType="VARCHAR" property="relationship"/>
     </resultMap>
 
