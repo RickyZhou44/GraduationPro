@@ -21,5 +21,5 @@ public interface PreReceivableDao {
     public List<String>employeeNo();
     public List<String>branchName();
     public List<PayRecoredParam>getPayRecored();
-    PolicyDetail getDetailByPolicyNo(@Param("policyNo")String policyNo);
+    public PolicyDetail getDetailByPolicyNo(@Param("policyNo")String policyNo);
 }
