@@ -2,8 +2,8 @@ package whu.iss.insurancesys.service.impl;
 
 import org.springframework.stereotype.Service;
 import whu.iss.insurancesys.dao.PersonalPerformanceWaringDao;
-import whu.iss.insurancesys.entity.PersonalPerformanceWaringObjectResult;
-import whu.iss.insurancesys.entity.PersonalPerformanceWarningQueryResult;
+import whu.iss.insurancesys.entity.PersonalPerformanceWarningEntities.PersonalPerformanceWaringObjectResult;
+import whu.iss.insurancesys.entity.PersonalPerformanceWarningEntities.PersonalPerformanceWarningQueryResult;
 import whu.iss.insurancesys.service.PersonalPerformanceWarningService;
 
 import javax.annotation.Resource;

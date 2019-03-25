@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="whu.iss.insurancesys.dao.PersonalPerformanceWaringDao">
-    <resultMap id="ResultMap1" type="whu.iss.insurancesys.entity.PersonalPerformanceWaringObjectResult">
+    <resultMap id="ResultMap1"
+               type="whu.iss.insurancesys.entity.PersonalPerformanceWarningEntities.PersonalPerformanceWaringObjectResult">
         <result column="Chinese_name" jdbcType="INTEGER" property="name"/>
         <result column="employee_no" jdbcType="CHAR" property="number"/>
         <result column="certificate_no" jdbcType="VARCHAR" property="idCard"/>
@@ -9,7 +10,8 @@
         <result column="current_rank" jdbcType="VARCHAR" property="rank"/>
         <result column="department" jdbcType="VARCHAR" property="dept"/>
     </resultMap>
-    <resultMap id="ResultMap2" type="whu.iss.insurancesys.entity.PersonalPerformanceWarningQueryResult">
+    <resultMap id="ResultMap2"
+               type="whu.iss.insurancesys.entity.PersonalPerformanceWarningEntities.PersonalPerformanceWarningQueryResult">
         <result column="Chinese_name" jdbcType="INTEGER" property="name"/>
         <result column="employee_no" jdbcType="CHAR" property="employeeNo"/>
         <result column="introducer_name" jdbcType="VARCHAR" property="introducerName"/>

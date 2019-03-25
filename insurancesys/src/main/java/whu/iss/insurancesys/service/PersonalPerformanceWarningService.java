@@ -1,9 +1,8 @@
 package whu.iss.insurancesys.service;
 
 
-import org.apache.ibatis.annotations.Param;
-import whu.iss.insurancesys.entity.PersonalPerformanceWaringObjectResult;
-import whu.iss.insurancesys.entity.PersonalPerformanceWarningQueryResult;
+import whu.iss.insurancesys.entity.PersonalPerformanceWarningEntities.PersonalPerformanceWaringObjectResult;
+import whu.iss.insurancesys.entity.PersonalPerformanceWarningEntities.PersonalPerformanceWarningQueryResult;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package whu.iss.insurancesys.entity;
+package whu.iss.insurancesys.entity.PersonalPerformanceWarningEntities;
 
 /**
  * 个人绩效预警对话框返回结果类

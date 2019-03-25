@@ -1,4 +1,4 @@
-package whu.iss.insurancesys.entity;
+package whu.iss.insurancesys.entity.PersonalPerformanceWarningEntities;
 
 public class CheckDetail {
     private String project;

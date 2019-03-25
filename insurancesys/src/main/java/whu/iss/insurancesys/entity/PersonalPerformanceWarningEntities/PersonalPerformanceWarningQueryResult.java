@@ -1,4 +1,4 @@
-package whu.iss.insurancesys.entity;
+package whu.iss.insurancesys.entity.PersonalPerformanceWarningEntities;
 
 import java.util.Date;
 

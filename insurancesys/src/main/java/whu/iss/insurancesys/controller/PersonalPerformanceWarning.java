@@ -1,7 +1,6 @@
 package whu.iss.insurancesys.controller;
 
 import com.alibaba.fastjson.JSONObject;
-import org.apache.ibatis.annotations.Param;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import whu.iss.insurancesys.dto.ResultInfo;
-import whu.iss.insurancesys.entity.PersonalPerformanceWaringObjectResult;
+import whu.iss.insurancesys.entity.PersonalPerformanceWarningEntities.PersonalPerformanceWaringObjectResult;
 import whu.iss.insurancesys.service.PersonalPerformanceWarningService;
 
 import javax.annotation.Resource;
