@@ -1,0 +1,75 @@
+//globl transition css
+
+/*fade*/
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.28s;
+}
+
+.fade-enter,
+.fade-leave-active {
+  opacity: 0;
+}
+
+/*fade-transform*/
+.fade-transform-leave-active,
+.fade-transform-enter-active {
+  transition: all .5s;
+}
+.fade-transform-enter {
+  opacity: 0;
+  transform: translateX(-30px);
+}
+.fade-transform-leave-to {
+  opacity: 0;
+  transform: translateX(30px);
+}
+
+/* fade-reverse-transform */
+.fade-reverse-transform-leave-active,
+.fade-reverse-transform-enter-active {
+  transition: all .5s;
+}
+.fade-reverse-transform-enter {
+  opacity: 0;
+  transform: translateX(30px);
+}
+.fade-reverse-transform-leave-to {
+  opacity: 0;
+  transform: translateX(-30px);
+}
+
+/*breadcrumb transition*/
+.breadcrumb-enter-active,
+.breadcrumb-leave-active {
+  transition: all .5s;
+}
+
+.breadcrumb-enter,
+.breadcrumb-leave-active {
+  opacity: 0;
+  transform: translateX(20px);
+}
+
+.breadcrumb-move {
+  transition: all .5s;
+}
+
+.breadcrumb-leave-active {
+  position: absolute;
+}
+
+/*list-complete*/
+.list-complete-enter, .list-complete-leave-to
+  /* .list-complete-leave-active for below version 2.1.8 */ {
+  opacity: 0;
+  transform: translateY(20px);
+}
+.list-complete-leave-active {
+  position: absolute;
+}
+
+/*animate*/
+.delay-half-1s {
+  animation-delay: .5s;
+}

@@ -1,0 +1,22 @@
+export const personnelOrganization = {
+  root: 'root choose',
+  type: '',
+  showLeave: 'show people left',
+  checkPoint: 'check point date',
+  level: 'show level',
+  fields: 'choose fields to show',
+  name: 'name',
+  number: 'number',
+  dept: 'dept',
+  rankName: 'rank name',
+  rankCode: 'rank code',
+  joinDate: 'join date',
+  rankState: 'Current employment status',
+  search: 'search',
+  preview: 'preview',
+  print: 'print',
+  dialogTitle1: 'Select the organization node to display:\nIt can be branch/dept/people as the root node',
+  branch: 'branch',
+  people: 'people',
+  searchPeople: 'search...'
+}

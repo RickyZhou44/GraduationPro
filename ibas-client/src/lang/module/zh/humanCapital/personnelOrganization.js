@@ -1,0 +1,22 @@
+export const personnelOrganization = {
+  root: '根节点选择',
+  type: '上下级类型选择',
+  showLeave: '显示离职人员',
+  checkPoint: '检查日期点',
+  level: '显示层数',
+  fields: '显示字段选择',
+  name: '姓名',
+  number: '编号',
+  dept: '部门',
+  rankName: '职务名称',
+  rankCode: '职务代码',
+  joinDate: '入司日期',
+  rankState: '当前的在职状态',
+  search: '查询',
+  preview: '打印预览',
+  print: '打印',
+  dialogTitle1: '选择要显示的组织节点:\n可以是\t分支机构/部门/人员作为根节点显示开始点',
+  branch: '分支机构',
+  people: '人员',
+  searchPeople: '查找...'
+}

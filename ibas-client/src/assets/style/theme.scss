@@ -1,0 +1,70 @@
+// theme
+
+/* 改变 icon 字体路径变量，必需 */
+$--font-path: '~element-ui/lib/theme-chalk/fonts';
+
+$--border-radius-base: 0;
+$--border-radius-small: 0;
+$--card-border-radius:0;
+
+@import "~element-ui/packages/theme-chalk/src/index";
+
+.filter-popper {
+  min-width: 100px;
+  padding: 0;
+}
+
+.container {
+  padding: 15px;
+  overflow: hidden;
+
+  .search-bar {
+    position: relative;
+  }
+}
+.popover-button {
+  background: transparent;
+  border: none;
+  color: #606266;
+  cursor: pointer;
+  font-size: 13px;
+  padding: 0 3px;
+
+  &:hover{
+    color: $--color-primary;
+  }
+}
+
+.input-tag {
+  transition: all .8s ;
+  display: inline-block;
+
+  &+.input-tag {
+    margin-left: 10px;
+  }
+
+  .el-button {
+    max-width: 120px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  .el-input {
+    min-width: 100px;
+    max-width: 150px;
+  }
+}
+
+.icon-button-primary {
+  color: #409EFF;
+}
+.icon-button-danger {
+  color: #F56C6C;
+}
+.icon-button-disable {
+  color: #DCDFE6
+}
+.icon-button-success {
+  color: #67C23A
+}
