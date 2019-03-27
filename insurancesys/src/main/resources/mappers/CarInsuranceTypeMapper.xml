@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="whu.iss.insurancesys.dao.FeeRateDaos.CarInsuranceTypeDao">
+    <resultMap id="BaseResultMap" type="whu.iss.insurancesys.entity.FeeRateEntities.CarInsuranceType">
+        <result column="car_insur_id" jdbcType="INTEGER" property="carInsurId"/>
+        <result column="insur_company_name" jdbcType="VARCHAR" property="insurCompanyName"/>
+        <result column="insur_type_name" jdbcType="CHAR" property="insurTypeName"/>
+        <result column="insur_amount" jdbcType="DOUBLE" property="insurAmount"/>
+        <result column="premium" jdbcType="DOUBLE" property="premium"/>
+        <result column="insur_starttime" jdbcType="TIMESTAMP" property="insurStarttime"/>
+        <result column="insur_endtime" jdbcType="TIMESTAMP" property="insurEndtime"/>
+        <result column="commission_rate_in" jdbcType="INTEGER" property="commissionRateIn"/>
+        <result column="commission_rate_out" jdbcType="INTEGER" property="commissionRateOut"/>
+        <result column="vehicle_type" jdbcType="VARCHAR" property="vehicleType"/>
+    </resultMap>
+    <resultMap id="CarInsuranceTypePlus" type="whu.iss.insurancesys.entity.FeeRateEntities.CarInsuranceTypePlus">
+        <result column="car_insur_id" jdbcType="INTEGER" property="carInsurId"/>
+        <result column="insur_company_name" jdbcType="VARCHAR" property="insurCompanyName"/>
+        <result column="insur_type_name" jdbcType="CHAR" property="insurTypeName"/>
+        <result column="insur_amount" jdbcType="DOUBLE" property="insurAmount"/>
+        <result column="premium" jdbcType="DOUBLE" property="premium"/>
+        <result column="insur_starttime" jdbcType="TIMESTAMP" property="insurStarttime"/>
+        <result column="insur_endtime" jdbcType="TIMESTAMP" property="insurEndtime"/>
+        <result column="commission_rate_in" jdbcType="INTEGER" property="commissionRateIn"/>
+        <result column="commission_rate_out" jdbcType="INTEGER" property="commissionRateOut"/>
+        <result column="cname" jdbcType="VARCHAR" property="branchName"/>
+        <result column="vehicle_type" jdbcType="VARCHAR" property="vehicleType"/>
+    </resultMap>
+    <insert id="insert" parameterType="whu.iss.insurancesys.entity.FeeRateEntities.CarInsuranceType">
+    insert into car_insurance_type (car_insur_id, insur_company_name, insur_type_name, 
+      insur_amount, premium, insur_starttime, 
+      insur_endtime, commission_rate_in, commission_rate_out
+      )
+    values (#{carInsurId,jdbcType=INTEGER}, #{insurCompanyName,jdbcType=VARCHAR}, #{insurTypeName,jdbcType=CHAR}, 
+      #{insurAmount,jdbcType=DOUBLE}, #{premium,jdbcType=DOUBLE}, #{insurStarttime,jdbcType=TIMESTAMP}, 
+      #{insurEndtime,jdbcType=TIMESTAMP}, #{commissionRateIn,jdbcType=INTEGER}, #{commissionRateOut,jdbcType=INTEGER}
+      )
+  </insert>
+    <insert id="insertSelective" parameterType="whu.iss.insurancesys.entity.FeeRateEntities.CarInsuranceType">
+        insert into car_insurance_type
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="carInsurId != null">
+                car_insur_id,
+            </if>
+            <if test="insurCompanyName != null">
+                insur_company_name,
+            </if>
+            <if test="insurTypeName != null">
+                insur_type_name,
+            </if>
+            <if test="insurAmount != null">
+                insur_amount,
+            </if>
+            <if test="premium != null">
+                premium,
+            </if>
+            <if test="insurStarttime != null">
+                insur_starttime,
+            </if>
+            <if test="insurEndtime != null">
+                insur_endtime,
+            </if>
+            <if test="commissionRateIn != null">
+                commission_rate_in,
+            </if>
+            <if test="commissionRateOut != null">
+                commission_rate_out,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="carInsurId != null">
+                #{carInsurId,jdbcType=INTEGER},
+            </if>
+            <if test="insurCompanyName != null">
+                #{insurCompanyName,jdbcType=VARCHAR},
+            </if>
+            <if test="insurTypeName != null">
+                #{insurTypeName,jdbcType=CHAR},
+            </if>
+            <if test="insurAmount != null">
+                #{insurAmount,jdbcType=DOUBLE},
+            </if>
+            <if test="premium != null">
+                #{premium,jdbcType=DOUBLE},
+            </if>
+            <if test="insurStarttime != null">
+                #{insurStarttime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="insurEndtime != null">
+                #{insurEndtime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="commissionRateIn != null">
+                #{commissionRateIn,jdbcType=INTEGER},
+            </if>
+            <if test="commissionRateOut != null">
+                #{commissionRateOut,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+
+    <select id="getByName" resultMap="CarInsuranceTypePlus">
+        select cit.*, bi.cname from car_insurance_type cit
+          left join insur_company_basic_info icbi on icbi.company_name = cit.insur_company_name
+          left join insur_company_branch_related icbr on icbi.company_id = icbr.company_id
+          left join branch_info bi on icbr.branch_id = bi.branch_id
+        where insur_company_name in
+            <foreach collection="list" open="(" separator="," close=")" item="item">
+              #{item}
+            </foreach>
+    </select>
+</mapper>

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="whu.iss.insurancesys.dao.FeeRateDaos.CheckInsurRuleDao">
+
+    <resultMap id="BaseResultMap" type="whu.iss.insurancesys.entity.FeeRateEntities.CheckInsurRule">
+        <result column="id" property="id" jdbcType="INTEGER"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="rule" property="rule" jdbcType="VARCHAR"/>
+        <result column="company_name" property="companyName" jdbcType="VARCHAR"/>
+        <result column="branch_name" property="branchName" jdbcType="VARCHAR"/>
+        <result column="release_date" property="releaseDate" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <insert id="insertSelective" parameterType="whu.iss.insurancesys.entity.FeeRateEntities.CheckInsurRule">
+        insert into check_insur_rule
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="rule != null">
+                rule,
+            </if>
+            <if test="companyName != null">
+                company_name,
+            </if>
+            <if test="branchName != null">
+                branch_name,
+            </if>
+            <if test="releaseDate != null">
+                release_date,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id},
+            </if>
+            <if test="name != null">
+                #{name},
+            </if>
+            <if test="rule != null">
+                #{rule},
+            </if>
+            <if test="companyName != null">
+                #{companyName},
+            </if>
+            <if test="branchName != null">
+                #{branchName},
+            </if>
+            <if test="releaseDate != null">
+                #{releaseDate},
+            </if>
+        </trim>
+    </insert>
+
+    <delete id="deleteById">
+        delete from check_insur_rule where id = #{id};
+    </delete>
+
+    <select id="getByParam" resultMap="BaseResultMap">
+        select * from check_insur_rule
+        <trim prefix="where" suffix=";" suffixOverrides="and">
+            <if test="companyNames != null">
+                company_name in
+                <foreach collection="companyNames" open="(" separator="," close=")" item="item">
+                    #{item}
+                </foreach>
+                and
+            </if>
+            <if test="branchNames != null">
+                branch_name in
+                <foreach collection="branchNames" open="(" separator="," close=")" item="item">
+                    #{item}
+                </foreach>
+                and
+            </if>
+            <if test="from != null and to != null">
+                release_date between #{from,jdbcType=DATE} and #{to,jdbcType=DATE} and
+            </if>
+            <if test="name != null">
+                name = #{name} and
+            </if>
+        </trim>
+    </select>
+
+</mapper>
