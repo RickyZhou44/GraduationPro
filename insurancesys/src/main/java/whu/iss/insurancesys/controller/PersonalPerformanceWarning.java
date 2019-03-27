@@ -31,7 +31,7 @@ public class PersonalPerformanceWarning {
     private PersonalPerformanceWarningService personalPerformanceWarningService;
 
     @GetMapping("/performanceWarnPeople")
-    private String performanceWarnPeople(@RequestParam(value = "name") String name, @RequestParam(value = "number", required = false) String number, @RequestParam(value = "idCard") String idCard, @RequestParam(value = "branch") String[] branchs) {
+    private String performanceWarnPeople(@RequestParam(value = "name") String name, @RequestParam(value = "number", required = false) String number, @RequestParam(value = "idCard") String idCard, @RequestParam(value = "branch", required = false) String[] branchs) {
         logger.debug("name:{},number:{},idCard:{},branch:{}\n", name, number, idCard, branchs);
         ResultInfo resultInfo = new ResultInfo();
         name = (name.equals("")) ? null : name;
