@@ -31,9 +31,12 @@ public class PersonalPerformanceWarning {
     private PersonalPerformanceWarningService personalPerformanceWarningService;
 
     @GetMapping("/performanceWarnPeople")
-    private String performanceWarnPeople(@RequestParam(value = "name") String name, @RequestParam(value = "number") String number, @RequestParam(value = "idCard") String idCard, @RequestParam(value = "branch[]", required = false) String[] branchs) {
+    private String performanceWarnPeople(@RequestParam(value = "name") String name, @RequestParam(value = "number", required = false) String number, @RequestParam(value = "idCard") String idCard, @RequestParam(value = "branch") String[] branchs) {
         logger.debug("name:{},number:{},idCard:{},branch:{}\n", name, number, idCard, branchs);
         ResultInfo resultInfo = new ResultInfo();
+        name = (name.equals("")) ? null : name;
+        number = (number.equals("")) ? "-1" : number;
+        idCard = (idCard.equals("")) ? null : idCard;
         List<PersonalPerformanceWaringObjectResult> data = personalPerformanceWarningService.getPeopleInfo(name, Long.parseLong(number), idCard, branchs);
         if (data != null) {
             resultInfo.setData(data);

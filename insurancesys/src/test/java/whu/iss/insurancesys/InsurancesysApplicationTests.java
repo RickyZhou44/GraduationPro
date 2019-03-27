@@ -74,6 +74,7 @@ public class InsurancesysApplicationTests {
             EmployeeBasicInformation employeeBasicInformation = new EmployeeBasicInformation();
             employeeBasicInformation.setEmployeeNo(employee_no);
             employeeBasicInformation.setEnglishName(englishName);
+            employeeBasicInformation.setChineseName(chineseName);
             employeeBasicInformation.setGender(sex);
             employeeBasicInformation.setCertificateTypeName(certificateTypeName);
             employeeBasicInformation.setCertificateNo(certificateNo);
