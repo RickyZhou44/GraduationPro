@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="whu.iss.insurancesys.dao.EmployeeBasicInformationDao">
+    <resultMap id="BaseResultMap" type="whu.iss.insurancesys.entity.EmployeeBasicInformation">
+        <result column="employee_no" jdbcType="INTEGER" property="employeeNo"/>
+        <result column="chinese_name" jdbcType="VARCHAR" property="chineseName"/>
+        <result column="english_name" jdbcType="VARCHAR" property="englishName"/>
+        <result column="gender" jdbcType="CHAR" property="gender"/>
+        <result column="certificate_type_name" jdbcType="VARCHAR" property="certificateTypeName"/>
+        <result column="certificate_no" jdbcType="VARCHAR" property="certificateNo"/>
+        <result column="birthday" jdbcType="TIMESTAMP" property="birthday"/>
+        <result column="marital_status" jdbcType="CHAR" property="maritalStatus"/>
+        <result column="nationality_name" jdbcType="VARCHAR" property="nationalityName"/>
+        <result column="blood_group" jdbcType="VARCHAR" property="bloodGroup"/>
+        <result column="contact_address" jdbcType="VARCHAR" property="contactAddress"/>
+        <result column="postal_code" jdbcType="CHAR" property="postalCode"/>
+        <result column="phone_number" jdbcType="CHAR" property="phoneNumber"/>
+        <result column="email" jdbcType="VARCHAR" property="email"/>
+        <result column="landline_number" jdbcType="VARCHAR" property="landlineNumber"/>
+        <result column="emergency_contact_name" jdbcType="VARCHAR" property="emergencyContactName"/>
+        <result column="emergency_contact_phone_number" jdbcType="CHAR" property="emergencyContactPhoneNumber"/>
+        <result column="emergency_contact_address" jdbcType="VARCHAR" property="emergencyContactAddress"/>
+        <result column="family_phone" jdbcType="VARCHAR" property="familyPhone"/>
+        <result column="family_address" jdbcType="VARCHAR" property="familyAddress"/>
+        <result column="family_address_postal_code" jdbcType="CHAR" property="familyAddressPostalCode"/>
+        <result column="birthplace" jdbcType="VARCHAR" property="birthplace"/>
+        <result column="household_registration" jdbcType="VARCHAR" property="householdRegistration"/>
+    </resultMap>
+
+
+    <insert id="insert" parameterType="whu.iss.insurancesys.entity.EmployeeBasicInformation">
+        insert into employee_basic_information
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="employeeNo != null">
+                employee_no,
+            </if>
+            <if test="chineseName != null">
+                chinese_name,
+            </if>
+            <if test="englishName != null">
+                english_name,
+            </if>
+            <if test="gender != null">
+                gender,
+            </if>
+            <if test="certificateTypeName != null">
+                certificate_type_name,
+            </if>
+            <if test="certificateNo != null">
+                certificate_no,
+            </if>
+            <if test="birthday != null">
+                birthday,
+            </if>
+            <if test="maritalStatus != null">
+                marital_status,
+            </if>
+            <if test="nationalityName != null">
+                nationality_name,
+            </if>
+            <if test="bloodGroup != null">
+                blood_group,
+            </if>
+            <if test="contactAddress != null">
+                contact_address,
+            </if>
+            <if test="postalCode != null">
+                postal_code,
+            </if>
+            <if test="phoneNumber != null">
+                phone_number,
+            </if>
+            <if test="email != null">
+                email,
+            </if>
+            <if test="landlineNumber != null">
+                landline_number,
+            </if>
+            <if test="emergencyContactName != null">
+                emergency_contact_name,
+            </if>
+            <if test="emergencyContactPhoneNumber != null">
+                emergency_contact_phone_number,
+            </if>
+            <if test="emergencyContactAddress != null">
+                emergency_contact_address,
+            </if>
+            <if test="familyPhone != null">
+                family_phone,
+            </if>
+            <if test="familyAddress != null">
+                family_address,
+            </if>
+            <if test="familyAddressPostalCode != null">
+                family_address_postal_code,
+            </if>
+            <if test="birthplace != null">
+                birthplace,
+            </if>
+            <if test="householdRegistration != null">
+                household_registration,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="employeeNo != null">
+                #{employeeNo,jdbcType=INTEGER},
+            </if>
+            <if test="chineseName != null">
+                #{chineseName,jdbcType=VARCHAR},
+            </if>
+            <if test="englishName != null">
+                #{englishName,jdbcType=VARCHAR},
+            </if>
+            <if test="gender != null">
+                #{gender,jdbcType=CHAR},
+            </if>
+            <if test="certificateTypeName != null">
+                #{certificateTypeName,jdbcType=VARCHAR},
+            </if>
+            <if test="certificateNo != null">
+                #{certificateNo,jdbcType=VARCHAR},
+            </if>
+            <if test="birthday != null">
+                #{birthday,jdbcType=TIMESTAMP},
+            </if>
+            <if test="maritalStatus != null">
+                #{maritalStatus,jdbcType=CHAR},
+            </if>
+            <if test="nationalityName != null">
+                #{nationalityName,jdbcType=VARCHAR},
+            </if>
+            <if test="bloodGroup != null">
+                #{bloodGroup,jdbcType=VARCHAR},
+            </if>
+            <if test="contactAddress != null">
+                #{contactAddress,jdbcType=VARCHAR},
+            </if>
+            <if test="postalCode != null">
+                #{postalCode,jdbcType=CHAR},
+            </if>
+            <if test="phoneNumber != null">
+                #{phoneNumber,jdbcType=CHAR},
+            </if>
+            <if test="email != null">
+                #{email,jdbcType=VARCHAR},
+            </if>
+            <if test="landlineNumber != null">
+                #{landlineNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="emergencyContactName != null">
+                #{emergencyContactName,jdbcType=VARCHAR},
+            </if>
+            <if test="emergencyContactPhoneNumber != null">
+                #{emergencyContactPhoneNumber,jdbcType=CHAR},
+            </if>
+            <if test="emergencyContactAddress != null">
+                #{emergencyContactAddress,jdbcType=VARCHAR},
+            </if>
+            <if test="familyPhone != null">
+                #{familyPhone,jdbcType=VARCHAR},
+            </if>
+            <if test="familyAddress != null">
+                #{familyAddress,jdbcType=VARCHAR},
+            </if>
+            <if test="familyAddressPostalCode != null">
+                #{familyAddressPostalCode,jdbcType=CHAR},
+            </if>
+            <if test="birthplace != null">
+                #{birthplace,jdbcType=VARCHAR},
+            </if>
+            <if test="householdRegistration != null">
+                #{householdRegistration,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+</mapper>
