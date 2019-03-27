@@ -47,10 +47,47 @@
         #{unitInfo.faxNo}, #{unitInfo.representative}, #{unitInfo.taxNo}, #{unitInfo.comAddress}, #{unitInfo.jobName}, #{unitInfo.jobContent},
         #{unitInfo.jobType}, #{unitInfo.income})
     </insert>
+    <update id="updateCustomer">
+        update client
+        <set>
+            <if test='baseInfo.name != null'>name=#{baseInfo.name},</if>
+            <if test='baseInfo.identityEnum != null'>law_identity=#{baseInfo.identityEnum},</if>
+            <if test='baseInfo.typeEnum != null'>type=#{baseInfo.typeEnum},</if>
+            <if test='baseInfo.nationEnum != null'>nation=#{baseInfo.nationEnum},</if>
+            <if test='baseInfo.certfTypeEnum != null'>certf_type=#{baseInfo.certfTypeEnum},</if>
+            <if test='baseInfo.certfId != null'>certf_id=#{baseInfo.certfId},</if>
+            <if test='baseInfo.birthday != null'>birthday=#{baseInfo.birthday},</if>
+            <if test='baseInfo.sexEnum != null'>sex=#{baseInfo.sexEnum},</if>
+            <if test='baseInfo.marriedEnum != null'>married=#{baseInfo.marriedEnum},</if>
+            <if test='baseInfo.telephone != null'>telephone=#{baseInfo.telephone},</if>
+            <if test='baseInfo.email != null'>email=#{baseInfo.email},</if>
+            <if test='baseInfo.backup != null'>backup=#{baseInfo.backup},</if>
+            <if test='baseInfo.homeAddress != null'>home_address=#{baseInfo.homeAddress},</if>
+            <if test='baseInfo.homeCode != null'>home_code=#{baseInfo.homeCode},</if>
+            <if test='baseInfo.other != null'>other=#{baseInfo.other},</if>
+            <if test='baseInfo.firstContactWayEnum != null'>first_contact_way=#{baseInfo.firstContactWayEnum},</if>
+            <if test='unitInfo.comName != null'>com_name=#{unitInfo.comName},</if>
+            <if test='unitInfo.comPhone != null'>com_phone=#{unitInfo.comPhone},</if>
+            <if test='unitInfo.faxNo != null'>fax_no=#{unitInfo.faxNo},</if>
+            <if test='unitInfo.representative != null'>com_representative=#{unitInfo.representative},</if>
+            <if test='unitInfo.taxNo != null'>com_tax_no=#{unitInfo.taxNo},</if>
+            <if test='unitInfo.comAddress != null'>com_address=#{unitInfo.comAddress},</if>
+            <if test='unitInfo.jobName != null'>job_name=#{unitInfo.jobName},</if>
+            <if test='unitInfo.jobContent != null'>job_content=#{unitInfo.jobContent},</if>
+            <if test='unitInfo.jobType != null'>job_type=#{unitInfo.jobType},</if>
+            <if test='unitInfo.income != null'>income=#{unitInfo.income},</if>
+        </set>
+        where certf_id=#{baseInfo.certfId}
+    </update>
+
+    <select id="getRepresentative" resultType="String">
+        select distinct name as representative from client
+        where name like CONCAT('%', #{com_representative} ,'%') and law_identity = 1
+    </select>
 
     <select id="getCustomerList" resultType="map">
         select
-          name as clientName, certf_id as idCard, sex, home_address as address, telephone as tel, email, birthday, type as clientType
+          name as clientName, certf_id as idCard, sex, home_address as address, telephone as tel, email, date_format(birthday, '%Y-%m-%d') as birthday, type as clientType
         from client
         <where>
             <if test='name != null and name != ""'>and name like CONCAT('%', #{name} ,'%')</if>
@@ -58,6 +95,18 @@
             <if test='home_address != null and home_address != ""'>and home_address like CONCAT('%', #{home_address} ,'%')</if>
             <if test='telephone != null and telephone != ""'>and telephone = #{telephone}</if>
             <if test='email != null and email !=""'>and email = #{email}</if>
+            <if test='clientType !=null and clientType.length>0'>
+                and type in
+                <foreach collection="clientType" open="(" close=")" separator="," item="clientType">
+                    #{clientType}
+                </foreach>
+            </if>
+            <if test='sex != null and sex.length>0'>
+                and sex in
+                <foreach collection="sex" open="(" close=")" separator="," item="sex">
+                    #{sex}
+                </foreach>
+            </if>
         </where>
     </select>
 
@@ -70,4 +119,9 @@
             and certf_id = #{certf_id}
         </where>
     </select>
+
+    <delete id="deleteCustomerById">
+        delete from client
+        where certf_id = #{certf_id}
+    </delete>
 </mapper>

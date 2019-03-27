@@ -1,5 +1,6 @@
 package whu.iss.insurancesys.service.impl;
 
+import com.sun.istack.internal.Nullable;
 import org.springframework.stereotype.Service;
 import whu.iss.insurancesys.dao.Customer.CustomerDao;
 import whu.iss.insurancesys.entity.customer.Customer;
@@ -18,12 +19,20 @@ public class CustomerServiceImpl implements CustomerService {
     public boolean addCustomer(Customer customer) {
 
         int res = customerDao.addCustomer(customer);
-        return res==1;
+        return res == 1;
     }
 
     @Override
-    public List<Map<String,String>> getCustomerList(String clientName, String idCard, String address, String tel, String email) {
-        List<Map<String,String>> mapList = customerDao.getCustomerList(clientName,idCard,address,tel,email);
+    public boolean updateCustomer(Customer customer) {
+        int res = customerDao.updateCustomer(customer);
+        return res == 1;
+    }
+
+    @Override
+    public List<Map<String,String>> getCustomerList(String clientName, String idCard, String address, String tel,
+                                                    String email, int[] clientType, int[] sex) {
+        List<Map<String,String>> mapList = customerDao
+                .getCustomerList(clientName,idCard,address,tel,email, clientType, sex);
         return mapList;
     }
 
@@ -31,5 +40,17 @@ public class CustomerServiceImpl implements CustomerService {
     public Customer getCustomerById(String certfId) {
         Customer customer = customerDao.getCustomerById(certfId);
         return customer;
+    }
+
+    @Override
+    public boolean deleteCustomerById(String certfId) {
+        int res = customerDao.deleteCustomerById(certfId);
+        return res == 1;
+    }
+
+    @Override
+    public List<String> getRepresentative(String representative) {
+        List<String> res = customerDao.getRepresentative(representative);
+        return res;
     }
 }

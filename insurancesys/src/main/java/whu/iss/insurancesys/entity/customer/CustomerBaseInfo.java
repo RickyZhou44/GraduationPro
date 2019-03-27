@@ -393,4 +393,34 @@ public class CustomerBaseInfo {
     public void setOther(String other) {
         this.other = other;
     }
+
+    public static int[] sex2sexEnum(String [] sex){
+        int [] res = new int[sex.length];
+        int index = 0;
+        for(String s : sex){
+            switch (s){
+                case "男":
+                    res[index++]=1;break;
+                case "女":
+                    res[index++]=2;break;
+            }
+        }
+        return res;
+    }
+
+    public static int[] clientType2clientTypeEnum(String [] clientType){
+        int [] res = new int[clientType.length];
+        int index = 0;
+        for(String c : clientType){
+            switch (c){
+                case "已投保客户":
+                    res[index++]=1;break;
+                case "潜在客户":
+                    res[index++]=2;break;
+                case "团险客户":
+                    res[index++]=3;break;
+            }
+        }
+        return res;
+    }
 }
