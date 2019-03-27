@@ -2,6 +2,9 @@ package whu.iss.insurancesys.entity;
 
 import java.util.Date;
 
+/**
+ * 员工基本信息表
+ */
 public class EmployeeBasicInformation {
     private Integer employeeNo;
 

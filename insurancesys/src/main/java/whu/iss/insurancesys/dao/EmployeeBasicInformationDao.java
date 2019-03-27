@@ -1,10 +1,12 @@
 package whu.iss.insurancesys.dao;
 
-import org.springframework.stereotype.Repository;
 import whu.iss.insurancesys.entity.EmployeeBasicInformation;
 
-@Repository
+/**
+ * 员工基本信息Dao
+ */
 public interface EmployeeBasicInformationDao {
     int insert(EmployeeBasicInformation record);
 
+    int insertSelective(EmployeeBasicInformation record);
 }

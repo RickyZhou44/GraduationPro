@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Random;
 
@@ -76,4 +77,20 @@ public class JPZUtil {
         }
         return rtn;
     }
+
+    /**
+     * 日期加几年
+     *
+     * @param date
+     * @param year
+     * @return
+     */
+    public static Date dateAddYear(Date date, int year) {
+        Calendar rightNow = Calendar.getInstance();
+        rightNow.setTime(date);
+        rightNow.add(Calendar.YEAR, year);// 日期加1年
+        Date dt1 = rightNow.getTime();
+        return dt1;
+    }
+
 }
