@@ -17,7 +17,7 @@ import java.util.Random;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class InsurancesysApplicationTests {
-    
+
     @Resource
     private EmployeeBasicInformationDao employeeBasicInformationDao;
 
@@ -77,7 +77,7 @@ public class InsurancesysApplicationTests {
             employeeBasicInformation.setEmergencyContactName(emergencyContactName);
             employeeBasicInformation.setEmergencyContactPhoneNumber(emergencyContactPhoneNumber);
             employeeBasicInformation.setEmergencyContactAddress(emergencyContactAddress);
-            employeeBasicInformationDao.insertSelective(employeeBasicInformation);
+            employeeBasicInformationDao.insert(employeeBasicInformation);
         }
     }
 

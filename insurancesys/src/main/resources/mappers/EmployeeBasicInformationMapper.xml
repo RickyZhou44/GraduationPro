@@ -26,27 +26,9 @@
         <result column="birthplace" jdbcType="VARCHAR" property="birthplace"/>
         <result column="household_registration" jdbcType="VARCHAR" property="householdRegistration"/>
     </resultMap>
+
+
     <insert id="insert" parameterType="whu.iss.insurancesys.entity.EmployeeBasicInformation">
-    insert into employee_basic_information (employee_no, chinese_name, english_name, 
-      gender, certificate_type_name, certificate_no, 
-      birthday, marital_status, nationality_name, 
-      blood_group, contact_address, postal_code, 
-      phone_number, email, landline_number, 
-      emergency_contact_name, emergency_contact_phone_number, 
-      emergency_contact_address, family_phone, family_address, 
-      family_address_postal_code, birthplace, household_registration
-      )
-    values (#{employeeNo,jdbcType=INTEGER}, #{chineseName,jdbcType=VARCHAR}, #{englishName,jdbcType=VARCHAR}, 
-      #{gender,jdbcType=CHAR}, #{certificateTypeName,jdbcType=VARCHAR}, #{certificateNo,jdbcType=VARCHAR}, 
-      #{birthday,jdbcType=TIMESTAMP}, #{maritalStatus,jdbcType=CHAR}, #{nationalityName,jdbcType=VARCHAR}, 
-      #{bloodGroup,jdbcType=VARCHAR}, #{contactAddress,jdbcType=VARCHAR}, #{postalCode,jdbcType=CHAR}, 
-      #{phoneNumber,jdbcType=CHAR}, #{email,jdbcType=VARCHAR}, #{landlineNumber,jdbcType=VARCHAR}, 
-      #{emergencyContactName,jdbcType=VARCHAR}, #{emergencyContactPhoneNumber,jdbcType=CHAR}, 
-      #{emergencyContactAddress,jdbcType=VARCHAR}, #{familyPhone,jdbcType=VARCHAR}, #{familyAddress,jdbcType=VARCHAR}, 
-      #{familyAddressPostalCode,jdbcType=CHAR}, #{birthplace,jdbcType=VARCHAR}, #{householdRegistration,jdbcType=VARCHAR}
-      )
-  </insert>
-    <insert id="insertSelective" parameterType="whu.iss.insurancesys.entity.EmployeeBasicInformation">
         insert into employee_basic_information
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="employeeNo != null">
