@@ -16,12 +16,12 @@ public class DynamicPromotionServiceImpl implements DynamicPromotionService {
     private DynamicPromotionDao dynamicPromotionDao;
 
     @Override
-    public List<DynamicPromotionQueryResult> query(String status, Date baseMonth, String branch, String dept, String[] rank, String project, String insuranceKind, String category, String period, String condition, double conditionValue) {
-        if (insuranceKind == "寿险") {
+    public List<DynamicPromotionQueryResult> query(String status, Date baseMonth, String branch, String dept, String[] rank, String project, String insuranceKind, String category, String period, String condition, Double conditionValue) {
+        if (insuranceKind.equals("寿险")) {
             return dynamicPromotionDao.queryLifeInsurance(status, baseMonth, branch, dept, rank, project, category, period, condition, conditionValue);
-        } else if (insuranceKind == "车险") {
+        } else if (insuranceKind.equals("车险")) {
             return dynamicPromotionDao.queryCarInsurance(status, baseMonth, branch, dept, rank, project, category, period, condition, conditionValue);
-        } else if (insuranceKind == "全部") {
+        } else if (insuranceKind.equals("全部")) {
             List<DynamicPromotionQueryResult> list1 = dynamicPromotionDao.queryLifeInsurance(status, baseMonth, branch, dept, rank, project, category, period, condition, conditionValue);
             List<DynamicPromotionQueryResult> list2 = dynamicPromotionDao.queryCarInsurance(status, baseMonth, branch, dept, rank, project, category, period, condition, conditionValue);
             list1.addAll(list2);

@@ -17,83 +17,90 @@
         from
         employee_basic_information,employee_unit_rank,car_policy_contract,car_insurance_policy,car_insurance_type,car_insur_policy_mid
         <if test='category=="团队"'>,team_record</if>
-        where employee_basic_information.employee_no=employee_unit_rank.employ_no and employee_unit_rank.state=#{state}
-        <if test="branchs!=null">and branchs in
-            <foreach collection="array" open="(" close=")" separator="," item="branchs">
-                #{branchs}
+        where employee_basic_information.employee_no=employee_unit_rank.employ_no
+        <if test="state!=null">and employee_unit_rank.state=#{state}</if>
+        <if test="rank!=null">and current_rank in
+            <foreach collection="rank" open="(" close=")" separator="," item="item">
+                #{item}
             </foreach>
         </if>
         <if test="dept!=null">and employee_unit_rank.department=#{dept}</if>
-        <if test="rank!=null">and employee_unit_rank.current_rank=#{rank}</if>
+        <if test="branch!=null">and employee_unit_rank.branch_name=#{branch}</if>
         <if test='category=="个人"'>and car_policy_contract.employee_no=employee_basic_information.employee_no</if>
-        <if test='category=="团队""'>and team_record.member_id=employee_basic_information.employee_no and
+        <if test='category=="团队"'>and team_record.member_id=employee_basic_information.employee_no and
             car_policy_contract.team_no=team_record.team_id
         </if>
         and car_policy_contract.policy_no=car_insurance_policy.policy_no and car_insurance_policy.policy_no=
         car_insur_policy_mid.policy_no and car_insur_policy_mid.car_insur_id=car_insurance_type.car_insur_id
-        and car_insurance_policy.pay_date_car
-        <![CDATA[ <= ]]> DATE_ADD(#{baseMonth},
+        <if test="baseMonth!=null">
+            and car_insurance_policy.pay_date_car >= #{baseMonth}
         <choose>
             <when test='period=="月"'>
-                1 MONTHS
+                and car_insurance_policy.pay_date_car <![CDATA[ <= ]]> DATE_ADD(#{baseMonth} ,INTERVAL 1 MONTH)
             </when>
             <when test='period=="季"'>
-                3 MONTHS
+                and car_insurance_policy.pay_date_car <![CDATA[ <= ]]> DATE_ADD(#{baseMonth} ,INTERVAL 3 MONTH)
             </when>
             <when test='period=="半年"'>
-                6 MONTHS
+                and car_insurance_policy.pay_date_car <![CDATA[ <= ]]> DATE_ADD(#{baseMonth} ,INTERVAL 6 MONTH)
             </when>
             <when test='period=="年"'>
-                1 YEARS
+                and car_insurance_policy.pay_date_car <![CDATA[ <= ]]> DATE_ADD(#{baseMonth} ,INTERVAL 1 YEAR)
             </when>
             <when test='period=="自始"'>
-                0 SECONDS
+
             </when>
         </choose>
-        )
+        </if>
         group by employee_basic_information.employee_no
-        having SUM(premium*(commission_rate_out+commission_rate_in)) ${condition} #{conditionValue}
+        <if test="condition!=null and conditionValue!=null">
+            having SUM(premium*(commission_rate_out+commission_rate_in)) ${condition} #{conditionValue}
+        </if>
     </select>
     <select id="queryLifeInsurance" resultMap="BaseResultMap">
         select chinese_name,employ_no,branch_name,current_rank,department,state,contract_starttime,contract_endtime
         from employee_basic_information,employee_unit_rank,life_policy_contract,life_insurance_policy,insurance_type
         <if test='category=="团队"'>,team_record</if>
-        where employee_basic_information.employee_no=employee_unit_rank.employ_no and employee_unit_rank.state=#{state}
-        <if test="branchs!=null">and branchs in
-            <foreach collection="array" open="(" close=")" separator="," item="branchs">
-                #{branchs}
+        where employee_basic_information.employee_no=employee_unit_rank.employ_no
+        <if test="state!=null">and employee_unit_rank.state=#{state}</if>
+        <if test="rank!=null">and current_rank in
+            <foreach collection="rank" open="(" close=")" separator="," item="item">
+                #{item}
             </foreach>
         </if>
         <if test="dept!=null">and employee_unit_rank.department=#{dept}</if>
-        <if test="rank!=null">and employee_unit_rank.current_rank=#{rank}</if>
+        <if test="branch!=null">and employee_unit_rank.branch_name=#{branch}</if>
         <if test='category=="团队"'>and team_record.member_id=employee_basic_information.employee_no and
             team_record.team_id=life_policy_contract.team_no
         </if>
         <if test='category=="个人"'>and life_policy_contract.employee_no=employee_basic_information.employee_no</if>
         and life_policy_contract.policy_no=life_insurance_policy.policy_no and life_insurance_policy.insur_id=
-        insurance_type.insur_id and life_insurance_policy.valid_date_since
-        <![CDATA[ <= ]]> DATE_ADD(#{baseMonth},
-        <choose>
-            <when test='period=="月"'>
-                1 MONTHS
-            </when>
-            <when test='period=="季"'>
-                3 MONTHS
-            </when>
-            <when test='period=="半年"'>
-                6 MONTHS
-            </when>
-            <when test='period=="年"'>
-                1 YEARS
-            </when>
-            <when test='period=="自始"'>
-                0 SECONDS
-            </when>
-        </choose>
-        )
+        insurance_type.insur_id
+        <if test="baseMonth!=null">
+            and life_insurance_policy.valid_date_since >= #{baseMonth}
+            <choose>
+                <when test='period=="月"'>
+                    and life_insurance_policy.valid_date_since <![CDATA[ <= ]]> DATE_ADD(#{baseMonth} ,INTERVAL 1 MONTH)
+                </when>
+                <when test='period=="季"'>
+                    and life_insurance_policy.valid_date_since <![CDATA[ <= ]]> DATE_ADD(#{baseMonth} ,INTERVAL 3 MONTH)
+                </when>
+                <when test='period=="半年"'>
+                    and life_insurance_policy.valid_date_since <![CDATA[ <= ]]> DATE_ADD(#{baseMonth} ,INTERVAL 6 MONTH)
+                </when>
+                <when test='period=="年"'>
+                    and life_insurance_policy.valid_date_since <![CDATA[ <= ]]> DATE_ADD(#{baseMonth} ,INTERVAL 1 YEAR)
+                </when>
+                <when test='period=="自始"'>
+
+                </when>
+            </choose>
+        </if>
         group by employee_basic_information.employee_no
-        having
-        SUM(CONVERT(SUBSTRING(insurance_type.period,3),SIGNED)/CONVERT(LEFT(insurance_type.period,2),SIGNED)*premium)
-        ${condition} #{conditionValue}
+        <if test="condition!=null and conditionValue!=null">
+            having
+            SUM(CONVERT(SUBSTRING(insurance_type.period,3),SIGNED)/CONVERT(LEFT(insurance_type.period,2),SIGNED)*premium)
+            ${condition} #{conditionValue}
+        </if>
     </select>
 </mapper>
