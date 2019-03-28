@@ -26,7 +26,7 @@ public interface DynamicPromotionDao {
      * @param conditionValue
      * @return 寿险查询结果
      */
-    List<DynamicPromotionQueryResult> queryLifeInsurance(@Param("status") String status, @Param("baseMonth") Date baseMonth, @Param("branch") String branch, @Param("dept") String dept, @Param("rank") String[] rank, @Param("project") String project, @Param("category") String category, @Param("period") String period, @Param("condition") String condition, @Param("conditionValue") double conditionValue);
+    List<DynamicPromotionQueryResult> queryLifeInsurance(@Param("state") String status, @Param("baseMonth") Date baseMonth, @Param("branch") String branch, @Param("dept") String dept, @Param("rank") String[] rank, @Param("project") String project, @Param("category") String category, @Param("period") String period, @Param("condition") String condition, @Param("conditionValue") Double conditionValue);
 
     /**
      * @param status
@@ -41,7 +41,7 @@ public interface DynamicPromotionDao {
      * @param conditionValue
      * @return 车险查询结果
      */
-    List<DynamicPromotionQueryResult> queryCarInsurance(@Param("status") String status, @Param("baseMonth") Date baseMonth, @Param("branch") String branch, @Param("dept") String dept, @Param("rank") String[] rank, @Param("project") String project, @Param("category") String category, @Param("period") String period, @Param("condition") String condition, @Param("conditionValue") double conditionValue);
+    List<DynamicPromotionQueryResult> queryCarInsurance(@Param("state") String status, @Param("baseMonth") Date baseMonth, @Param("branch") String branch, @Param("dept") String dept, @Param("rank") String[] rank, @Param("project") String project, @Param("category") String category, @Param("period") String period, @Param("condition") String condition, @Param("conditionValue") Double conditionValue);
 
 
 }

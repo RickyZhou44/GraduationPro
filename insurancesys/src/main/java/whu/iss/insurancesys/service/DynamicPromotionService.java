@@ -22,5 +22,5 @@ public interface DynamicPromotionService {
      * @param conditionValue
      * @return 前端查询的数据
      */
-    List<DynamicPromotionQueryResult> query(String status, Date baseMonth, String branch, String dept, String[] rank, String project, String category, String insuranceKind, String period, String condition, double conditionValue);
+    List<DynamicPromotionQueryResult> query(String status, Date baseMonth, String branch, String dept, String[] rank, String project, String category, String insuranceKind, String period, String condition, Double conditionValue);
 }
