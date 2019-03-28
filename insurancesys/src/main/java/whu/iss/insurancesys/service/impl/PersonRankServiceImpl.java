@@ -19,7 +19,7 @@ public class PersonRankServiceImpl implements PersonRankService {
 
     @Resource
     private PersonRankDao personRankDao;
-//
+
     @Resource
     private EmployeeBasicInformationDao basicInfoDao;
 
