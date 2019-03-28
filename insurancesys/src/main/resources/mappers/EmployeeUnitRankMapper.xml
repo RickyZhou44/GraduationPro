@@ -108,4 +108,50 @@
             </if>
         </trim>
     </insert>
+
+    <update id="update" parameterType="whu.iss.insurancesys.entity.EmployeeUnitRank">
+        update employee_unit_rank
+        <set>
+            <if test="branchName != null">
+                branch_name=#{branchName},
+            </if>
+            <if test="department != null">
+                department=#{department},
+            </if>
+            <if test="currentRank != null">
+                current_rank=#{currentRank},
+            </if>
+            <if test="serviceType != null">
+                service_type=#{serviceType},
+            </if>
+            <if test="introducerName != null">
+                introducer_name=#{introducerName},
+            </if>
+            <if test="relationshipSuperiorName != null">
+                relationship_superior_name=#{relationshipSuperiorName},
+            </if>
+            <if test="administratorName != null">
+                administrator_name=#{administratorName},
+            </if>
+            <if test="administrator2Name != null">
+                administrator2_name=#{administrator2Name},
+            </if>
+            <if test="entryTime != null">
+                entry_time=#{entryTime},
+            </if>
+            <if test="contractNumber != null">
+                contract_number=#{contractNumber},
+            </if>
+            <if test="contractStarttime != null">
+                contract_starttime=#{contractStarttime},
+            </if>
+            <if test="contractEndtime != null">
+                contract_endtime = #{contractEndtime},
+            </if>
+            <if test="state != null">
+                state = #{state}
+            </if>
+        </set>
+        where employ_no=#{employNo}
+    </update>
 </mapper>

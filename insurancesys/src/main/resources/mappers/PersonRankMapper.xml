@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="whu.iss.insurancesys.dao.HumanCapital.PersonRankDao">
+    <select id="getCustomerList" resultType="map">
+        select b.chinese_name as staffName, b.gender as staffSex, u.department as dept, u.branch_name as branch,
+        u.current_rank as rank, date_format(u.entry_time, '%Y-%m-%d') as joinDate, date_format(u.contract_starttime, '%Y-%m-%d') as validDate,
+        date_format(b.birthday, '%Y-%m-%d') as birthday, b.employee_no as staffNo, b.phone_number as tel
+
+        from employee_basic_information b, employee_unit_rank u
+        <where>
+            b.employee_no = u.employ_no
+            <if test='employee_no!=null and employee_no !=""'> and b.employee_no = #{employee_no}</if>
+            <if test='name!=null and name !=""'>and b.chinese_name like CONCAT('%', #{name} ,'%')</if>
+            <if test='branch_name!=null and branch_name != ""'>and u.branch_name like CONCAT('%', #{branch_name} ,'%') </if>
+            <if test='department!=null and department !=""'> and u.department like CONCAT('%', #{department}, '%')</if>
+            <if test='current_rank!=null and current_rank!=""'> and u.current_rank like CONCAT('%', #{current_rank},'%')</if>
+            <if test='phone_number!=null and phone_number!=""'> and b.phone_number = #{phone_number}</if>
+        </where>
+    </select>
+
+    <delete id="deletePersonRankByNum">
+        delete b, u
+        from employee_basic_information b
+        left join employee_unit_rank u on
+            b.employee_no = u.employ_no
+        where b.employee_no = #{employee_no}
+    </delete>
+
+    <select id="getPersonRankByNum" resultType="map">
+        select b.chinese_name as cName, b.english_name as eName, b.gender as sex, b.certificate_no as certfId, b.certificate_type_name as certfType,
+        b.birthday as birthday, b.employee_no as num, b.marital_status as married, b.nationality_name as people, b.blood_group as blood,
+        b.contact_address as address, b.postal_code as code, b.phone_number as tel, b.email as email, b.landline_number as phone, u.branch_name as branch,
+        u.department as dept, u.introducer_name as introducer, u.service_type as serviceType, u.relationship_superior_name as relationshipSuperior,
+        u.current_rank as currentRank, u.administrator_name as administrator, u.administrator2_name as administrator,
+         u.entry_time as entryTime, u.contract_number as contractNumber, u.contract_starttime as contractStartTime,
+         u.contract_endtime as contractEndTime, b.emergency_contact_name as emergencyContactName, b.emergency_contact_phone_number as emergencyContactPhone,
+         b.emergency_contact_address as emergencyContactEmail
+        from employee_basic_information b, employee_unit_rank u
+        where b.employee_no = #{employee_no} and b.employee_no = u.employ_no
+    </select>
+</mapper>
