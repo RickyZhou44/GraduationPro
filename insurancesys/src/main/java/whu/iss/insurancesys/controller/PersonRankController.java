@@ -3,10 +3,12 @@ package whu.iss.insurancesys.controller;
 import org.apache.xmlbeans.impl.xb.xsdschema.Public;
 import org.springframework.web.bind.annotation.*;
 import whu.iss.insurancesys.dto.ResultInfo;
+import whu.iss.insurancesys.entity.HumanCapital.EmployeeInfo;
 import whu.iss.insurancesys.service.PersonRankService;
 import whu.iss.insurancesys.service.impl.PersonRankServiceImpl;
 
 import javax.annotation.Resource;
+import javax.validation.Valid;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.NotNull;
 import java.util.HashMap;
@@ -57,6 +59,20 @@ public class PersonRankController {
     public Object getPersonRankByNum(@PathVariable(value = "num")int num){
         ResultInfo resultInfo = new ResultInfo();
         resultInfo.setData(personRankService.getPersonRankByNum(num));
+        return resultInfo;
+    }
+
+    @PostMapping("/personRank")
+    public Object addPersonRank(@RequestBody @Valid EmployeeInfo employeeInfo){
+        ResultInfo resultInfo = new ResultInfo();
+        resultInfo.setResult(personRankService.addPersonRank(employeeInfo));
+        return resultInfo;
+    }
+
+    @PutMapping("/personRank")
+    public Object updatePersonRankOne(@RequestBody @Valid EmployeeInfo employeeInfo){
+        ResultInfo resultInfo = new ResultInfo();
+        resultInfo.setResult(personRankService.updatePersonRankOne(employeeInfo));
         return resultInfo;
     }
 }

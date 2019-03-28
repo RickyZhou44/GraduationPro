@@ -16,7 +16,7 @@ public class GeneratorSqlmp {
         List<String> warnings = new ArrayList<String>();
         boolean overwrite = true;
         //指定 逆向工程配置文件
-        File configFile = new File("D:\\MyWebProject\\GraduationPro\\insurancesys\\src\\main\\resources\\generatorConfig.xml");
+        File configFile = new File("src\\main\\resources\\generatorConfig.xml");
         ConfigurationParser cp = new ConfigurationParser(warnings);
         Configuration config = cp.parseConfiguration(configFile);
         DefaultShellCallback callback = new DefaultShellCallback(overwrite);

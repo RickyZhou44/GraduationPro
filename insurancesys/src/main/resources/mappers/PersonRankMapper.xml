@@ -29,7 +29,7 @@
     <select id="getPersonRankByNum" resultType="map">
         select b.chinese_name as cName, b.english_name as eName, b.gender as sex, b.certificate_no as certfId, b.certificate_type_name as certfType,
         b.birthday as birthday, b.employee_no as num, b.marital_status as married, b.nationality_name as people, b.blood_group as blood,
-        b.contact_address as address, b.postal_code as code, b.phone_number as phone, b.email as email, b.landline_number as phone, u.branch_name as branch,
+        b.contact_address as address, b.postal_code as code, b.phone_number as tel, b.email as email, b.landline_number as phone, u.branch_name as branch,
         u.department as dept, u.introducer_name as introducer, u.service_type as serviceType, u.relationship_superior_name as relationshipSuperior,
         u.current_rank as currentRank, u.administrator_name as administrator, u.administrator2_name as administrator,
          u.entry_time as entryTime, u.contract_number as contractNumber, u.contract_starttime as contractStartTime,

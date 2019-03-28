@@ -17,40 +17,32 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public boolean addCustomer(Customer customer) {
-
-        int res = customerDao.addCustomer(customer);
-        return res == 1;
+        return customerDao.addCustomer(customer) == 1;
     }
 
     @Override
     public boolean updateCustomer(Customer customer) {
-        int res = customerDao.updateCustomer(customer);
-        return res == 1;
+        return customerDao.updateCustomer(customer) == 1;
     }
 
     @Override
     public List<Map<String,String>> getCustomerList(String clientName, String idCard, String address, String tel,
                                                     String email, int[] clientType, int[] sex) {
-        List<Map<String,String>> mapList = customerDao
-                .getCustomerList(clientName,idCard,address,tel,email, clientType, sex);
-        return mapList;
+        return customerDao.getCustomerList(clientName,idCard,address,tel,email, clientType, sex);
     }
 
     @Override
     public Customer getCustomerById(String certfId) {
-        Customer customer = customerDao.getCustomerById(certfId);
-        return customer;
+        return customerDao.getCustomerById(certfId);
     }
 
     @Override
     public boolean deleteCustomerById(String certfId) {
-        int res = customerDao.deleteCustomerById(certfId);
-        return res == 1;
+        return customerDao.deleteCustomerById(certfId) == 1;
     }
 
     @Override
     public List<String> getRepresentative(String representative) {
-        List<String> res = customerDao.getRepresentative(representative);
-        return res;
+        return customerDao.getRepresentative(representative);
     }
 }

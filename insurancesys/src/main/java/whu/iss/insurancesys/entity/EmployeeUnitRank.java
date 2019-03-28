@@ -2,9 +2,6 @@ package whu.iss.insurancesys.entity;
 
 import java.util.Date;
 
-/**
- * 员工单位职级表
- */
 public class EmployeeUnitRank {
     private Integer employNo;
 

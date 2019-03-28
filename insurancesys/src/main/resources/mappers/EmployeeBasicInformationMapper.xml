@@ -173,4 +173,62 @@
             </if>
         </trim>
     </insert>
+
+    <update id="update" parameterType="whu.iss.insurancesys.entity.EmployeeBasicInformation">
+        update employee_basic_information
+        <set>
+            <if test="chineseName != null">
+                chinese_name = #{chineseName},
+            </if>
+            <if test="englishName != null">
+                english_name = #{englishName},
+            </if>
+            <if test="gender != null">
+                gender = #{gender},
+            </if>
+            <if test="certificateTypeName != null">
+                certificate_type_name = #{certificateTypeName},
+            </if>
+            <if test="certificateNo != null">
+                certificate_no = #{certificateNo},
+            </if>
+            <if test="birthday != null">
+                birthday = #{birthday},
+            </if>
+            <if test="maritalStatus != null">
+                marital_status = #{maritalStatus},
+            </if>
+            <if test="nationalityName != null">
+                nationality_name = #{nationalityName},
+            </if>
+            <if test="bloodGroup != null">
+                blood_group = #{bloodGroup},
+            </if>
+            <if test="contactAddress != null">
+                contact_address = #{contactAddress},
+            </if>
+            <if test="postalCode != null">
+                postal_code = #{postalCode},
+            </if>
+            <if test="phoneNumber != null">
+                phone_number = #{phoneNumber},
+            </if>
+            <if test="email != null">
+                email = #{email},
+            </if>
+            <if test="landlineNumber != null">
+                landline_number = #{landlineNumber},
+            </if>
+            <if test="emergencyContactName != null">
+                emergency_contact_name =#{emergencyContactName},
+            </if>
+            <if test="emergencyContactPhoneNumber != null">
+                emergency_contact_phone_number = #{emergencyContactPhoneNumber},
+            </if>
+            <if test="emergencyContactAddress != null">
+                emergency_contact_address = #{emergencyContactAddress},
+            </if>
+        </set>
+        where employee_no = #{employeeNo}
+    </update>
 </mapper>

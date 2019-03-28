@@ -1,6 +1,7 @@
 package whu.iss.insurancesys.dao.HumanCapital;
 
 import org.apache.ibatis.annotations.Param;
+import whu.iss.insurancesys.entity.HumanCapital.EmployeeInfo;
 
 import java.util.List;
 import java.util.Map;
@@ -17,4 +18,6 @@ public interface PersonRankDao {
     public int deletePersonRankByNum(@Param("employee_no") int num);
 
     public Map<String,String> getPersonRankByNum(@Param("employee_no") int num);
+
+
 }
