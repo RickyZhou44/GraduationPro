@@ -6,15 +6,15 @@ package whu.iss.insurancesys.entity.PersonalPerformanceWarningEntities;
 public class CheckDetail {
     private String project;
     private String category;
-    private String period;
+    private String policyNo;
     private double value;
 
     public CheckDetail() {
 
     }
 
-    public CheckDetail(String project, String category, String period, double value) {
-        this.period = period;
+    public CheckDetail(String policyNo, String project, String category, double value) {
+        this.policyNo = policyNo;
         this.project = project;
         this.category = category;
         this.value = value;
@@ -36,13 +36,6 @@ public class CheckDetail {
         this.category = category;
     }
 
-    public String getPeriod() {
-        return period;
-    }
-
-    public void setPeriod(String period) {
-        this.period = period;
-    }
 
     public double getValue() {
         return value;
@@ -50,5 +43,13 @@ public class CheckDetail {
 
     public void setValue(double value) {
         this.value = value;
+    }
+
+    public String getPolicyNo() {
+        return policyNo;
+    }
+
+    public void setPolicyNo(String policyNo) {
+        this.policyNo = policyNo;
     }
 }

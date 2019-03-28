@@ -35,16 +35,16 @@
         <![CDATA[ <= ]]> DATE_ADD(#{baseMonth},
         <choose>
             <when test='period=="月"'>
-                1 MONTHS
+                INTERVAL 1 MONTH
             </when>
             <when test='period=="季"'>
-                3 MONTHS
+                INTERVAL 3 MONTH
             </when>
             <when test='period=="半年"'>
-                6 MONTHS
+                INTERVAL 6 MONTH
             </when>
             <when test='period=="年"'>
-                1 YEARS
+                INTERVAL 1 YEAR
             </when>
             <when test='period=="自始"'>
                 0 SECONDS
