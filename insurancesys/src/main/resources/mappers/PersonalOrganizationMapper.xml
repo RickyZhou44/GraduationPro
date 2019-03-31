@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="whu.iss.insurancesys.dao.HumanCapital.PersonalOrganizationDao">
+
+    <select id="searchRootPersonal" resultType="map">
+        select b.employee_no,
+        <trim prefix="" suffix="" suffixOverrides=",">
+            <if test="nameFiled !=null and nameFiled == true">
+                b.chinese_name,
+            </if>
+            <if test="deptFiled !=null and deptFiled == true">
+                u.branch_name,
+            </if>
+            <if test='rankName !=null and rankName == "name"'>
+                u.current_rank,
+            </if>
+            <if test="joinDateFiled !=null and joinDateFiled == true">
+                DATE_FORMAT(u.contract_starttime , '%Y-%m-%d') as startDate,
+            </if>
+        </trim>
+        from employee_unit_rank u, employee_basic_information b
+        <where>
+            and b.employee_no = u.employ_no and b.employee_no = #{num}
+            <if test='checkPoint !=null and checkPoint != ""'>
+                and DATE_FORMAT(u.contract_starttime , '%Y-%m-%d') <![CDATA[>=]]>  DATE_FORMAT(#{checkPoint}, '%Y-%m-%d')
+            </if>
+        </where>
+    </select>
+    <select id="searchPersonalInNum" resultType="map">
+        select b.employee_no,
+        <trim prefix="" suffix="" suffixOverrides=",">
+            <if test="nameFiled !=null and nameFiled == true">
+                b.chinese_name,
+            </if>
+            <if test="deptFiled !=null and deptFiled == true">
+                u.branch_name,
+            </if>
+            <if test='rankName !=null and rankName == "name"'>
+                u.current_rank,
+            </if>
+            <if test="joinDateFiled !=null and joinDateFiled == true">
+                DATE_FORMAT(u.contract_starttime , '%Y-%m-%d') as startDate,
+            </if>
+        </trim>
+        from employee_unit_rank u, employee_basic_information b
+        <where>
+            and b.employee_no = u.employ_no
+            <choose>
+                <when test='relationType = "行政主管"'>
+                  and u.administrator_name = #{num}
+                </when>
+                <when test='relationType = "介绍人"'>
+                    and u.introducer_name = #{num}
+                </when>
+                <when test='relationType = "行政主管2"'>
+                    and u.administrator2_name = #{num}
+                </when>
+                <when test='relationType = "关系上属"'>
+                    and u.relationship_superior_name = #{num}
+                </when>
+            </choose>
+            <if test='checkPoint !=null and checkPoint != ""'>
+                and DATE_FORMAT(u.contract_starttime , '%Y-%m-%d') <![CDATA[>=]]>  DATE_FORMAT(#{checkPoint}, '%Y-%m-%d')
+            </if>
+        </where>
+    </select>
+
+    <select id="searchStateByNum" resultType="string">
+        select change_reason from employee_rank_change_record
+        where employee_no = #{employee_no}
+        order by rank_change_no desc LIMIT 1;
+    </select>
+</mapper>

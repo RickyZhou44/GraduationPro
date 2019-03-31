@@ -367,6 +367,7 @@ public class EmployeeInfo {
         EmployeeBasicInformation basicInfo = new EmployeeBasicInformation();
         basicInfo.setBirthday(employeeInfo.getBirthday());
         basicInfo.setBloodGroup(employeeInfo.getBlood());
+        basicInfo.setPostalCode(employeeInfo.getCode());
         basicInfo.setCertificateNo(employeeInfo.getCertfId());
         basicInfo.setCertificateTypeName(employeeInfo.getCertfType());
         basicInfo.setChineseName(employeeInfo.getcName());
