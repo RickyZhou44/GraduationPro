@@ -2,6 +2,7 @@ package whu.iss.insurancesys.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import whu.iss.insurancesys.dto.ResultInfo;
 import whu.iss.insurancesys.entity.MailData;
@@ -33,5 +34,10 @@ public class LoginRegisterController {
       mailData.setDate(date);
       loginRegisterService.sendEmail(mailData);
       return resultInfo;
+    }
+    @RequestMapping("/login")
+  public Object login(@RequestParam("user")String user,@RequestParam("password")String password){
+    ResultInfo resultInfo=new ResultInfo();
+    return resultInfo;
     }
 }
