@@ -38,4 +38,37 @@ where t1.policy_no=t2.policy_no and t1.policy_holder_id=t3.certf_id and t2.insur
     <insert id="insertCertfRe" useGeneratedKeys="true">
         INSERT INTO certfDocument (`record_content`, `record_type`, `valid_date_start`, `valid_date_end`,`other`,`attachment`, `certf_id`) VALUES (#{content}, #{recordType}, #{startDate}, #{endDate},#{other},#{attachment}, #{id});
     </insert>
+    <select id="attachInfo" resultType="whu.iss.insurancesys.entity.SettlementParamEntities.AttachmentInfo">
+        select*from certfDocument where certf_id=#{id};
+    </select>
+    <select id="getCarinsurancepolicys" resultType="whu.iss.insurancesys.entity.SettlementParamEntities.CarInsurancePolicyParam">
+        select policy_no,insurer_car_name,biling_date,start_insurance_date,policy_holder_car_id,insured_car_id,check_commission_status,check_distribution_status
+ from car_insurance_policy;
+    </select>
+    <select id="carContactParam" resultType="whu.iss.insurancesys.entity.SettlementParamEntities.CarContactParam">
+        select employee_no,policy_no from car_policy_contract;
+    </select>
+    <select id="contactorInfo" resultType="whu.iss.insurancesys.entity.SettlementParamEntities.CarContactorInfo">
+        select t1.chinese_name,t2.branch_name,t2.employ_no from employee_basic_information as t1,employee_unit_rank as t2
+where t1.employee_no=t2.employ_no;
+    </select>
+    <select id="carInsuranceTypes" resultType="whu.iss.insurancesys.entity.SettlementParamEntities.CarInsuranceTypeParam">
+        select t2.policy_no,t1.premium,t1.insur_type_name,t1.commission_rate_in,t1.commission_rate_out from car_insurance_type as t1,car_insur_policy_mid as t2
+where t1.car_insur_id=t2.car_insur_id;
+    </select>
+    <select id="clients" resultType="whu.iss.insurancesys.entity.SettlementParamEntities.ClientParam">
+        select name,certf_id from client;
+    </select>
+    <insert id="insertVertification" useGeneratedKeys="true">
+        INSERT INTO VerificationCodeRecord (`email`, `code`, `date`) VALUES (#{email}, #{code}, #{date});
+    </insert>
+    <select id="getverifi" resultType="whu.iss.insurancesys.entity.LoginRegisterEntities.VerifiCode">
+        SELECT code,date FROM verificationcoderecord where email=#{email};
+    </select>
+    <insert id="insertCommissionRecord" useGeneratedKeys="true">
+        insert into commissionRecord values(#{branch},#{dateStart},#{dateEnd});
+    </insert>
+    <select id="getCommissionRecords" resultType="whu.iss.insurancesys.entity.InternalSettlementEntities.CommissionParam">
+        select*from commissionRecord;
+    </select>
 </mapper>

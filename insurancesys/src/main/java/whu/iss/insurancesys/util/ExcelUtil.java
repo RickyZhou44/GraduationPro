@@ -21,6 +21,7 @@ public class ExcelUtil {
 //功能导出excel
 //同时也是这个类的入口
     public static void exportExcel(ExcelData data){
+        //这里的filename是之前赋值的要存放的路径
         System.out.println("导出解析开始，fileName:"+data.getFilename());
         try {
             //实例化HSSFWorkbook
