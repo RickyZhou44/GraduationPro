@@ -16,6 +16,16 @@ public class ClientEditData {
     private List<AssociatePolicy> associatePolicy;
     //亲朋好友模块
     private List<RelationShip>relationShips;
+    //附件相关信息
+    private List<AttachmentInfo>attachmentInfos;
+
+    public List<AttachmentInfo> getAttachmentInfos() {
+        return attachmentInfos;
+    }
+
+    public void setAttachmentInfos(List<AttachmentInfo> attachmentInfos) {
+        this.attachmentInfos = attachmentInfos;
+    }
 
     public InsuredBasicInfo getInsuredBasicInfo() {
         return insuredBasicInfo;

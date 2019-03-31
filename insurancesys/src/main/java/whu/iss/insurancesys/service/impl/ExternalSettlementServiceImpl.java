@@ -137,6 +137,7 @@ public class ExternalSettlementServiceImpl implements ExternalSettlementService 
         ClientInfo client=settlementDao.getClient(certdId);
         List<AssociatePolicy>associatePolicies=settlementDao.getAssoPolicy(certdId);
         List<RelationShip>relationShips=settlementDao.getRelationShip(certdId);
+        List<AttachmentInfo>attachmentInfos=settlementDao.attachInfo(certdId);
         //这里给客户信息和单位信息封装赋值
         InsuredBasicInfo insuredBasicInfo=assignmentInsuredBasicInfo(client);
         UnitInfo unitInfo=assignmentUnitInfo(client);
@@ -144,6 +145,7 @@ public class ExternalSettlementServiceImpl implements ExternalSettlementService 
         clientEditData.setInsuredBasicInfo(insuredBasicInfo);
         clientEditData.setRelationShips(relationShips);
         clientEditData.setUnitInfo(unitInfo);
+        clientEditData.setAttachmentInfos(attachmentInfos);
         return clientEditData;
     }
 
@@ -173,6 +175,72 @@ public class ExternalSettlementServiceImpl implements ExternalSettlementService 
     @Override
     public void addCertfContent(String content, String type, Date start, Date end, String other, String attachment, String id) {
         settlementDao.insertCertfRe(content,type,start,end,other,attachment,id);
+    }
+
+    @Override
+    public List<CarInsuranceParam> getCarInsuranceParam() {
+        List<CarInsuranceParam>carInsuranceParams=new ArrayList<>();
+        List<CarInsurancePolicyParam>carInsurancePolicyParams=settlementDao.getCarinsurancepolicys();
+        List<CarContactParam>carContactParams=settlementDao.carContactParam();
+        List<CarContactorInfo>carContactorInfos=settlementDao.contactorInfo();
+        List<CarInsuranceTypeParam>carInsuranceTypeParams=settlementDao.carInsuranceTypes();
+        List<ClientParam>clientParams=settlementDao.clients();
+        String temId=null;
+        String holderName=null;
+        String insuredId=null;
+        for(CarInsurancePolicyParam c:carInsurancePolicyParams){
+            CarInsuranceParam carInsuranceParam=new CarInsuranceParam();
+            carInsuranceParam.setCompanyName(c.getInsurer_car_name());//公司名字
+            carInsuranceParam.setPolicyNo(RickUtil.removeEsc(c.getPolicy_no()));//保单号
+            carInsuranceParam.setBillDate(c.getBiling_date());//出单日期
+            carInsuranceParam.setValidDate(c.getStart_insurance_date());//起保日期
+            for (CarContactParam ccp:carContactParams){
+                if(carInsuranceParam.getPolicyNo().equals(RickUtil.removeEsc(ccp.getPolicy_no()))){
+                    for (CarContactorInfo cci:carContactorInfos){
+                        if(ccp.getEmployee_no().equals(cci.getEmploy_no())){
+                            carInsuranceParam.setBranch(cci.getBranch_name());
+                            carInsuranceParam.setContractorName(cci.getChinese_name());
+                            break;
+                        }
+                    }
+                }
+            }
+            holderName=null;
+            insuredId=null;
+            for (ClientParam cp:clientParams){
+                temId=RickUtil.removeEsc(cp.getCertf_id());
+                if(temId.equals(RickUtil.removeEsc(c.getPolicy_holder_car_id()))){
+                    holderName=cp.getName();
+                }
+                if(temId.equals(RickUtil.removeEsc(c.getInsured_car_id()))){
+                    insuredId=cp.getName();
+                }
+            }
+//            holderName=settlementDao.getClient(c.getPolicy_holder_car_id()).getName();
+//            insuredId=settlementDao.getClient(c.getInsured_car_id()).getName();
+            carInsuranceParam.setHolderName(holderName);
+            carInsuranceParam.setBeholderName(insuredId);
+            carInsuranceParam.setCheck(c.getCheck_commission_status());
+            carInsuranceParam.setJiyong(c.getCheck_distribution_status());
+            for (CarInsuranceTypeParam cit:carInsuranceTypeParams){
+                if(carInsuranceParam.getPolicyNo().equals(RickUtil.removeEsc(cit.getPolicy_no()))){
+                    if(cit.getInsur_type_name().equals("交强险")){
+                        carInsuranceParam.setExpenditureJiaoqiangRate(cit.getCommission_rate_out());
+                        carInsuranceParam.setReciveJiaoQiangsRate(cit.getCommission_rate_in());
+                        carInsuranceParam.setJiaoqiangPremium(carInsuranceParam.getJiaoqiangPremium()+cit.getPremium());
+                        //carInsuranceParam.setTotalPremium(carInsuranceParam.getTotalPremium()+cit.getPremium());
+                    }else{
+                        carInsuranceParam.setExpenditureBusinessRate(cit.getCommission_rate_out());
+                        carInsuranceParam.setReciveBusinessRate(cit.getCommission_rate_in());
+                        carInsuranceParam.setBusinessPremium(carInsuranceParam.getJiaoqiangPremium()+cit.getPremium());
+                        //carInsuranceParam.setTotalPremium(carInsuranceParam.getTotalPremium()+cit.getPremium());
+                    }
+                }
+            }
+            carInsuranceParam.setTotalPremium(carInsuranceParam.getJiaoqiangPremium()+carInsuranceParam.getBusinessPremium());
+            carInsuranceParams.add(carInsuranceParam);
+        }
+        return carInsuranceParams;
     }
 
     //获得指定保单的主约附约明细
