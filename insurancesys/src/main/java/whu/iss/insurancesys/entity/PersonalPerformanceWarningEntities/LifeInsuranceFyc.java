@@ -4,6 +4,7 @@ package whu.iss.insurancesys.entity.PersonalPerformanceWarningEntities;
  * 用于计算寿险的fyc
  */
 public class LifeInsuranceFyc {
+    private String policyNo;
     private double premium;
     private String period;
 
@@ -21,5 +22,13 @@ public class LifeInsuranceFyc {
 
     public void setPeriod(String period) {
         this.period = period;
+    }
+
+    public String getPolicyNo() {
+        return policyNo;
+    }
+
+    public void setPolicyNo(String policyNo) {
+        this.policyNo = policyNo;
     }
 }

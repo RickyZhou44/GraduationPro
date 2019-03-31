@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="whu.iss.insurancesys.dao.HumanCapital.EmployeeRankChangeDao">
+    <insert id="addRankChange">
+        insert into employee_rank_change_record
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="num != null">
+                employee_no,
+            </if>
+            <if test="reason != null">
+                change_reason,
+            </if>
+            <if test="toBranch != null">
+                branch_name,
+            </if>
+            <if test="toDept != null">
+                department_name,
+            </if>
+            <if test="toRank != null">
+                rank_name,
+            </if>
+            <if test="rankStartTime != null">
+                rank_effective_starttime,
+            </if>
+            <if test="rankEndTime != null">
+                rank_effective_endtime,
+            </if>
+            <if test="introducerName != null">
+                introducer_name,
+            </if>
+            <if test="relationshipSuperiorName != null">
+                relationship_superior_name,
+            </if>
+            <if test="administrator != null">
+                administrator_name,
+            </if>
+            <if test="administrator2 != null">
+                administrator2_name,
+            </if>
+            <if test="backup != null">
+                note,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="num != null">
+                #{num,jdbcType=INTEGER},
+            </if>
+            <if test="reason != null">
+                #{reason,jdbcType=VARCHAR},
+            </if>
+            <if test="toBranch != null">
+                #{toBranch,jdbcType=VARCHAR},
+            </if>
+            <if test="toDept != null">
+                #{toDept,jdbcType=VARCHAR},
+            </if>
+            <if test="toRank != null">
+                #{toRank,jdbcType=VARCHAR},
+            </if>
+            <if test="rankStartTime != null">
+                #{rankStartTime,jdbcType=VARCHAR},
+            </if>
+            <if test="rankEndTime != null">
+                #{rankEndTime,jdbcType=VARCHAR},
+            </if>
+            <if test="introducerName != null">
+                #{introducerName,jdbcType=VARCHAR},
+            </if>
+            <if test="relationshipSuperiorName != null">
+                #{relationshipSuperiorName,jdbcType=VARCHAR},
+            </if>
+            <if test="administrator != null">
+                #{administrator,jdbcType=VARCHAR},
+            </if>
+            <if test="administrator2 != null">
+                #{administrator2,jdbcType=VARCHAR},
+            </if>
+            <if test="backup != null">
+                #{backup,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <select id="getRankChangeByNum" resultType="map">
+        select rank_change_no as num, change_reason as reason, branch_name as toRank, department_name as toDept,
+        rank_name as toRank, rank_effective_starttime as rankStartTime, rank_effective_endtime as rankEndTime,
+        introducer_name as introducerName, relationship_superior_name as relationshipSuperiorName, note as backup,
+        administrator_name as administrator, administrator2_name as administrator2
+        from employee_rank_change_record
+        where employee_no =#{employee_no}
+    </select>
+</mapper>

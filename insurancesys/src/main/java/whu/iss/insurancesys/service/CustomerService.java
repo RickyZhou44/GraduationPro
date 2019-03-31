@@ -9,7 +9,15 @@ public interface CustomerService {
 
     public boolean addCustomer(Customer customer);
 
-    public List<Map<String,String>> getCustomerList(String clientName, String idCard, String address, String tel, String email);
+    public boolean updateCustomer(Customer customer);
+
+    public List<Map<String,String>> getCustomerList(String clientName, String idCard, String address, String tel, String email,
+                                                    int[] clientType, int[] sex);
 
     public Customer getCustomerById(String certfId);
+
+    public boolean deleteCustomerById(String certfId);
+
+    public List<String> getRepresentative(String representative);
+
 }

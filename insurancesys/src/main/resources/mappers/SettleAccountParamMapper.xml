@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="whu.iss.insurancesys.dao.FeeRateDaos.SettleAccountParamDao">
+    <resultMap id="BaseResultMap" type="whu.iss.insurancesys.entity.FeeRateEntities.SettleAccountParam">
+        <result column="insur_id" jdbcType="INTEGER" property="insurId"/>
+        <result column="year" jdbcType="INTEGER" property="year"/>
+        <result column="rate" jdbcType="DOUBLE" property="rate"/>
+        <result column="pay_date_start" jdbcType="TIMESTAMP" property="payDateStart"/>
+        <result column="pay_date_end" jdbcType="TIMESTAMP" property="payDateEnd"/>
+        <result column="validate_date_start" jdbcType="TIMESTAMP" property="validateDateStart"/>
+        <result column="validate_date_end" jdbcType="TIMESTAMP" property="validateDateEnd"/>
+        <result column="in_out" jdbcType="VARCHAR" property="inOrOut"/>
+        <result column="fee_rate_param" jdbcType="VARCHAR" property="feeRateParam"/>
+    </resultMap>
+
+    <insert id="insert" parameterType="whu.iss.insurancesys.entity.FeeRateEntities.SettleAccountParam">
+    insert into settle_account_param (insur_id, year, rate, 
+      pay_date_start, pay_date_end, validate_date_start, 
+      validate_date_end)
+    values (#{insurId,jdbcType=INTEGER}, #{year,jdbcType=INTEGER}, #{rate,jdbcType=DOUBLE}, 
+      #{payDateStart,jdbcType=TIMESTAMP}, #{payDateEnd,jdbcType=TIMESTAMP}, #{validateDateStart,jdbcType=TIMESTAMP}, 
+      #{validateDateEnd,jdbcType=TIMESTAMP})
+  </insert>
+
+    <insert id="insertSelective" parameterType="whu.iss.insurancesys.entity.FeeRateEntities.SettleAccountParam">
+        insert into settle_account_param
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="insurId != null">
+                insur_id,
+            </if>
+            <if test="year != null">
+                year,
+            </if>
+            <if test="rate != null">
+                rate,
+            </if>
+            <if test="payDateStart != null">
+                pay_date_start,
+            </if>
+            <if test="payDateEnd != null">
+                pay_date_end,
+            </if>
+            <if test="validateDateStart != null">
+                validate_date_start,
+            </if>
+            <if test="validateDateEnd != null">
+                validate_date_end,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="insurId != null">
+                #{insurId,jdbcType=INTEGER},
+            </if>
+            <if test="year != null">
+                #{year,jdbcType=INTEGER},
+            </if>
+            <if test="rate != null">
+                #{rate,jdbcType=DOUBLE},
+            </if>
+            <if test="payDateStart != null">
+                #{payDateStart,jdbcType=TIMESTAMP},
+            </if>
+            <if test="payDateEnd != null">
+                #{payDateEnd,jdbcType=TIMESTAMP},
+            </if>
+            <if test="validateDateStart != null">
+                #{validateDateStart,jdbcType=TIMESTAMP},
+            </if>
+            <if test="validateDateEnd != null">
+                #{validateDateEnd,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+
+    <select id="getByInsurId" resultMap="BaseResultMap">
+        select * from settle_account_param where insur_id = #{insurId} order by year asc;
+    </select>
+
+    <update id="updateDateAndRateById">
+        update settle_account_param
+        <trim prefix="set" suffixOverrides="," suffix="where id = #{insurId} and year = #{year};">
+            <if test="from != null">
+                validate_date_start = #{from,jdbcType=DATE},
+            </if>
+            <if test="to != null">
+                validate_date_end = #{to,jdbcType=DATE},
+            </if>
+            <if test="rate != null">
+                rate = #{rate},
+            </if>
+        </trim>
+    </update>
+
+    <update id="updateDateById">
+        update settle_account_param
+        <trim prefix="set" suffixOverrides="," suffix="where id = #{insurId}">
+            <if test="from != null">
+                validate_date_start = #{from,jdbcType=DATE},
+            </if>
+            <if test="to != null">
+                validate_date_end = #{to,jdbcType=DATE},
+            </if>
+        </trim>
+    </update>
+
+    <update id="update" parameterType="whu.iss.insurancesys.entity.FeeRateEntities.SettleAccountParam">
+        update settle_account_param
+        <trim prefix="set" suffixOverrides="," suffix="where id = #{insurId} and year = #{year};">
+            <if test="validateDateStart != null">
+                validate_date_start = #{from,jdbcType=DATE},
+            </if>
+            <if test="validateDateEnd != null">
+                validate_date_end = #{to,jdbcType=DATE},
+            </if>
+            <if test="rate != null">
+                rate = #{rate},
+            </if>
+            <if test="inOrOut != null">
+                in_out = #{inOrOut},
+            </if>
+            <if test="feeRateParam != null">
+                fee_rate_param = #{feeRateParam},
+            </if>
+        </trim>
+    </update>
+
+    <delete id="deleteByDateAndId">
+        delete from settle_account_param
+        where insur_id = #{insurId} and pay_date_start = #{from,jdbcType=DATE} and pay_date_end = #{to,jdbcType=DATE};
+    </delete>
+</mapper>

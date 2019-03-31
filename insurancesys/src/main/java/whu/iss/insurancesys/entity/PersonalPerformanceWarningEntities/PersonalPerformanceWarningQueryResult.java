@@ -16,6 +16,8 @@ public class PersonalPerformanceWarningQueryResult {
     private Date rankValid;
     private String introducerName;
     private String relationship;
+    private Date baseMonth;
+    private String period;
     private List<CarInsuranceCheckDetail> carInsuranceCheckDetails;
     private List<LifeInsuranceCheckDetail> lifeInsuranceCheckDetails;
 
@@ -105,5 +107,21 @@ public class PersonalPerformanceWarningQueryResult {
 
     public void setLifeInsuranceCheckDetails(List<LifeInsuranceCheckDetail> lifeInsuranceCheckDetails) {
         this.lifeInsuranceCheckDetails = lifeInsuranceCheckDetails;
+    }
+
+    public Date getBaseMonth() {
+        return baseMonth;
+    }
+
+    public void setBaseMonth(Date baseMonth) {
+        this.baseMonth = baseMonth;
+    }
+
+    public String getPeriod() {
+        return period;
+    }
+
+    public void setPeriod(String period) {
+        this.period = period;
     }
 }

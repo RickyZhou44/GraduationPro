@@ -25,16 +25,15 @@
     <select id="findPersonInfo" resultMap="ResultMap1">
         select chinese_name,employee_no,certificate_no,branch_name,current_rank,department
         from employee_basic_information,employee_unit_rank
-        <where>
-            <if test="name!=null">Chinese_name=#{name}</if>
-            <if test="number!=null">and employee_no=#{number}</if>
+        where employee_basic_information.employee_no=employee_unit_rank.employ_no
+        <if test="name!=null">and Chinese_name=#{name}</if>
+        <if test="number!=-1">and employee_no=#{number}</if>
             <if test="idCard!=null">and certificate_no=#{idCard}</if>
-            <if test="branchs!=null">and branchs in
-                <foreach collection="array" open="(" close=")" separator="," item="branchs">
+        <if test="branchs!=null">and branch_name in
+            <foreach collection="branchs" open="(" close=")" separator="," item="branchs">
                     #{branchs}
                 </foreach>
             </if>
-        </where>
     </select>
 
     <select id="findOne" resultMap="ResultMap2">
@@ -44,108 +43,112 @@
     </select>
 
     <sql id="Personal_LifeInsurance">
-        select premium,period
+        select lip.policy_no as policyNo,premium,period
         from life_insurance_policy lip,life_policy_contract lpc,insurance_type it
-        where lpc.policy_no=lip.policy_no and lip.insur_id=it.insur_id and lpc.employee_no=#{employeeNo} and
-        lip.valid_date_since
-        <![CDATA[ <= ]]> DATE_ADD(#{baseMonth},
+        where lpc.policy_no=lip.policy_no and lip.insur_id=it.insur_id and lpc.employee_no=#{employeeNo}
+        <if test="baseMonth!=null ">
+            and lip.valid_date_since >= #{baseMonth}
         <choose>
             <when test='period=="月"'>
-                1 MONTHS
+                and lip.valid_date_since <![CDATA[ <= ]]> DATE_ADD(#{baseMonth},INTERVAL 1 MONTH)
             </when>
             <when test='period=="季"'>
-                3 MONTHS
+                and lip.valid_date_since <![CDATA[ <= ]]> DATE_ADD(#{baseMonth},INTERVAL 3 MONTH)
             </when>
             <when test='period=="半年"'>
-                6 MONTHS
+                and lip.valid_date_since <![CDATA[ <= ]]> DATE_ADD(#{baseMonth},INTERVAL 6 MONTH)
             </when>
             <when test='period=="年"'>
-                1 YEARS
+                and lip.valid_date_since <![CDATA[ <= ]]> DATE_ADD(#{baseMonth},INTERVAL 1 YEAR)
             </when>
             <when test='period=="自始"'>
-                0 SECONDS
+
             </when>
         </choose>
-        )
+        </if>
     </sql>
     <sql id="Team_LifeInsurance">
-        select premium,period
+        select life_policy_contract.policy_no as policyNo,premium,period
         from team_record,life_policy_contract,life_insurance_policy,insurance_type
         where team_record.member_id=#{employeeNo} and life_policy_contract.team_no=team_record.team_id and
-        life_insurance_policy.policy_no=life_policy_contract.policy_no and insurance_type.insur_id=
-        life_insurance_policy.insur_id and life_insurance_policy.valid_date_since
-        <![CDATA[ <= ]]> DATE_ADD(#{baseMonth},
-        <choose>
-            <when test='period=="月"'>
-                1 MONTHS
-            </when>
-            <when test='period=="季"'>
-                3 MONTHS
-            </when>
-            <when test='period=="半年"'>
-                6 MONTHS
-            </when>
-            <when test='period=="年"'>
-                1 YEARS
-            </when>
-            <when test='period=="自始"'>
-                0 SECONDS
-            </when>
-        </choose>
-        )
+        life_insurance_policy.policy_no=life_policy_contract.policy_no and
+        insurance_type.insur_id=life_insurance_policy.insur_id
+        <if test="baseMonth!=null ">
+            and life_insurance_policy.valid_date_since >= #{baseMonth}
+            <choose>
+                <when test='period=="月"'>
+                    and life_insurance_policy.valid_date_since <![CDATA[ <= ]]> DATE_ADD(#{baseMonth},INTERVAL 1 MONTH)
+                </when>
+                <when test='period=="季"'>
+                    and life_insurance_policy.valid_date_since <![CDATA[ <= ]]> DATE_ADD(#{baseMonth},INTERVAL 3 MONTH)
+                </when>
+                <when test='period=="半年"'>
+                    and life_insurance_policy.valid_date_since <![CDATA[ <= ]]> DATE_ADD(#{baseMonth},INTERVAL 6 MONTH)
+                </when>
+                <when test='period=="年"'>
+                    and life_insurance_policy.valid_date_since <![CDATA[ <= ]]> DATE_ADD(#{baseMonth},INTERVAL 1 YEAR)
+                </when>
+                <when test='period=="自始"'>
+
+                </when>
+            </choose>
+        </if>
     </sql>
 
     <sql id="Personal_CarInsurance">
-        select premium,commission_rate_in,commission_rate_out
+        select cip.policy_no as policyNo,premium,commission_rate_in as commissionRateIn,commission_rate_out as
+        commissionRateOut
         from car_insurance_policy cip,car_insur_policy_mid cipm,car_policy_contract cpc,car_insurance_type cit
-        where cipm.policy_no=cip.policy_no and cipm.car_insur_id=cit.car_insur_id and cpc.employee_no=#{employeeNo}
-        and cip.pay_date_car
-        <![CDATA[ <= ]]> DATE_ADD(#{baseMonth},
-        <choose>
-            <when test='period=="月"'>
-                1 MONTHS
-            </when>
-            <when test='period=="季"'>
-                3 MONTHS
-            </when>
-            <when test='period=="半年"'>
-                6 MONTHS
-            </when>
-            <when test='period=="年"'>
-                1 YEARS
-            </when>
-            <when test='period=="自始"'>
-                0 SECONDS
-            </when>
-        </choose>
-        )
+        where cipm.policy_no=cip.policy_no and cipm.car_insur_id=cit.car_insur_id and cpc.employee_no=#{employeeNo} and
+        cpc.policy_no=cip.policy_no
+        <if test="baseMonth!=null ">
+            and cip.pay_date_car >= #{baseMonth}
+            <choose>
+                <when test='period=="月"'>
+                    and cip.pay_date_car <![CDATA[ <= ]]> DATE_ADD(#{baseMonth}, INTERVAL 1 MONTH)
+                </when>
+                <when test='period=="季"'>
+                    and pay_date_car <![CDATA[ <= ]]> DATE_ADD(#{baseMonth}, INTERVAL 3 MONTH)
+                </when>
+                <when test='period=="半年"'>
+                    and pay_date_car <![CDATA[ <= ]]> DATE_ADD(#{baseMonth},INTERVAL 6 MONTH)
+                </when>
+                <when test='period=="年"'>
+                    and pay_date_car <![CDATA[ <= ]]> DATE_ADD(#{baseMonth}, INTERVAL 1 YEAR)
+                </when>
+                <when test='period=="自始"'>
+
+                </when>
+            </choose>
+        </if>
     </sql>
     <sql id="Team_CarInsurance">
-        select premium,commission_rate_in,commission_rate_out
+        select cip.policy_no as policyNo,premium,commission_rate_in as commissionRateIn,commission_rate_out as
+        commissionRateOut
         from car_insurance_policy cip,car_insur_policy_mid cipm,car_policy_contract cpc,car_insurance_type
         cit,team_record
         where cipm.policy_no=cip.policy_no and cipm.car_insur_id=cit.car_insur_id and
-        team_record.member_id=#{employeeNo}
-        and team_record.team_id=cpc.team_no and cip.pay_date_car
-        <![CDATA[ <= ]]> DATE_ADD(#{baseMonth},
-        <choose>
-            <when test='period=="月"'>
-                1 MONTHS
-            </when>
-            <when test='period=="季"'>
-                3 MONTHS
-            </when>
-            <when test='period=="半年"'>
-                6 MONTHS
-            </when>
-            <when test='period=="年"'>
-                1 YEARS
-            </when>
-            <when test='period=="自始"'>
-                0 SECONDS
-            </when>
-        </choose>
-        )
+        team_record.member_id=#{employeeNo} and team_record.team_id=cpc.team_no and cpc.policy_no=cip.policy_no
+        <if test="baseMonth!=null ">
+            and cip.pay_date_car >= #{baseMonth}
+            <choose>
+                <when test='period=="月"'>
+                    and cip.pay_date_car <![CDATA[ <= ]]> DATE_ADD(#{baseMonth},INTERVAL 1 MONTH)
+                </when>
+                <when test='period=="季"'>
+                    and pay_date_car <![CDATA[ <= ]]> DATE_ADD(#{baseMonth},INTERVAL 3 MONTH)
+                </when>
+                <when test='period=="半年"'>
+                    and pay_date_car <![CDATA[ <= ]]> DATE_ADD(#{baseMonth},INTERVAL 6 MONTH)
+                </when>
+                <when test='period=="年"'>
+                    and pay_date_car <![CDATA[ <= ]]> DATE_ADD(#{baseMonth},INTERVAL 1 YEAR)
+                </when>
+                <when test='period=="自始"'>
+
+                </when>
+            </choose>
+        </if>
     </sql>
 
     <select id="getLifeInsuranceFycBasicData"

@@ -4,9 +4,10 @@ package whu.iss.insurancesys.entity.PersonalPerformanceWarningEntities;
  * 用于计算车险的Fyc
  */
 public class CarInsuranceFyc {
+    private String policyNo;
     private double premium;
-    private int commissionRateIn;
-    private int commissionRateOut;
+    private double commissionRateIn;
+    private double commissionRateOut;
 
     public double getPremium() {
         return premium;
@@ -16,19 +17,27 @@ public class CarInsuranceFyc {
         this.premium = premium;
     }
 
-    public int getCommissionRateIn() {
+    public double getCommissionRateIn() {
         return commissionRateIn;
     }
 
-    public void setCommissionRateIn(int commissionRateIn) {
+    public void setCommissionRateIn(double commissionRateIn) {
         this.commissionRateIn = commissionRateIn;
     }
 
-    public int getCommissionRateOut() {
+    public double getCommissionRateOut() {
         return commissionRateOut;
     }
 
-    public void setCommissionRateOut(int commissionRateOut) {
+    public void setCommissionRateOut(double commissionRateOut) {
         this.commissionRateOut = commissionRateOut;
+    }
+
+    public String getPolicyNo() {
+        return policyNo;
+    }
+
+    public void setPolicyNo(String policyNo) {
+        this.policyNo = policyNo;
     }
 }

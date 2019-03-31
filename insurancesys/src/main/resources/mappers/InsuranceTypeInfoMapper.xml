@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="whu.iss.insurancesys.dao.FeeRateDaos.InsuranceTypeInfoDao">
+    <resultMap id="BaseResultMap" type="whu.iss.insurancesys.entity.FeeRateEntities.InsuranceTypeInfo">
+        <result column="insur_id" jdbcType="INTEGER" property="insurId"/>
+        <result column="company" jdbcType="VARCHAR" property="company"/>
+        <result column="insurance_cname" jdbcType="VARCHAR" property="insuranceCname"/>
+        <result column="insurance_sname" jdbcType="VARCHAR" property="insuranceSname"/>
+        <result column="code" jdbcType="VARCHAR" property="code"/>
+        <result column="main_or_vice" jdbcType="CHAR" property="mainOrVice"/>
+        <result column="param_type" jdbcType="VARCHAR" property="paramType"/>
+        <result column="insurance_type" jdbcType="VARCHAR" property="insuranceType"/>
+        <result column="start_sale_time" jdbcType="TIMESTAMP" property="startSaleTime"/>
+        <result column="stop_sale_time" jdbcType="TIMESTAMP" property="stopSaleTime"/>
+        <result column="remark" jdbcType="VARCHAR" property="remark"/>
+        <result column="common_year" jdbcType="VARCHAR" property="commonYear"/>
+    </resultMap>
+
+    <insert id="insert" parameterType="whu.iss.insurancesys.entity.FeeRateEntities.InsuranceTypeInfo">
+    insert into insurance_type_info (insur_id, company, insurance_cname, 
+      insurance_sname, code, main_or_vice, 
+      param_type, insurance_type, start_sale_time,
+      stop_sale_time, remark, common_year
+      )
+    values (#{insurId,jdbcType=INTEGER}, #{company,jdbcType=VARCHAR}, #{insuranceCname,jdbcType=VARCHAR}, 
+      #{insuranceSname,jdbcType=VARCHAR}, #{code,jdbcType=VARCHAR}, #{mainOrVice,jdbcType=CHAR}, 
+      #{paramType,jdbcType=VARCHAR}, #{insuranceType,jdbcType=VARCHAR}, #{startSaleTime,jdbcType=TIMESTAMP},
+      #{stopSaleTime,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR}, #{commonYear,jdbcType=VARCHAR}
+      )
+  </insert>
+
+    <insert id="insertSelective" parameterType="whu.iss.insurancesys.entity.FeeRateEntities.InsuranceTypeInfo">
+        insert into insurance_type_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="insurId != null">
+                insur_id,
+            </if>
+            <if test="company != null">
+                company,
+            </if>
+            <if test="insuranceCname != null">
+                insurance_cname,
+            </if>
+            <if test="insuranceSname != null">
+                insurance_sname,
+            </if>
+            <if test="code != null">
+                code,
+            </if>
+            <if test="mainOrVice != null">
+                main_or_vice,
+            </if>
+            <if test="paramType != null">
+                param_type,
+            </if>
+            <if test="insuranceType != null">
+                insurance_type,
+            </if>
+            <if test="startSaleTime != null">
+                start_sale_time,
+            </if>
+            <if test="stopSaleTime != null">
+                stop_sale_time,
+            </if>
+            <if test="remark != null">
+                remark,
+            </if>
+            <if test="commonYear != null">
+                common_year,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="insurId != null">
+                #{insurId,jdbcType=INTEGER},
+            </if>
+            <if test="company != null">
+                #{company,jdbcType=VARCHAR},
+            </if>
+            <if test="insuranceCname != null">
+                #{insuranceCname,jdbcType=VARCHAR},
+            </if>
+            <if test="insuranceSname != null">
+                #{insuranceSname,jdbcType=VARCHAR},
+            </if>
+            <if test="code != null">
+                #{code,jdbcType=VARCHAR},
+            </if>
+            <if test="mainOrVice != null">
+                #{mainOrVice,jdbcType=CHAR},
+            </if>
+            <if test="paramType != null">
+                #{paramType,jdbcType=VARCHAR},
+            </if>
+            <if test="insuranceType != null">
+                #{insuranceType,jdbcType=VARCHAR},
+            </if>
+            <if test="startSaleTime != null">
+                #{startSaleTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="stopSaleTime != null">
+                #{stopSaleTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="remark != null">
+                #{remark,jdbcType=VARCHAR},
+            </if>
+            <if test="commonYear != null">
+                #{commonYear,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <select id="getByParam" resultMap="BaseResultMap">
+        select * from insurance_type_info
+            <trim prefix="where" suffix=";" prefixOverrides="and">
+                <if test="company != null">
+                    and company = #{company}
+                </if>
+                <if test="insuranceCname != null">
+                    and insurance_cname = #{insuranceCname}
+                </if>
+                <if test="insuranceSname != null">
+                    and insurance_sname = #{insuranceSname}
+                </if>
+                <if test="code != null">
+                    and code = #{code}
+                </if>
+                <if test="mainOrVice != null">
+                    and main_or_vice = #{mainOrVice}
+                </if>
+                <if test="paramType != null">
+                    and param_type = #{paramType}
+                </if>
+                <if test="startFrom != null and startTo != null">
+                    and start_sale_time between #{startFrom,jdbcType=DATE} and #{startTo,jdbcType=DATE}
+                </if>
+                <if test="endFrom != null and endTo != null">
+                    and stop_sale_time between #{endFrom,jdbcType=DATE} and #{endTo,jdbcType=DATE}
+                </if>
+            </trim>
+    </select>
+
+    <select id="getById" resultMap="BaseResultMap">
+        select * from insurance_type_info where insur_id = #{id};
+    </select>
+    
+    <update id="update">
+        update insurance_type_info
+            <trim prefix="set" suffixOverrides="," suffix="where insur_id = #{insurId};">
+                <if test="mainOrVice != null">
+                    main_or_vice = #{mainOrVice},
+                </if>
+                <if test="insuranceType != null">
+                    insurance_type = #{insuranceType},
+                </if>
+                <if test="insuranceCname != null">
+                    insurance_cname = #{insuranceCname},
+                </if>
+                <if test="insuranceSname != null">
+                    insurance_sname = #{insuranceSname},
+                </if>
+                <if test="paramType != null">
+                    param_type = #{paramType},
+                </if>
+                <if test="commonYear != null">
+                    common_year = #{commonYear},
+                </if>
+                <if test="startDate != null">
+                    start_sale_time = #{startDate,jdbcType=DATE},
+                </if>
+                <if test="endDate != null">
+                    stop_sale_time = #{endDate,jdbcType=DATE},
+                </if>
+                <if test="remark != null">
+                    remark = #{remark},
+                </if>
+            </trim>
+    </update>
+
+    <delete id="deleteByinsurId">
+        delete from insurance_type_info where insur_id = #{insurId};
+    </delete>
+</mapper>
