@@ -13,6 +13,7 @@ import java.util.List;
  * @author RickZhou
  * Create by RickZhou on 2019/3/23
  */
+//修改了一下名字
 @Repository
 public interface SettlementDao {
     public List<ExternalSettleEntity>getExternalData();

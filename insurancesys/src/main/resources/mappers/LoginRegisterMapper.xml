@@ -4,4 +4,5 @@
     <select id="getAccounts" resultType="whu.iss.insurancesys.entity.LoginRegisterEntities.Account">
         select username,password,user_type from user_account;
     </select>
+    <!--//修改了一下名字-->
 </mapper>

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--修改了一下名字-->
 <mapper namespace="whu.iss.insurancesys.dao.SettlementParamDaos.SettlementDao">
     <select id="getExternalData" resultType="whu.iss.insurancesys.entity.SettlementParamEntities.ExternalSettleEntity">
         select t2.validate_date_start,t4.pay_date,t3.premium,t3.policy_no,t4.check_commission_status,t4.policy_type,t4.agent_type,t3.period,t5.employee_no,t6.chinese_name,t3.insurer_name from insurance_type_info as t1,settle_account_param as t2,insurance_type as t3,life_insurance_policy as t4,life_policy_contract as t5,employee_basic_information as t6
