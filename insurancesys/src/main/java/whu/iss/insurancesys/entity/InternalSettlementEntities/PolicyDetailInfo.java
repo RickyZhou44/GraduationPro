@@ -6,7 +6,7 @@ import java.util.Date;
  * @author RickZhou
  * Create by RickZhou on 2019/3/31
  */
-public class PolicyDetail {
+public class PolicyDetailInfo {
     private String companyName;
     private String policyNo;
     private Date validDate;//受理日期

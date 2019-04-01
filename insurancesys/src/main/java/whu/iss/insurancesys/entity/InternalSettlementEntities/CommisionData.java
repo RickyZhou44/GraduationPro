@@ -7,14 +7,14 @@ import java.util.List;
  * Create by RickZhou on 2019/3/31
  */
 public class CommisionData {
-    private List<PolicyDetail>policyDetails;
+    private List<PolicyDetailInfo>policyDetails;
     private List<SalaryParam>salaryParams;
 
-    public List<PolicyDetail> getPolicyDetails() {
+    public List<PolicyDetailInfo> getPolicyDetails() {
         return policyDetails;
     }
 
-    public void setPolicyDetails(List<PolicyDetail> policyDetails) {
+    public void setPolicyDetails(List<PolicyDetailInfo> policyDetails) {
         this.policyDetails = policyDetails;
     }
 

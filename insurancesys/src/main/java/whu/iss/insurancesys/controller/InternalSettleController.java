@@ -8,7 +8,8 @@ import whu.iss.insurancesys.dto.ResultInfo;
 import whu.iss.insurancesys.entity.ExcelData;
 import whu.iss.insurancesys.entity.InternalSettlementEntities.CommisionData;
 import whu.iss.insurancesys.entity.InternalSettlementEntities.CommissionParam;
-import whu.iss.insurancesys.entity.InternalSettlementEntities.PolicyDetail;
+import whu.iss.insurancesys.entity.InternalSettlementEntities.PolicyDetailInfo;
+import whu.iss.insurancesys.entity.InternalSettlementEntities.PolicyDetailInfo;
 import whu.iss.insurancesys.entity.InternalSettlementEntities.SalaryParam;
 import whu.iss.insurancesys.entity.SettlementParamEntities.CarInsuranceParam;
 import whu.iss.insurancesys.service.ExternalSettlementService;
@@ -36,7 +37,7 @@ public class InternalSettleController {
         ResultInfo resultInfo=new ResultInfo();
         //从之前service中已经封装好的方法进行操作
         List<CarInsuranceParam>list=externalSettlementService.getCarInsuranceParam();
-        List<PolicyDetail>policyDetails=new ArrayList<>();
+        List<PolicyDetailInfo>policyDetails=new ArrayList<>();
         List<SalaryParam>salaryParams=new ArrayList<>();
         CommisionData commisionData=new CommisionData();
         if(list==null){
@@ -46,7 +47,7 @@ public class InternalSettleController {
         else {
             for (CarInsuranceParam c:list){
                 if(c.getBranch().equals(branch)&&c.getValidDate().compareTo(dateStart)>=0&&c.getValidDate().compareTo(dateEnd)<=0){
-                    PolicyDetail policyDetail=new PolicyDetail();
+                    PolicyDetailInfo policyDetail=new PolicyDetailInfo();
                     SalaryParam salaryParam=new SalaryParam();
                     //赋值薪资明细
                     salaryParam.setBranch(c.getBranch());
@@ -144,9 +145,9 @@ public class InternalSettleController {
         SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM");
         String[]head={"保险公司","保单号码","受理日期","交强保费","支项(交强)","商业保费","支项(商业)"};
         ExcelData excelData=new ExcelData();
-        List<PolicyDetail>policyDetails= (List<PolicyDetail>) session.getAttribute("policy");
+        List<PolicyDetailInfo>policyDetails= (List<PolicyDetailInfo>) session.getAttribute("policy");
         List<String[]>data=new ArrayList<>();
-        for(PolicyDetail p:policyDetails){
+        for(PolicyDetailInfo p:policyDetails){
             String[]ss=new String[head.length];
             ss[0]=p.getCompanyName();
             ss[1]=p.getPolicyNo();
