@@ -55,6 +55,13 @@ public class PersonRankController {
         return resultInfo;
     }
 
+    @GetMapping("/personRank/staff")
+    public Object getStaffByName(@RequestParam("name")String input){
+        ResultInfo resultInfo = new ResultInfo();
+        resultInfo.setData(personRankService.getStaffByName(input));
+        return resultInfo;
+    }
+
     @GetMapping("/personRank/{num}")
     public Object getPersonRankByNum(@PathVariable(value = "num")int num){
         ResultInfo resultInfo = new ResultInfo();

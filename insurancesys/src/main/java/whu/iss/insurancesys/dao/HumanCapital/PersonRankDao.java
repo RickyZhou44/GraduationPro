@@ -19,5 +19,6 @@ public interface PersonRankDao {
 
     public Map<String,String> getPersonRankByNum(@Param("employee_no") int num);
 
+    public List<Map<String,String>> getStaffByName(@Param("name")String name);
 
 }

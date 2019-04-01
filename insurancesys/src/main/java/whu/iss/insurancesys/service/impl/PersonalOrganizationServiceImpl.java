@@ -52,7 +52,7 @@ public class PersonalOrganizationServiceImpl implements PersonalOrganizationServ
             }
             res.put("state", temp);
         }
-        if(!showLeave&&res.get("state").equals("离职")){
+        if(!showLeave&&res.get("state")!=null&&res.get("state").equals("离职")){
             return null;
         }
         return res;

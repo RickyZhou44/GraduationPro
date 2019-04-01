@@ -16,4 +16,6 @@ public interface PersonRankService {
     public Map<String,String> getPersonRankByNum(int num);
 
     public boolean updatePersonRankOne(EmployeeInfo employeeInfo);
+
+    public List<Map<String,String>> getStaffByName(String name);
 }

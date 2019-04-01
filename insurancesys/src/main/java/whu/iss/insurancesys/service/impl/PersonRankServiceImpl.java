@@ -56,4 +56,10 @@ public class PersonRankServiceImpl implements PersonRankService {
         EmployeeUnitRank unitInfo = EmployeeInfo.getUnitInfo(employeeInfo);
         return basicInfoDao.update(basicInfo)==1 && unitRankDao.update(unitInfo)==1;
     }
+
+    @Override
+    public List<Map<String, String>> getStaffByName(String name) {
+        List<Map<String,String>> res = personRankDao.getStaffByName(name);
+        return res;
+    }
 }
