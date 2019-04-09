@@ -17,7 +17,7 @@ import java.util.*;
  * @author RickZhou
  * Create by RickZhou on 2019/3/17
  */
-@CrossOrigin(origins = "localhost:8080",maxAge = 3600)
+
 @Service
 public class ContinueRateServiceImpl implements ContinueRateService {
     @Autowired
