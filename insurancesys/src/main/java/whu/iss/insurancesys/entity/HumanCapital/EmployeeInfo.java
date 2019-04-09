@@ -1,12 +1,13 @@
 package whu.iss.insurancesys.entity.HumanCapital;
 
-import com.sun.istack.internal.NotNull;
+
 import org.hibernate.validator.constraints.Length;
 import whu.iss.insurancesys.entity.EmployeeBasicInformation;
 import whu.iss.insurancesys.entity.EmployeeUnitRank;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.sql.Date;
 
 public class EmployeeInfo {
