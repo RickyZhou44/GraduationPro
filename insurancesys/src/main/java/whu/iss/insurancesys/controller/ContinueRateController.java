@@ -142,6 +142,7 @@ public class ContinueRateController {
         ExcelUtil.exportExcel(excelData);
         return resultInfo;
     }
+    //test
     @RequestMapping("/testCon")
     public Object continueRate(@RequestParam("date") Date date,@RequestParam("param") int param,@RequestParam("type")int type,HttpSession session){
         SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM");
