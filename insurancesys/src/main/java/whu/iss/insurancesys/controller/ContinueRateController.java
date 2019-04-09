@@ -27,7 +27,6 @@ import java.util.List;
  */
 
 @RestController
-@RequestMapping("/settlement")
 public class ContinueRateController {
     @Autowired
     ContinueRateService continueRateService;
