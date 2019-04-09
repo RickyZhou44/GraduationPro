@@ -2,6 +2,7 @@ package whu.iss.insurancesys.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import whu.iss.insurancesys.dao.SettlementParamDaos.PreReceivableDao;
 import whu.iss.insurancesys.dto.ResultInfo;
 import whu.iss.insurancesys.entity.SettlementParamEntities.*;
@@ -16,6 +17,7 @@ import java.util.*;
  * @author RickZhou
  * Create by RickZhou on 2019/3/17
  */
+@CrossOrigin(origins = "localhost:8080",maxAge = 3600)
 @Service
 public class ContinueRateServiceImpl implements ContinueRateService {
     @Autowired
