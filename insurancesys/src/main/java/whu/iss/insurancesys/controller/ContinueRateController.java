@@ -3,6 +3,7 @@ package whu.iss.insurancesys.controller;
 import org.apache.ibatis.annotations.Param;
 import org.omg.CORBA.OBJ_ADAPTER;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,18 +25,19 @@ import java.util.List;
  * @author RickZhou
  *         Created by RickZhou on 2019/3/17 0017.
  */
+@CrossOrigin(origins = "localhost:8080", maxAge = 3600)
 @RestController
 public class ContinueRateController {
     @Autowired
     ContinueRateService continueRateService;
     //此处用于返回对继续率的重新组织
-    @RequestMapping("continueRate")
+    @RequestMapping("/continueRate")
     public Object continueRate1(@RequestParam("date") Date date,@RequestParam("param") int param,@RequestParam("type")int type){
         ResultInfo resultInfo=  continueRateService.getResult(date,param,type);
         return resultInfo;
     }
 //    此映射用于处理导出继续率查询的结果并存储到指定位置的excel文件
-    @RequestMapping("exportExcel")
+    @RequestMapping("/exportExcel")
     public Object exportExcel(@RequestParam("heads")String[]heads,@RequestParam("path") String path, HttpSession session){
         int type= (int) session.getAttribute("type");
         ResultInfo resultInfo=new ResultInfo();
@@ -140,7 +142,7 @@ public class ContinueRateController {
         ExcelUtil.exportExcel(excelData);
         return resultInfo;
     }
-    @RequestMapping("testCon")
+    @RequestMapping("/testCon")
     public Object continueRate(@RequestParam("date") Date date,@RequestParam("param") int param,@RequestParam("type")int type,HttpSession session){
         SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM");
         ResultInfo resultInfo=null;
