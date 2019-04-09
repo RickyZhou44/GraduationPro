@@ -1,6 +1,7 @@
 package whu.iss.insurancesys.entity.HumanCapital;
-
-import com.sun.istack.internal.NotNull;
+//
+//import com.sun.istack.internal.NotNull;
+import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Length;
 import whu.iss.insurancesys.entity.EmployeeUnitRank;
 

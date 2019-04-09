@@ -22,22 +22,41 @@ import java.util.Date;
 public class LoginRegisterController {
       @Autowired
       LoginRegisterService loginRegisterService;
-  @RequestMapping("/bb")
-    public Object send(){
+      //发送邮箱验证
+  @RequestMapping("/validate")
+    public Object sendEmail(@RequestParam("email")String email){
       ResultInfo resultInfo=new ResultInfo();
       String code= RickUtil.getRandomCode();
-      String email="819894286@qq.com";
       Date date=new Date();
       MailData mailData=new MailData();
       mailData.setContent(code);
       mailData.setReciever(email);
       mailData.setDate(date);
       loginRegisterService.sendEmail(mailData);
+      resultInfo.setResult(true);
       return resultInfo;
     }
+    //注册
+  @RequestMapping("/register")
+  public Object register(@RequestParam("user")String user,@RequestParam("password")String password,@RequestParam("email")String email,@RequestParam("validate")String validate){
+    ResultInfo resultInfo=new ResultInfo();
+    //首先判断验证码是否有效
+    Date date=new Date();
+    if(loginRegisterService.registerIf(email,validate,date)){
+        loginRegisterService.addAccount(user,password,email,date);
+        resultInfo.setResult(true);
+        return resultInfo;
+    }
+    else {
+      resultInfo.setResult(false);
+      resultInfo.setReason("验证码错误或超时");
+    }
+    return resultInfo;
+  }
+    //进行登陆操作
     @RequestMapping("/login")
   public Object login(@RequestParam("user")String user,@RequestParam("password")String password){
-    ResultInfo resultInfo=new ResultInfo();
+    ResultInfo resultInfo=loginRegisterService.login(user,password);
     return resultInfo;
     }
 }

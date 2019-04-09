@@ -1,6 +1,7 @@
 package whu.iss.insurancesys.service.impl;
 
-import com.sun.istack.internal.Nullable;
+//import com.sun.istack.internal.Nullable;
+import javax.validation.constraints.NotNull;
 import org.springframework.stereotype.Service;
 import whu.iss.insurancesys.dao.Customer.CustomerDao;
 import whu.iss.insurancesys.entity.customer.Customer;

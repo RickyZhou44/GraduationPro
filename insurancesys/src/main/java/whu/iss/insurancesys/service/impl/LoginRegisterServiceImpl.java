@@ -2,7 +2,10 @@ package whu.iss.insurancesys.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import whu.iss.insurancesys.dao.LoginRegisterDaos.LoginRegisterDao;
 import whu.iss.insurancesys.dao.SettlementParamDaos.SettlementDao;
+import whu.iss.insurancesys.dto.ResultInfo;
+import whu.iss.insurancesys.entity.LoginRegisterEntities.Account;
 import whu.iss.insurancesys.entity.LoginRegisterEntities.VerifiCode;
 import whu.iss.insurancesys.entity.MailData;
 import whu.iss.insurancesys.service.LoginRegisterService;
@@ -21,11 +24,36 @@ public class LoginRegisterServiceImpl implements LoginRegisterService {
     private EmailUtil emailUtil;
     @Autowired
     private SettlementDao settlementDao;
+    @Autowired
+    private LoginRegisterDao loginRegisterDao;
     @Override
     public void sendEmail(MailData data) {
         settlementDao.insertVertification(data.getReciever(),data.getDate(),data.getContent());
         System.out.println("插入验证码数据成功");
         emailUtil.send(data);
+    }
+
+    @Override
+    public ResultInfo login(String user, String password) {
+        ResultInfo resultInfo=new ResultInfo();
+        List<Account>accounts=loginRegisterDao.getAccounts();
+        for (Account account:accounts){
+            //判断其输入的用户名是否邮箱
+            if(user.equals(account.getUsername())||user.equals(account.getEmail())){
+                if(password.equals(account.getPassword())){
+                    resultInfo.setResult(true);
+                    return resultInfo;
+                }
+                else {
+                    resultInfo.setResult(false);
+                    resultInfo.setReason("密码错误");
+                    return resultInfo;
+                }
+            }
+        }
+        resultInfo.setResult(false);
+        resultInfo.setReason("账号或者邮箱不存在");
+        return resultInfo;
     }
 
     @Override
@@ -53,6 +81,11 @@ public class LoginRegisterServiceImpl implements LoginRegisterService {
                 return false;
             }
         }
+    }
+
+    @Override
+    public void addAccount(String user, String email, String password,Date date) {
+        loginRegisterDao.addAccount(user,user,email,password,date);
     }
 
     private MailData recentCode(String email) {

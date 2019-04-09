@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8"/>
+    <title>第一个HTML页面</title>
+</head>
+<body>
+<h1>Hello Spring Boot!!!</h1>
+<p th:text="${hello}"></p>
+<h1>
+    <a href="/download">测试继续率</a>
+</h1>
+<form id="myform" name="myform" method="post" enctype="multipart/form-data" action="/upload">
+    <input type="file" name="pic" id="pic" />
+    <input type="submit" value="上传文件" />
+</form>
+</body>
+</html>

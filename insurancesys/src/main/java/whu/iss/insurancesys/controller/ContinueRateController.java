@@ -28,10 +28,9 @@ import java.util.List;
 public class ContinueRateController {
     @Autowired
     ContinueRateService continueRateService;
-    //此处用于返回对继续率的计算
+    //此处用于返回对继续率的重新组织
     @RequestMapping("continueRate")
     public Object continueRate1(@RequestParam("date") Date date,@RequestParam("param") int param,@RequestParam("type")int type){
-
         ResultInfo resultInfo=  continueRateService.getResult(date,param,type);
         return resultInfo;
     }
@@ -142,25 +141,21 @@ public class ContinueRateController {
         return resultInfo;
     }
     @RequestMapping("testCon")
-    public Object continueRate(HttpSession session){
+    public Object continueRate(@RequestParam("date") Date date,@RequestParam("param") int param,@RequestParam("type")int type,HttpSession session){
         SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM");
         ResultInfo resultInfo=null;
         String dates="2019-1";
-        try {
-            Date date=simpleDateFormat.parse(dates);
-            int param=13;
-            int type=1;
-            resultInfo=continueRateService.getResult(date,param,type);
-            session.setAttribute("type",type);
-            //使用name变量以达到统一路径的目的
-            String name="continueData";
-            //这里将生成的继续率数据保存到session中以便后续要选择导出excel表的时候重新计算浪费性能
-                session.setAttribute(name,resultInfo.getData());
-            return resultInfo;
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-            return resultInfo;
+        //            Date date=simpleDateFormat.parse(dates);
+//            int param=13;
+//            int type=1;
+        resultInfo=continueRateService.getResult(date,param,type);
+        session.setAttribute("type",type);
+        //使用name变量以达到统一路径的目的
+        String name="continueData";
+        //这里将生成的继续率数据保存到session中以便后续要选择导出excel表的时候重新计算浪费性能
+        session.setAttribute(name,resultInfo.getData());
+        return resultInfo;
+
     }
     public static void main(String[]strings){
         return;

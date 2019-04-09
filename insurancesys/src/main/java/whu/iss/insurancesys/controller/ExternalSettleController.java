@@ -32,13 +32,13 @@ public class ExternalSettleController {
     private ExternalSettlementService externalSettlementService;
     @RequestMapping("externalSettle")
     //public Object externalSettlement(@RequestParam("date")Date date, HttpSession session){
-    public Object externalSettlement(HttpSession session) throws ParseException {
+    public Object externalSettlement(@RequestParam("date")Date date,@RequestParam("check")String check, HttpSession session) {
         ResultInfo resultInfo=new ResultInfo();
         //测试一下该service的编写
-        SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM");
-        String date1="2017-1";
-            Date date=simpleDateFormat.parse(date1);
-            ExternalSettleData externalSettleData=externalSettlementService.getExternalSData(date,"否");
+//        SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM");
+//        String date1="2017-1";
+//            Date date=simpleDateFormat.parse(date1);
+            ExternalSettleData externalSettleData=externalSettlementService.getExternalSData(date,check);
             List<ExternSettlementParam>list=externalSettleData.getExternSettlementParams();
             //这里将list存到session中去，后面的逐笔核算提供数据支持
             session.setAttribute("lists",list);
