@@ -25,8 +25,9 @@ import java.util.List;
  * @author RickZhou
  *         Created by RickZhou on 2019/3/17 0017.
  */
-@CrossOrigin(origins = "localhost:8080", maxAge = 3600)
+
 @RestController
+@RequestMapping("/settlement")
 public class ContinueRateController {
     @Autowired
     ContinueRateService continueRateService;
