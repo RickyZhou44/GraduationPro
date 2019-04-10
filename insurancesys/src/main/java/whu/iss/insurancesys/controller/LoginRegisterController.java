@@ -2,6 +2,7 @@ package whu.iss.insurancesys.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import whu.iss.insurancesys.dto.ResultInfo;
@@ -23,7 +24,7 @@ public class LoginRegisterController {
       @Autowired
       LoginRegisterService loginRegisterService;
       //发送邮箱验证
-  @RequestMapping("/validate")
+  @RequestMapping(value = "/validate",method = RequestMethod.POST)
     public Object sendEmail(@RequestParam("email")String email){
       ResultInfo resultInfo=new ResultInfo();
       String code= RickUtil.getRandomCode();
@@ -54,7 +55,7 @@ public class LoginRegisterController {
     return resultInfo;
   }
     //进行登陆操作
-    @RequestMapping("/login")
+    @RequestMapping(value = "/login",method = RequestMethod.POST)
   public Object login(@RequestParam("user")String user,@RequestParam("password")String password){
     ResultInfo resultInfo=loginRegisterService.login(user,password);
     return resultInfo;
