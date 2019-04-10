@@ -55,7 +55,7 @@ public class LoginRegisterController {
     return resultInfo;
   }
     //进行登陆操作
-    @RequestMapping(value = "/login",method = RequestMethod.POST)
+    @RequestMapping(value = "/loginPage",method = RequestMethod.POST)
   public Object login(@RequestParam("user")String user,@RequestParam("password")String password){
     ResultInfo resultInfo=loginRegisterService.login(user,password);
     return resultInfo;
