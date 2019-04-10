@@ -189,13 +189,50 @@ public class ExternalSettleController {
     }
     //处理车险核佣
     @RequestMapping("carSettlement")
-//    public Object carSettlement(@RequestParam("branchs")String[]branchs,@RequestParam("insurcompanys")String[]companys,@RequestParam("date1")Date date1,@RequestParam("date2")Date date2,@RequestParam("check")String check){
-    public Object carSettlement(HttpSession session){
+    public Object carSettlement(@RequestParam("branchs")String[]branchs,@RequestParam("insurcompanys")String[]companys,@RequestParam("date1")Date date1,@RequestParam("date2")Date date2,@RequestParam("check")String check,HttpSession session){
+//    public Object carSettlement(HttpSession session){
         ResultInfo resultInfo=new ResultInfo();
+        resultInfo.setResult(true);
         List<CarInsuranceParam>carInsuranceParams=externalSettlementService.getCarInsuranceParam();
-        session.setAttribute("carlist",carInsuranceParams);
-        resultInfo.setData(carInsuranceParams);
-        return resultInfo;
+        List<CarInsuranceParam>list=new ArrayList<>();
+        if(branchs==null&&companys==null){
+            session.setAttribute("carlist",carInsuranceParams);
+            resultInfo.setData(carInsuranceParams);
+            return resultInfo;
+        }
+        else if(branchs==null){
+            for (CarInsuranceParam c:carInsuranceParams){
+                for(String str:companys){
+                    if(c.getCompanyName().equals(str)){
+                        list.add(c);
+                        break;
+                    }
+                }
+            }
+            session.setAttribute("carlist",list);
+            resultInfo.setData(list);
+            return resultInfo;
+        }
+        else if(companys==null){
+            for (CarInsuranceParam c:carInsuranceParams){
+                for(String str:branchs){
+                    if(c.getBranch().equals(str)){
+                        list.add(c);
+                        break;
+                    }
+                }
+            }
+            session.setAttribute("carlist",list);
+            resultInfo.setData(list);
+            return resultInfo;
+
+        }
+        else {
+            session.setAttribute("carlist",carInsuranceParams);
+            resultInfo.setResult(false);
+            return resultInfo;
+        }
+
     }
     @RequestMapping("exportCarInsurance")
     public Object exportCarInsurance(@RequestParam("heads")String[]heads,@RequestParam("path") String path,HttpSession session){
