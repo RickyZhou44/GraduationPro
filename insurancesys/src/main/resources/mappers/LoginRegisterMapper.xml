@@ -5,7 +5,7 @@
         select username,password,email,user_type from user_account;
     </select>
     <!--//修改了一下名字-->
-    <insert id="addAccount" >
+    <insert id="addAccount" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO user_account ( `username`, `user_realname`, `email`, `password`, `starttime`, `endtime`) VALUES ( #{user}, #{name}, #{email}, #{password}, #{date}, '2050-1-1');
     </insert>
 </mapper>
