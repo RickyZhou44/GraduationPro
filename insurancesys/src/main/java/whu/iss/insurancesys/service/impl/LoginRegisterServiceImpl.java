@@ -69,7 +69,7 @@ public class LoginRegisterServiceImpl implements LoginRegisterService {
         else {
             time=d.getTime();
 //            如果两者的毫秒数在60000ms以内则比较code
-            if((now-time)<60000){
+            if((time-now)<=60000){
                 if(code.equals(mailData.getContent())){
                     return true;
                 }
