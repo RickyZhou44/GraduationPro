@@ -30,7 +30,7 @@ import java.util.List;
 public class ExternalSettleController {
     @Autowired
     private ExternalSettlementService externalSettlementService;
-    @RequestMapping("externalSettle")
+    @RequestMapping(value = "externalSettle",method = RequestMethod.POST)
     //public Object externalSettlement(@RequestParam("date")Date date, HttpSession session){
     public Object externalSettlement(@RequestParam("date")Date date,@RequestParam("check")String check, HttpSession session) {
         ResultInfo resultInfo=new ResultInfo();
@@ -188,7 +188,7 @@ public class ExternalSettleController {
 
     }
     //处理车险核佣
-    @RequestMapping("carSettlement")
+    @RequestMapping(value = "carSettlement",method = RequestMethod.POST)
     public Object carSettlement(@RequestParam("branchs")String[]branchs,@RequestParam("insurcompanys")String[]companys,@RequestParam("date1")Date date1,@RequestParam("date2")Date date2,@RequestParam("check")String check,HttpSession session){
 //    public Object carSettlement(HttpSession session){
         ResultInfo resultInfo=new ResultInfo();

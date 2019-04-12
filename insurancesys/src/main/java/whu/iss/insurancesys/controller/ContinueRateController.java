@@ -3,10 +3,7 @@ package whu.iss.insurancesys.controller;
 import org.apache.ibatis.annotations.Param;
 import org.omg.CORBA.OBJ_ADAPTER;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import whu.iss.insurancesys.dto.ResultInfo;
 import whu.iss.insurancesys.entity.ExcelData;
 import whu.iss.insurancesys.entity.SettlementParamEntities.ContinueRateBranchParam;
@@ -37,7 +34,7 @@ public class ContinueRateController {
         return resultInfo;
     }
 //    此映射用于处理导出继续率查询的结果并存储到指定位置的excel文件
-    @RequestMapping("/exportExcel")
+    @RequestMapping(value = "/exportExcel",method = RequestMethod.POST)
     public Object exportExcel(@RequestParam("heads")String[]heads,@RequestParam("path") String path, HttpSession session){
         int type= (int) session.getAttribute("type");
         ResultInfo resultInfo=new ResultInfo();
@@ -143,7 +140,7 @@ public class ContinueRateController {
         return resultInfo;
     }
     //test
-    @RequestMapping("/testCon")
+    @RequestMapping(value = "/testCon",method = RequestMethod.POST)
     public Object continueRate(@RequestParam("date") Date date,@RequestParam("param") int param,@RequestParam("type")int type,HttpSession session){
         SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM");
         ResultInfo resultInfo=null;

@@ -38,7 +38,7 @@ public class LoginRegisterController {
       return resultInfo;
     }
     //注册
-  @RequestMapping("/register")
+  @RequestMapping(value = "/register",method = RequestMethod.POST)
   public Object register(@RequestParam("user")String user,@RequestParam("password")String password,@RequestParam("email")String email,@RequestParam("validate")String validate){
     ResultInfo resultInfo=new ResultInfo();
     //首先判断验证码是否有效

@@ -2,6 +2,7 @@ package whu.iss.insurancesys.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import whu.iss.insurancesys.dto.ResultInfo;
@@ -33,7 +34,7 @@ public class InternalSettleController {
     private ExternalSettlementService externalSettlementService;
     @Autowired
     private InternalSettlementService internalSettlementService;
-    @RequestMapping("carautoSettle")
+    @RequestMapping(value = "carautoSettle",method = RequestMethod.POST)
     public Object carSettle(HttpSession session, @RequestParam("dateStart") Date dateStart, @RequestParam("dateEnd")Date dateEnd,@RequestParam("branch")String branch){
         ResultInfo resultInfo=new ResultInfo();
         //从之前service中已经封装好的方法进行操作
@@ -80,14 +81,14 @@ public class InternalSettleController {
         resultInfo.setResult(true);
         return resultInfo;
     }
-    @RequestMapping("commissionrecord")
+    @RequestMapping(value = "commissionrecord",method = RequestMethod.POST)
     public Object commission(){
         ResultInfo resultInfo=new ResultInfo();
         List<CommissionParam>commissionParams=internalSettlementService.getCommissionRecords();
         resultInfo.setData(commissionParams);
         return resultInfo;
     }
-    @RequestMapping("calculate")
+    @RequestMapping(value = "calculate",method = RequestMethod.POST)
     public Object calculate(@RequestParam("branch")String branch,@RequestParam("startDate")Date start,@RequestParam("endDate")Date end){
         ResultInfo resultInfo=new ResultInfo();
 
@@ -114,7 +115,7 @@ public class InternalSettleController {
         return resultInfo;
     }
 
-    @RequestMapping("exportSalary")
+    @RequestMapping(value = "exportSalary",method = RequestMethod.POST)
     public Object exportSalary(HttpSession session,@RequestParam("path")String path){
         ResultInfo resultInfo=new ResultInfo();
         SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM");
@@ -140,7 +141,7 @@ public class InternalSettleController {
         return resultInfo;
     }
 
-    @RequestMapping("exportPolicy")
+    @RequestMapping(value = "exportPolicy",method = RequestMethod.POST)
     public Object exportPolicy(HttpSession session,@RequestParam("path")String path){
         ResultInfo resultInfo=new ResultInfo();
         SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM");
