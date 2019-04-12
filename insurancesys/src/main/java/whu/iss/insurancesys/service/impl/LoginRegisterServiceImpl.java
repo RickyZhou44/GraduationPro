@@ -96,7 +96,7 @@ public class LoginRegisterServiceImpl implements LoginRegisterService {
         String recentCode=null;
         for (VerifiCode v:verifiCodes){
             //如果recentDate为空，或者recentDate比当前的date日期更接近现在
-            if(recentDate==null||recentDate.compareTo(v.getDate())==1){
+            if(recentDate==null||v.getDate().compareTo(recentDate)==1){
                 recentDate=v.getDate();
                 recentCode=v.getCode();
             }
