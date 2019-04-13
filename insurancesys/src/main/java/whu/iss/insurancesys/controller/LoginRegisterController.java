@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RestController;
 import whu.iss.insurancesys.dto.ResultInfo;
 import whu.iss.insurancesys.entity.MailData;
 import whu.iss.insurancesys.service.LoginRegisterService;
-import whu.iss.insurancesys.util.EmailUtil;
 import whu.iss.insurancesys.util.RickUtil;
 
 import java.util.Date;
@@ -23,6 +22,7 @@ import java.util.Date;
 public class LoginRegisterController {
       @Autowired
       LoginRegisterService loginRegisterService;
+
       //发送邮箱验证
   @RequestMapping(value = "/validate",method = RequestMethod.POST)
     public Object sendEmail(@RequestParam("email")String email){
@@ -37,14 +37,14 @@ public class LoginRegisterController {
       resultInfo.setResult(true);
       return resultInfo;
     }
-    //注册
+    //注册操作
   @RequestMapping(value = "/registerUser",method = RequestMethod.POST)
   public Object register(@RequestParam("user")String user,@RequestParam("password")String password,@RequestParam("email")String email,@RequestParam("validate")String validate){
     ResultInfo resultInfo=new ResultInfo();
     //首先判断验证码是否有效
     Date date=new Date();
     if(loginRegisterService.registerIf(email,validate,date)){
-        loginRegisterService.addAccount(user,password,email,date);
+        loginRegisterService.addAccount(user,email,password,date);
         resultInfo.setResult(true);
         return resultInfo;
     }
@@ -60,4 +60,5 @@ public class LoginRegisterController {
     ResultInfo resultInfo=loginRegisterService.login(user,password);
     return resultInfo;
     }
+
 }
