@@ -8,6 +8,7 @@ import whu.iss.insurancesys.dto.ResultInfo;
 import whu.iss.insurancesys.entity.ExcelData;
 import whu.iss.insurancesys.entity.SettlementParamEntities.ContinueRateBranchParam;
 import whu.iss.insurancesys.entity.SettlementParamEntities.ContinueRateParam;
+import whu.iss.insurancesys.service.ContinueRService;
 import whu.iss.insurancesys.service.ContinueRateService;
 import whu.iss.insurancesys.util.ExcelUtil;
 
@@ -26,7 +27,7 @@ import java.util.List;
 @RequestMapping("/continue")
 public class ContinueRateController {
     @Autowired
-    ContinueRateService continueRateService;
+    ContinueRService continueRateService;
     //此处用于返回对继续率的重新组织
     @RequestMapping("/continueRate")
     public Object continueRate1(@RequestParam("date") Date date,@RequestParam("param") int param,@RequestParam("type")int type){
