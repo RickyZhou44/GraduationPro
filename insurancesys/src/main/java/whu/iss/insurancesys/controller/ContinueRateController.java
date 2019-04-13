@@ -34,14 +34,16 @@ public class ContinueRateController {
         return resultInfo;
     }
 //    此映射用于处理导出继续率查询的结果并存储到指定位置的excel文件
-    @RequestMapping(value = "/exportExcel",method = RequestMethod.POST)
+    @RequestMapping(value = "/exportExcel",method = RequestMethod.GET)
     public Object exportExcel(@RequestParam("heads")String[]heads,@RequestParam("path") String path, HttpSession session){
+//        public Object exportExcel(HttpSession session){
         int type= (int) session.getAttribute("type");
         ResultInfo resultInfo=new ResultInfo();
         ExcelData excelData=new ExcelData();
         SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM");
+//        String path="/Users/rickzhou/Desktop/data";
         excelData.setFilename(path);
-//        String[] head={"序号","继续率发生月份","单位","职级","应收继续保费","实收继续保费","R13"};
+//        String[] heads={"序号","继续率发生月份","单位","职级","应收继续保费","实收继续保费","R13"};
         String[]head=heads;
         excelData.setHead(head);
         List<String[]>data=new ArrayList<>();
@@ -140,20 +142,20 @@ public class ContinueRateController {
         return resultInfo;
     }
     //test
-    @RequestMapping(value = "/testCon",method = RequestMethod.POST)
+    @RequestMapping(value = "/testCon",method = RequestMethod.GET)
     public Object continueRate(@RequestParam("date") Date date,@RequestParam("param") int param,@RequestParam("type")int type,HttpSession session){
-        SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM");
+    //public Object continueRate(HttpSession session) throws ParseException {
+//        SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM");
         ResultInfo resultInfo=null;
-        String dates="2019-1";
-        //            Date date=simpleDateFormat.parse(dates);
+//        String dates="2019-1";
+//        Date date=simpleDateFormat.parse(dates);
 //            int param=13;
 //            int type=1;
         resultInfo=continueRateService.getResult(date,param,type);
+        //将type内容添加进session
         session.setAttribute("type",type);
-        //使用name变量以达到统一路径的目的
-        String name="continueData";
         //这里将生成的继续率数据保存到session中以便后续要选择导出excel表的时候重新计算浪费性能
-        session.setAttribute(name,resultInfo.getData());
+        session.setAttribute("continueData",resultInfo.getData());
         return resultInfo;
 
     }
