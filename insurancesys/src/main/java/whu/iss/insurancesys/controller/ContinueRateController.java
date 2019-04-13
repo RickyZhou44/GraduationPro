@@ -35,7 +35,7 @@ public class ContinueRateController {
     }
 //    此映射用于处理导出继续率查询的结果并存储到指定位置的excel文件
     @RequestMapping(value = "/exportExcel",method = RequestMethod.POST)
-    public Object exportExcel(@RequestParam("heads[]")String[]heads,@RequestParam("path") String path, HttpSession session){
+    public Object exportExcel(@RequestParam("heads")List<String>heads,@RequestParam("path") String path, HttpSession session){
 //        public Object exportExcel(HttpSession session){
         int type= (int) session.getAttribute("type");
         ResultInfo resultInfo=new ResultInfo();
@@ -44,7 +44,12 @@ public class ContinueRateController {
 //        String path="/Users/rickzhou/Desktop/data";
         excelData.setFilename(path);
 //        String[] heads={"序号","继续率发生月份","单位","职级","应收继续保费","实收继续保费","R13"};
-        String[]head=heads;
+        String[]head=new String[heads.size()];
+        int m=0;
+        for (String s:heads){
+            head[m]=s;
+            m++;
+        }
         excelData.setHead(head);
         List<String[]>data=new ArrayList<>();
         if(type==1){
