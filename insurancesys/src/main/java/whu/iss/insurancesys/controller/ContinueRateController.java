@@ -37,7 +37,8 @@ public class ContinueRateController {
     @RequestMapping(value = "/exportExcel",method = RequestMethod.POST)
     public Object exportExcel(@RequestParam("heads")List<String>heads,@RequestParam("path") String path, HttpSession session){
 //        public Object exportExcel(HttpSession session){
-        int type= (int) session.getAttribute("continueType");
+//        int type= (int) session.getAttribute("continueType");
+        int type=1;
         ResultInfo resultInfo=new ResultInfo();
         ExcelData excelData=new ExcelData();
         SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM");
