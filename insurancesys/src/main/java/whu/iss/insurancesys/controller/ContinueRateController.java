@@ -37,7 +37,7 @@ public class ContinueRateController {
     @RequestMapping(value = "/exportExcel",method = RequestMethod.POST)
     public Object exportExcel(@RequestParam("heads")List<String>heads,@RequestParam("path") String path, HttpSession session){
 //        public Object exportExcel(HttpSession session){
-        int type= (int) session.getAttribute("type");
+        int type= (int) session.getAttribute("continueType");
         ResultInfo resultInfo=new ResultInfo();
         ExcelData excelData=new ExcelData();
         SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM");
@@ -158,7 +158,7 @@ public class ContinueRateController {
 //            int type=1;
         resultInfo=continueRateService.getResult(date,param,type);
         //将type内容添加进session
-        session.setAttribute("type",type);
+        session.setAttribute("continueType",type);
         //这里将生成的继续率数据保存到session中以便后续要选择导出excel表的时候重新计算浪费性能
         session.setAttribute("continueData",resultInfo.getData());
         return resultInfo;
