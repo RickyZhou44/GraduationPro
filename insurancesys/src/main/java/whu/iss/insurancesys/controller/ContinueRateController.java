@@ -34,8 +34,8 @@ public class ContinueRateController {
         return resultInfo;
     }
 //    此映射用于处理导出继续率查询的结果并存储到指定位置的excel文件
-    @RequestMapping(value = "/exportExcel",method = RequestMethod.GET)
-    public Object exportExcel(@RequestParam("heads")String[]heads,@RequestParam("path") String path, HttpSession session){
+    @RequestMapping(value = "/exportExcel",method = RequestMethod.POST)
+    public Object exportExcel(@RequestParam("heads[]")String[]heads,@RequestParam("path") String path, HttpSession session){
 //        public Object exportExcel(HttpSession session){
         int type= (int) session.getAttribute("type");
         ResultInfo resultInfo=new ResultInfo();
@@ -142,7 +142,7 @@ public class ContinueRateController {
         return resultInfo;
     }
     //test
-    @RequestMapping(value = "/testCon",method = RequestMethod.GET)
+    @RequestMapping(value = "/testCon",method = RequestMethod.POST)
     public Object continueRate(@RequestParam("date") Date date,@RequestParam("param") int param,@RequestParam("type")int type,HttpSession session){
     //public Object continueRate(HttpSession session) throws ParseException {
 //        SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM");
