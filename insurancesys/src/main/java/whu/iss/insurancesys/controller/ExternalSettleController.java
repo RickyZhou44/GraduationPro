@@ -189,7 +189,7 @@ public class ExternalSettleController {
     }
     //处理车险核佣
     @RequestMapping(value = "carSettlement",method = RequestMethod.POST)
-    public Object carSettlement(@RequestParam("branchs")String[]branchs,@RequestParam("insurcompanys")String[]companys,@RequestParam("date1")Date date1,@RequestParam("date2")Date date2,@RequestParam("check")String check,HttpSession session){
+    public Object carSettlement(@RequestParam("branchs")List<String>branchs,@RequestParam("insurcompanys")List<String>companys,@RequestParam("date1")Date date1,@RequestParam("date2")Date date2,@RequestParam("check")String check,HttpSession session){
 //    public Object carSettlement(HttpSession session){
         ResultInfo resultInfo=new ResultInfo();
         resultInfo.setResult(true);
@@ -235,12 +235,17 @@ public class ExternalSettleController {
 
     }
     @RequestMapping("exportCarInsurance")
-    public Object exportCarInsurance(@RequestParam("heads")String[]heads,@RequestParam("path") String path,HttpSession session){
+    public Object exportCarInsurance(@RequestParam("heads")List<String>heads,@RequestParam("path") String path,HttpSession session){
         ResultInfo resultInfo=new ResultInfo();
         List<CarInsuranceParam>carInsuranceParams= (List<CarInsuranceParam>) session.getAttribute("carlist");
         ExcelData excelData=new ExcelData();
         SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM");
-        String[]head=heads;
+        String[]head=new String[heads.size()];
+        int n=0;
+        for (String s:heads){
+            head[n]=s;
+            n++;
+        }
         excelData.setHead(head);
         excelData.setFilename(path);
         List<String[]>data=new ArrayList<>();
