@@ -26,6 +26,7 @@ import java.util.List;
  * Create by RickZhou on 2019/3/22
  */
 //此控制器用于处理外部计算板块
+@CrossOrigin(origins = "http://localhost:8080",allowCredentials = "true")
 @RestController
 public class ExternalSettleController {
     @Autowired
