@@ -95,7 +95,7 @@ public class InternalSettleController {
 //    public Object calculate() throws ParseException {
 //        String branch="4002";
 //        SimpleDateFormat ss=new SimpleDateFormat("yyyy-MM");
-//        String d1="2019-1";
+//        String d1="2017-1";
 //        Date start=ss.parse(d1);
 //        String d2="2019-9";
 //        Date end=ss.parse(d2);

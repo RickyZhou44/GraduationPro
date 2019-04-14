@@ -24,6 +24,6 @@ public class InternalSettlementServiceImpl implements InternalSettlementService 
 
     @Override
     public List<CommissionParam> getCommissionRecords() {
-        return null;
+        return settlementDao.getCommissionRecords();
     }
 }
