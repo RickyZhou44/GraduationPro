@@ -306,8 +306,9 @@ public class ExternalSettleController {
                         strings[i]=String.valueOf(s.getTotalPremium());
                         break;
                 }
-                data.add(strings);
+
             }
+            data.add(strings);
         }
         excelData.setData(data);
         excelData.setFilename(path);
