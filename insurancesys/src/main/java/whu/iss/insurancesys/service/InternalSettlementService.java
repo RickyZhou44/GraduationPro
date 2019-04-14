@@ -12,5 +12,5 @@ import java.util.List;
 public interface InternalSettlementService {
     public void insertCommisionDate(String branch,Date dateStart,Date dateEnd);
     public List<CommissionParam>getCommissionRecords();
-
+    public void deleteCommissionRecord(String branch,Date dateStart,Date dateEnd);
 }

@@ -37,4 +37,6 @@ public interface SettlementDao {
     public List<VerifiCode> getverifi(@Param("email")String email);
     public void insertCommissionRecord(@Param("branch")String branch,@Param("dateStart")Date dateStart,@Param("dateEnd")Date dateEnd);
     public List<CommissionParam>getCommissionRecords();
+    public void deleteCommission(@Param("branch")String branch,@Param("startdate")Date startdate,@Param("enddate")Date enddate);
+    public void updateCheck(@Param("policyNo")String policyNo);
 }

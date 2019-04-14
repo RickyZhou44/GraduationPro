@@ -72,4 +72,10 @@ where t1.car_insur_id=t2.car_insur_id;
     <select id="getCommissionRecords" resultType="whu.iss.insurancesys.entity.InternalSettlementEntities.CommissionParam">
         select*from commissionRecord;
     </select>
+    <delete id="deleteCommission">
+        delete FROM commissionRecord where branch=#{branch} and dateStart=#{startdate} and dateEnd=#{enddate};
+    </delete>
+    <update id="updateCheck">
+        update car_insurance_policy set check_commission_status='核佣' where policy_no=#{policyNo};
+    </update>
 </mapper>

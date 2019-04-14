@@ -1,5 +1,6 @@
 package whu.iss.insurancesys.controller;
 
+import org.omg.CORBA.OBJ_ADAPTER;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -87,6 +88,7 @@ public class InternalSettleController {
         ResultInfo resultInfo=new ResultInfo();
         List<CommissionParam>commissionParams=internalSettlementService.getCommissionRecords();
         resultInfo.setData(commissionParams);
+        resultInfo.setResult(true);
         return resultInfo;
     }
     @RequestMapping(value = "calculate",method = RequestMethod.POST)
@@ -172,6 +174,14 @@ public class InternalSettleController {
         excelData.setFilename(path);
         excelData.setData(data);
         ExcelUtil.exportExcel(excelData);
+        resultInfo.setResult(true);
+        return resultInfo;
+    }
+//    删除计佣演算记录
+    @RequestMapping("deleteCommission")
+    public Object delete(@RequestParam("branch")String branch,@RequestParam("startDate")Date start,@RequestParam("endDate")Date end){
+        ResultInfo resultInfo=new ResultInfo();
+        internalSettlementService.deleteCommissionRecord(branch,start,end);
         resultInfo.setResult(true);
         return resultInfo;
     }

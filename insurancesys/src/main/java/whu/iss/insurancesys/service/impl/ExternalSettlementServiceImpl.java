@@ -248,6 +248,11 @@ public class ExternalSettlementServiceImpl implements ExternalSettlementService 
         return carInsuranceParams;
     }
 
+    @Override
+    public void updateCheckType(String policyNo) {
+        settlementDao.updateCheck(policyNo);
+    }
+
     //获得指定保单的主约附约明细
     private List<InsuranceParam>getMainAndVice(List<InsuranceTypeEntity>insuranceTypeEntities,String policy_no){
         List<InsuranceParam>list=new ArrayList<>();

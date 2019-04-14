@@ -235,6 +235,14 @@ public class ExternalSettleController {
         }
 
     }
+    //将保单状态改为核佣
+    @RequestMapping("updateCheck")
+    public Object updateCheck(@RequestParam("policyNo")String policyNo){
+        ResultInfo resultInfo=new ResultInfo();
+        externalSettlementService.updateCheckType(policyNo);
+        resultInfo.setResult(true);
+        return resultInfo;
+    }
     @RequestMapping("exportCarInsurance")
     public Object exportCarInsurance(@RequestParam("heads")List<String>heads,@RequestParam("path") String path,HttpSession session){
         ResultInfo resultInfo=new ResultInfo();

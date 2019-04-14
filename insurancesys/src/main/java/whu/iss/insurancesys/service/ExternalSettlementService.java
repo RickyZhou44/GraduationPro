@@ -20,4 +20,5 @@ public interface ExternalSettlementService {
     public void addRelation(String aid,String bid,String relation);
     public void addCertfContent(String content,String type,Date start,Date end,String other,String attachment,String id);
     public List<CarInsuranceParam> getCarInsuranceParam();
+    public void updateCheckType(String policyNo);
 }

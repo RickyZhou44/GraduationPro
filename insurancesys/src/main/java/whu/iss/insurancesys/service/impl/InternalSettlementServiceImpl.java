@@ -27,4 +27,9 @@ public class InternalSettlementServiceImpl implements InternalSettlementService 
     public List<CommissionParam> getCommissionRecords() {
         return settlementDao.getCommissionRecords();
     }
+
+    @Override
+    public void deleteCommissionRecord(String branch, Date dateStart, Date dateEnd) {
+        settlementDao.deleteCommission(branch,dateStart,dateEnd);
+    }
 }
