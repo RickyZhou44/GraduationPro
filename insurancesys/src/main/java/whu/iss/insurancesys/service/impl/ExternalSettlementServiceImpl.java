@@ -188,10 +188,14 @@ public class ExternalSettlementServiceImpl implements ExternalSettlementService 
         String temId=null;
         String holderName=null;
         String insuredId=null;
+        String policyNo=null;
+
         for(CarInsurancePolicyParam c:carInsurancePolicyParams){
+            policyNo=RickUtil.removeEsc(c.getPolicy_no());
+            policyNo=RickUtil.removeSpace(policyNo);
             CarInsuranceParam carInsuranceParam=new CarInsuranceParam();
             carInsuranceParam.setCompanyName(c.getInsurer_car_name());//公司名字
-            carInsuranceParam.setPolicyNo(RickUtil.removeEsc(c.getPolicy_no()));//保单号
+            carInsuranceParam.setPolicyNo(policyNo);//保单号
             carInsuranceParam.setBillDate(c.getBiling_date());//出单日期
             carInsuranceParam.setValidDate(c.getStart_insurance_date());//起保日期
             for (CarContactParam ccp:carContactParams){
@@ -203,6 +207,7 @@ public class ExternalSettlementServiceImpl implements ExternalSettlementService 
                             break;
                         }
                     }
+                    break;
                 }
             }
             holderName=null;

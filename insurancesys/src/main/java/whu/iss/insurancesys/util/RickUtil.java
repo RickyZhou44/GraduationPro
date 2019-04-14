@@ -10,6 +10,13 @@ import java.util.Random;
  */
 //此类用于封装一些常用的方法
 public class RickUtil {
+    //去掉字符串前面的空字符
+    public static String removeSpace(String sts){
+        if(sts.length()==6){
+            return sts.substring(1,sts.length());
+        }
+        return sts;
+    }
 
     //此方法用于去掉字符串后面的回车符
     public static String removeEsc(String sts) {

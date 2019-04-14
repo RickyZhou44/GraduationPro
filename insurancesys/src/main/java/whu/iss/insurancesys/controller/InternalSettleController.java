@@ -18,6 +18,7 @@ import whu.iss.insurancesys.service.InternalSettlementService;
 import whu.iss.insurancesys.util.ExcelUtil;
 
 import javax.servlet.http.HttpSession;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -88,8 +89,16 @@ public class InternalSettleController {
         resultInfo.setData(commissionParams);
         return resultInfo;
     }
-    @RequestMapping(value = "calculate",method = RequestMethod.POST)
-    public Object calculate(@RequestParam("branch")String branch,@RequestParam("startDate")Date start,@RequestParam("endDate")Date end){
+//    @RequestMapping(value = "calculate",method = RequestMethod.POST)
+//    public Object calculate(@RequestParam("branch")String branch,@RequestParam("startDate")Date start,@RequestParam("endDate")Date end){
+@RequestMapping(value = "calculate",method = RequestMethod.GET)
+    public Object calculate() throws ParseException {
+        String branch="4002";
+        SimpleDateFormat ss=new SimpleDateFormat("yyyy-MM");
+        String d1="2019-1";
+        Date start=ss.parse(d1);
+        String d2="2019-9";
+        Date end=ss.parse(d2);
         ResultInfo resultInfo=new ResultInfo();
 
         //处理相关的查询
