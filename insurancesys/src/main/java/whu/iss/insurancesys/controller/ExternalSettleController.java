@@ -195,12 +195,12 @@ public class ExternalSettleController {
         resultInfo.setResult(true);
         List<CarInsuranceParam>carInsuranceParams=externalSettlementService.getCarInsuranceParam();
         List<CarInsuranceParam>list=new ArrayList<>();
-        if(branchs==null&&companys==null){
+        if(branchs.size()==0&&companys.size()==0){
             session.setAttribute("carlist",carInsuranceParams);
             resultInfo.setData(carInsuranceParams);
             return resultInfo;
         }
-        else if(branchs==null){
+        else if(branchs.size()==0){
             for (CarInsuranceParam c:carInsuranceParams){
                 for(String str:companys){
                     if(c.getCompanyName().equals(str)){
@@ -213,7 +213,7 @@ public class ExternalSettleController {
             resultInfo.setData(list);
             return resultInfo;
         }
-        else if(companys==null){
+        else if(companys.size()==0){
             for (CarInsuranceParam c:carInsuranceParams){
                 for(String str:branchs){
                     if(c.getBranch().equals(str)){
