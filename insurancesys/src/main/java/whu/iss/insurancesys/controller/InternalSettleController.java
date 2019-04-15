@@ -134,7 +134,7 @@ public class InternalSettleController {
         return resultInfo;
     }
 
-    @RequestMapping(value = "exportSalary",method = RequestMethod.GET)
+    @RequestMapping(value = "exportSalary",method = RequestMethod.POST)
     public Object exportSalary(HttpSession session,@RequestParam("path")String path){
 //    public Object exportSalary(HttpSession session){
 //        String path="/Users/rickzhou/Desktop/555";
