@@ -38,6 +38,14 @@ public class InternalSettleController {
     private InternalSettlementService internalSettlementService;
     @RequestMapping(value = "carautoSettle",method = RequestMethod.POST)
     public Object carSettle(HttpSession session, @RequestParam("dateStart") Date dateStart, @RequestParam("dateEnd")Date dateEnd,@RequestParam("branch")String branch){
+//    @RequestMapping("carautoSettle")
+//        public Object carSettle(HttpSession session) throws ParseException {
+//        String branch="4003";
+//        SimpleDateFormat ss=new SimpleDateFormat("yyyy-MM");
+//        String d1="2017-3-31";
+//        Date dateStart=ss.parse(d1);
+//        String d2="2019-3-31";
+//        Date dateEnd=ss.parse(d2);
         ResultInfo resultInfo=new ResultInfo();
         //从之前service中已经封装好的方法进行操作
         List<CarInsuranceParam>list=externalSettlementService.getCarInsuranceParam();
@@ -126,8 +134,10 @@ public class InternalSettleController {
         return resultInfo;
     }
 
-    @RequestMapping(value = "exportSalary",method = RequestMethod.POST)
+    @RequestMapping(value = "exportSalary",method = RequestMethod.GET)
     public Object exportSalary(HttpSession session,@RequestParam("path")String path){
+//    public Object exportSalary(HttpSession session){
+//        String path="/Users/rickzhou/Desktop/555";
         ResultInfo resultInfo=new ResultInfo();
         SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM");
         String[]head={"代理人","分支机构","计佣起","计佣结束","支项佣金"};
@@ -146,6 +156,7 @@ public class InternalSettleController {
             ss[2]=sdf.format(s.getValid_date_start());
             ss[3]=sdf.format(s.getValid_date_end());
             ss[4]=String.valueOf(s.getPayPremium());
+            data.add(ss);
         }
         excelData.setData(data);
         ExcelUtil.exportExcel(excelData);
@@ -169,6 +180,7 @@ public class InternalSettleController {
             ss[4]=String.valueOf(p.getExtendJiaoqiang());
             ss[5]=String.valueOf(p.getBusinessPremium());
             ss[6]=String.valueOf(p.getExtendBusiness());
+            data.add(ss);
         }
         excelData.setHead(head);
         excelData.setFilename(path);
