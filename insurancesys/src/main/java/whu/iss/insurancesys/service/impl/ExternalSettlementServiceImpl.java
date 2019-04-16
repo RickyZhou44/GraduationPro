@@ -47,6 +47,8 @@ public class ExternalSettlementServiceImpl implements ExternalSettlementService 
                 externSettlementParam.setPreMonth(date);
                 externSettlementParam.setNum("");
                 externSettlementParam.setOccurMonth(date);
+                externSettlementParam.setYearPayTime(RickUtil.yearTimesFormat(e.getPeriod()));
+                externSettlementParam.setNum(e.getPolicy_no());
                 externSettlementParam.setAccountState("正常");
                 externSettlementParam.setBalanceMonth(date);
                 externSettlementParam.setCheck(check);
