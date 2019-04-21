@@ -6,9 +6,11 @@ import org.springframework.web.bind.annotation.*;
 import whu.iss.insurancesys.dto.ResultInfo;
 import whu.iss.insurancesys.entity.customer.Customer;
 import whu.iss.insurancesys.entity.customer.CustomerBaseInfo;
+import whu.iss.insurancesys.entity.customer.CustomerRelationShip;
 import whu.iss.insurancesys.service.impl.CustomerServiceImpl;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Max;
@@ -58,6 +60,33 @@ public class CustomerController {
     public Object deleteCustomerById(@PathVariable(value = "certfId")String certfId){
         ResultInfo resultInfo = new ResultInfo();
         resultInfo.setResult(customerService.deleteCustomerById(certfId));
+        return resultInfo;
+    }
+
+    @GetMapping("/customer/friend")
+    public Object getCustomerByName(@RequestParam(value = "name", required = false)String name,
+                                    @RequestParam(value = "id", required = false)String id){
+        ResultInfo resultInfo = new ResultInfo();
+        if(name!=null){
+            resultInfo.setData(customerService.getCustomerByName(name));
+        }
+        if(id !=null){
+            resultInfo.setData(customerService.getFriendById(id));
+        }
+        return resultInfo;
+    }
+
+    @GetMapping("/customer/friends")
+    public Object getFriendList(@RequestParam(value = "id")String idCard){
+        ResultInfo resultInfo = new ResultInfo();
+        resultInfo.setData(customerService.getFriendList(idCard));
+        return resultInfo;
+    }
+
+    @PostMapping("/customer/friend")
+    public Object addRelationShip(@Valid @RequestBody CustomerRelationShip relationShip){
+        ResultInfo resultInfo = new ResultInfo();
+        resultInfo.setResult(customerService.addRelationShip(relationShip));
         return resultInfo;
     }
 

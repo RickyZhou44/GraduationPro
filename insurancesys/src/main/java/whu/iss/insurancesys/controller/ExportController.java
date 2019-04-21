@@ -78,6 +78,7 @@ public class ExportController {
         }
         HSSFWorkbook workbook = new HSSFWorkbook();
         HSSFSheet sheet = workbook.createSheet();
+        sheet.setDefaultColumnWidth((short) 18);
         setHeaders(sheet, fields, personRankFields);
         setData(data, fields, sheet);
         writeFile(response, workbook, fileType);
@@ -101,6 +102,7 @@ public class ExportController {
         }
         HSSFWorkbook workbook = new HSSFWorkbook();
         HSSFSheet sheet = workbook.createSheet();
+        sheet.setDefaultColumnWidth((short) 18);
         setHeaders(sheet, fields, customerFields);
         setData(data, fields, sheet);
         writeFile(response, workbook, fileType);

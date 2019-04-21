@@ -3,6 +3,7 @@ package whu.iss.insurancesys.dao.Customer;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 import whu.iss.insurancesys.entity.customer.Customer;
+import whu.iss.insurancesys.entity.customer.CustomerRelationShip;
 
 import java.util.List;
 import java.util.Map;
@@ -24,6 +25,14 @@ public interface CustomerDao {
     public Customer getCustomerById(@Param("certf_id") String certfId);
 
     public int deleteCustomerById(@Param("certf_id") String certfId);
+
+    public List<Map<String,String>> getCustomerByName(@Param("name")String name);
+
+    public List<Map<String,String>> getFriendById(@Param("id")String id);
+
+    public List<Map<String,String>> getFriendList(@Param("id")String idCard);
+
+    public int addRelationShip(CustomerRelationShip relationShip);
 
     public List<String> getRepresentative(@Param("com_representative")String representative);
 }

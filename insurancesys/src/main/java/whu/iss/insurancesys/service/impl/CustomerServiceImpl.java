@@ -5,6 +5,7 @@ import javax.validation.constraints.NotNull;
 import org.springframework.stereotype.Service;
 import whu.iss.insurancesys.dao.Customer.CustomerDao;
 import whu.iss.insurancesys.entity.customer.Customer;
+import whu.iss.insurancesys.entity.customer.CustomerRelationShip;
 import whu.iss.insurancesys.service.CustomerService;
 
 import javax.annotation.Resource;
@@ -40,6 +41,26 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public boolean deleteCustomerById(String certfId) {
         return customerDao.deleteCustomerById(certfId) == 1;
+    }
+
+    @Override
+    public List<Map<String, String>> getCustomerByName(String name) {
+        return customerDao.getCustomerByName(name);
+    }
+
+    @Override
+    public List<Map<String, String>> getFriendById(String id) {
+        return customerDao.getFriendById(id);
+    }
+
+    @Override
+    public List<Map<String, String>> getFriendList(String idCard) {
+        return customerDao.getFriendList(idCard);
+    }
+
+    @Override
+    public boolean addRelationShip(CustomerRelationShip relationShip) {
+        return customerDao.addRelationShip(relationShip) == 1;
     }
 
     @Override

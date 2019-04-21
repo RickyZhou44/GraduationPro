@@ -36,6 +36,29 @@
         <result column="job_type" property="jobType"></result>
         <result column="income" property="income"></result>
     </resultMap>
+    <select id="getCustomerByName" resultType="map">
+        select name, certf_id as idCard, date_format(birthday, '%Y-%m-%d') as birthday, telephone as tel
+        from client
+        where name like CONCAT('%', #{name}, '%')
+    </select>
+    <select id="getFriendById" resultType="map">
+        select name, certf_id as idCard, date_format(birthday, '%Y-%m-%d') as birthday, telephone as tel
+        from client
+        where certf_id like CONCAT('%', #{id}, '%')
+    </select>
+    <select id="getFriendList" resultType="map">
+        select c.name as clientName, c.sex, c.telephone as tel, date_format(c.birthday, '%Y-%m-%d') as birthday,
+        c.certf_id as idCard, b.relation as relation
+        from client c, client_contact b
+        where
+          (b.clienta_id = #{id} and c.certf_id = b.clientb_id)
+        or
+          (b.clientb_id = #{id} and c.certf_id = b.clienta_id)
+    </select>
+    <insert id="addRelationShip" parameterType="whu.iss.insurancesys.entity.customer.CustomerRelationShip">
+        insert into client_contact  (clienta_id, clientb_id, relation)
+        values (#{idA}, #{idB}, #{relation});
+    </insert>
     <insert id="addCustomer" parameterType="whu.iss.insurancesys.entity.customer.Customer">
         insert into client(name, law_identity, type, nation, certf_type, certf_id, birthday, sex, married, telephone, email,
         backup, home_address, home_code, other, first_contact_way, com_name, com_phone, fax_no, com_representative, com_tax_no, com_address,
