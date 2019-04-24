@@ -23,14 +23,6 @@ public class UserAccountController {
     @Autowired
     UserAccountService userAccountService;
 
-//    @PostMapping("/login")
-//    public ResultInfo login(@RequestParam("username")String username,
-//                            @RequestParam("password")String password, @RequestParam("type")String type){
-//
-//        return new ResultInfo();
-//
-//    }
-
     @PostMapping("/register")
     public ResultInfo register(UserAccount userAccount, @RequestParam("endtime")String endtime){
 
@@ -86,25 +78,6 @@ public class UserAccountController {
             resultInfo.setResult(false);
 
         }
-        return resultInfo;
-
-    }
-
-    @GetMapping("/loginSucceed")
-    public ResultInfo loginSucceed(){
-
-        ResultInfo resultInfo = new ResultInfo();
-        resultInfo.setResult(true);
-        return resultInfo;
-
-    }
-
-    @GetMapping("/loginFail")
-    public ResultInfo loginFail(){
-
-        ResultInfo resultInfo = new ResultInfo();
-        resultInfo.setResult(false);
-        resultInfo.setReason("username or password is wrong");
         return resultInfo;
 
     }
