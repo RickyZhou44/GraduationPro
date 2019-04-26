@@ -10,12 +10,14 @@ import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -65,10 +67,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .failureHandler(authenticationFailureHandler())
                 .permitAll()
                 .and()
-                .logout().logoutSuccessHandler(new LogoutSuccessHandler())
+                .logout().logoutSuccessHandler(logoutSuccessHandler())
                 .permitAll()
                 .and()
-                .exceptionHandling().accessDeniedPage("/accessDenied");
+                .exceptionHandling().accessDeniedHandler(myAccessDeniedHandler());
 
     }
 
@@ -112,6 +114,31 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         return authenticationFailureHandler;
     }
 
+    class MyAccessDeniedHandler implements AccessDeniedHandler {
+
+        @Override
+        public void handle(HttpServletRequest request, HttpServletResponse response,
+                           AccessDeniedException exception)
+                throws IOException, ServletException {
+
+            JSONObject returnObj = new JSONObject();
+            returnObj.put("status", "3");
+            returnObj.put("reason", exception.getMessage());
+            response.getWriter().print(returnObj.toString());
+            response.getWriter().flush();
+
+        }
+
+    }
+
+    @Bean
+    public MyAccessDeniedHandler myAccessDeniedHandler() {
+
+        MyAccessDeniedHandler myAccessDeniedHandler = new MyAccessDeniedHandler();
+        return myAccessDeniedHandler;
+
+    }
+
     class LogoutSuccessHandler extends SimpleUrlLogoutSuccessHandler {
 
         @Override
@@ -120,6 +147,14 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             request.getRequestDispatcher("/logoutSucceed").forward(request, response);
 
         }
+
+    }
+
+    @Bean
+    public LogoutSuccessHandler logoutSuccessHandler() {
+
+        LogoutSuccessHandler logoutSuccessHandler = new LogoutSuccessHandler();
+        return logoutSuccessHandler;
 
     }
 
